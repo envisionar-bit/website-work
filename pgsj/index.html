@@ -8,11 +8,18 @@
 <meta name="robots" content="noindex,nofollow">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@500;600;700&display=swap" rel="stylesheet">
 <style>
   :root{
-    --red:#A3080C; --red-deep:#7E0609; --ink:#161513; --mid:#5B5A57; --dim:#8F8E8A; --line:#E4E2DD; --paper:#FFFFFF; --tint:#F7F6F3;
-    --font-display:'Fraunces', serif; --font-body:'Inter', -apple-system, sans-serif;
+    /* Official PGSJ Markenrichtlinien Version 2025 */
+    --red:#D53032; --red-deep:#A4262C; --ink:#000000; --mid:#646464; --dim:#7F7F7F; --line:#E4E2DD; --paper:#FFFFFF; --tint:#F7F7F7;
+    /* Century Gothic (primary/headings) and Verdana Pro (secondary/body) are the brand's
+       actual fonts, but both are commercial and not distributable via Google Fonts. We fall
+       back to Jost (a free geometric sans very close to Century Gothic's circular-o structure)
+       and plain Verdana (same letterforms as Verdana Pro, fewer weights) for anyone who
+       doesn't already have the licensed fonts installed. */
+    --font-display:'Century Gothic', 'Jost', sans-serif;
+    --font-body:'Verdana Pro', Verdana, Geneva, sans-serif;
   }
   *{box-sizing:border-box}
   html{scroll-behavior:smooth}
@@ -23,7 +30,7 @@
   h1,h2,h3{font-family:var(--font-display); font-weight:600; margin:0; letter-spacing:-0.01em}
 
   .preview-ribbon{background:var(--ink); color:#fff; text-align:center; font-size:12.5px; font-weight:600; letter-spacing:.02em; padding:9px 16px}
-  .preview-ribbon b{color:#e7a3a5}
+  .preview-ribbon b{color:#EF6B6D}
 
   header.bar{display:flex; align-items:center; justify-content:space-between; padding:20px 0; flex-wrap:wrap; gap:14px}
   .brand img{height:44px; width:auto}
@@ -39,9 +46,9 @@
   section.hero{padding:8px 0 0}
   .hero-media{position:relative; height:420px; overflow:hidden}
   .hero-media img{width:100%; height:100%; object-fit:cover}
-  .hero-media::after{content:''; position:absolute; inset:0; background:linear-gradient(0deg, rgba(22,21,19,.72) 0%, rgba(22,21,19,.15) 55%, rgba(22,21,19,.05) 100%)}
+  .hero-media::after{content:''; position:absolute; inset:0; background:linear-gradient(0deg, rgba(0,0,0,.72) 0%, rgba(0,0,0,.15) 55%, rgba(0,0,0,.05) 100%)}
   .hero-copy{position:absolute; left:0; right:0; bottom:0; padding:44px 0; color:#fff; z-index:2}
-  .hero-copy .kicker{font-size:12.5px; font-weight:700; letter-spacing:.16em; text-transform:uppercase; color:#e7a3a5; margin-bottom:14px}
+  .hero-copy .kicker{font-size:12.5px; font-weight:700; letter-spacing:.16em; text-transform:uppercase; color:#EF6B6D; margin-bottom:14px}
   .hero-copy h1{font-size:clamp(26px,3.6vw,42px); line-height:1.18; max-width:20ch; margin-bottom:18px}
   .hero-copy p{font-size:15px; color:rgba(255,255,255,.85); max-width:60ch; margin:0 0 24px}
 
@@ -52,7 +59,7 @@
   .stat:last-child{border-right:none}
   .stat .n{font-family:var(--font-display); font-weight:600; font-size:clamp(24px,2.6vw,32px); color:#fff}
   .stat .n span{color:var(--red-deep); background:#fff; display:none}
-  .stat .n em{font-style:normal; color:#e7a3a5}
+  .stat .n em{font-style:normal; color:#EF6B6D}
   .stat p{font-size:11.5px; letter-spacing:.08em; text-transform:uppercase; color:rgba(255,255,255,.6); margin:8px 0 0}
 
   /* about */
@@ -82,12 +89,12 @@
   /* contact */
   section.contact{padding:88px 0; background:var(--ink); color:#fff}
   .contact-grid{display:grid; grid-template-columns:1.2fr 1fr; gap:48px}
-  .contact-grid .kicker{color:#e7a3a5}
+  .contact-grid .kicker{color:#EF6B6D}
   .contact-grid h2{color:#fff; font-size:clamp(24px,3vw,30px); margin-bottom:18px; max-width:18ch}
   .contact-card{border:1px solid rgba(255,255,255,.2); padding:26px}
   .contact-card .row{margin-bottom:16px}
   .contact-card .row:last-child{margin-bottom:0}
-  .contact-card b{display:block; font-size:11px; letter-spacing:.1em; text-transform:uppercase; color:#e7a3a5; margin-bottom:5px}
+  .contact-card b{display:block; font-size:11px; letter-spacing:.1em; text-transform:uppercase; color:#EF6B6D; margin-bottom:5px}
   .contact-card span, .contact-card a{font-size:14.5px; line-height:1.7}
   .social-row{display:flex; gap:10px; margin-top:22px}
   .social-row a{width:38px; height:38px; border:1px solid rgba(255,255,255,.3); display:flex; align-items:center; justify-content:center}
@@ -114,7 +121,7 @@
 </head>
 <body>
 
-<div class="preview-ribbon">Design concept preview — vorbereitet von <b>Envisionar</b> für PGSJ · nur Startseite, Inhalte unverändert · nicht die Live-Website</div>
+<div class="preview-ribbon">Design concept preview, vorbereitet von <b>Envisionar</b> für PGSJ. Nur Startseite, Inhalte unverändert. Nicht die Live-Website.</div>
 
 <header class="bar"><div class="wrap" style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:14px;width:100%">
   <a class="brand" href="index.html"><img src="assets/pgsj-logo.png" alt="PGSJ Planungsgesellschaft mbH"></a>

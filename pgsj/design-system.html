@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>PGSJ Design System</title>
+<meta name="description" content="PGSJ Design System: Logo, Farben und Typografie nach den Markenrichtlinien Version 2025.">
+<meta name="robots" content="noindex,nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --red:#D53032; --red-deep:#A4262C; --ink:#000000; --mid:#646464; --dim:#7F7F7F; --line:#E4E2DD; --paper:#FFFFFF; --tint:#F7F7F7;
+    --font-display:'Century Gothic', 'Jost', sans-serif;
+    --font-body:'Verdana Pro', Verdana, Geneva, sans-serif;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0; background:var(--paper); color:var(--ink); font-family:var(--font-body); line-height:1.65; -webkit-font-smoothing:antialiased}
+  a{color:inherit}
+  img{max-width:100%; display:block}
+  .wrap{max-width:1180px; margin:0 auto; padding:0 24px}
+  h1,h2,h3{font-family:var(--font-display); font-weight:600; margin:0; letter-spacing:-0.01em}
+
+  .preview-ribbon{background:var(--ink); color:#fff; text-align:center; font-size:12.5px; font-weight:600; letter-spacing:.02em; padding:9px 16px}
+  .preview-ribbon b{color:#EF6B6D}
+
+  header.bar{display:flex; align-items:center; justify-content:space-between; padding:20px 0; flex-wrap:wrap; gap:14px}
+  .brand img{height:44px; width:auto}
+  nav.primary{display:flex; align-items:center; gap:26px; flex-wrap:wrap}
+  nav.primary a{font-size:13px; font-weight:600; letter-spacing:.03em; text-transform:uppercase; text-decoration:none; color:var(--ink)}
+  nav.primary a:hover{color:var(--red)}
+  .btn{display:inline-flex; align-items:center; gap:8px; font-weight:600; font-size:13.5px; padding:12px 22px; text-decoration:none; border:1.5px solid var(--ink); letter-spacing:.02em}
+  .btn-fill{background:var(--ink); color:#fff; border-color:var(--ink)}
+  .btn-fill:hover{background:var(--red); border-color:var(--red)}
+
+  section.ds-hero{background:var(--ink); color:#fff; padding:56px 0}
+  .ds-hero .kicker{font-size:12.5px; font-weight:700; letter-spacing:.16em; text-transform:uppercase; color:#EF6B6D; margin-bottom:14px}
+  .ds-hero h1{font-size:clamp(28px,4vw,44px); margin-bottom:14px}
+  .ds-hero p{font-size:15px; color:rgba(255,255,255,.72); max-width:62ch; margin:0}
+
+  section.ds{padding:64px 0; border-bottom:1px solid var(--line)}
+  .ds-head{max-width:70ch; margin-bottom:32px}
+  .kicker{font-size:12.5px; font-weight:700; letter-spacing:.14em; text-transform:uppercase; color:var(--red); margin-bottom:12px; display:block}
+  .ds-head h2{font-size:clamp(22px,2.8vw,28px); margin-bottom:10px}
+  .ds-head p{font-size:14.5px; color:var(--mid); margin:0; max-width:70ch}
+
+  /* logo */
+  .logo-frame{background:var(--tint); border:1px solid var(--line); padding:48px; display:flex; align-items:center; justify-content:center; margin-bottom:20px}
+  .logo-frame img{height:70px; width:auto}
+  .logo-frame.dark{background:var(--ink)}
+  .logo-frame.dark img{filter:brightness(0) invert(1)}
+  .logo-sizes{display:flex; align-items:flex-end; gap:40px; flex-wrap:wrap}
+  .logo-sizes .box{text-align:center}
+  .logo-sizes img{margin:0 auto 10px}
+  .logo-sizes span{font-size:12px; color:var(--mid)}
+  .rules-grid{display:grid; grid-template-columns:1fr 1fr; gap:28px; margin-top:8px}
+  .rules-grid h4{font-size:13px; letter-spacing:.06em; text-transform:uppercase; margin:0 0 12px}
+  .rules-grid ul{margin:0; padding-left:18px}
+  .rules-grid li{font-size:14px; color:var(--mid); margin-bottom:8px; line-height:1.5}
+  .rules-grid .do li::marker{color:#1A7A3C}
+  .rules-grid .dont li::marker{color:var(--red)}
+
+  /* colors */
+  .swatch-group{margin-bottom:28px}
+  .swatch-group h4{font-size:12.5px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--mid); margin:0 0 10px}
+  .swatch-row{display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:0; border:1px solid var(--line)}
+  .swatch{height:110px; padding:14px; display:flex; flex-direction:column; justify-content:flex-end; cursor:pointer; border-right:1px solid rgba(0,0,0,.08); font-family:'Courier New',monospace}
+  .swatch:last-child{border-right:none}
+  .swatch b{font-size:12px; font-weight:700; font-family:var(--font-body)}
+  .swatch span{font-size:12px; margin-top:2px}
+  .copy-note{font-size:13px; color:var(--mid); margin-top:10px; min-height:18px}
+
+  /* type */
+  .type-block{border:1px solid var(--line); padding:32px; margin-bottom:24px}
+  .type-block .label{font-size:11.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--red); margin-bottom:16px; display:block}
+  .type-sample{font-family:var(--font-display)}
+  .type-sample.body{font-family:var(--font-body)}
+  .scale-row{display:flex; align-items:baseline; gap:18px; padding:14px 0; border-bottom:1px solid var(--line)}
+  .scale-row:last-child{border-bottom:none}
+  .scale-row .px{font-size:11px; color:var(--dim); width:60px; flex-shrink:0; font-family:'Courier New',monospace}
+  .weights{display:flex; flex-wrap:wrap; gap:32px; margin-top:8px}
+  .weights .w{}
+  .weights .w span{display:block; font-size:11px; color:var(--mid); margin-bottom:6px; text-transform:uppercase; letter-spacing:.06em}
+
+  footer.site{padding:24px 0; border-top:1px solid var(--line)}
+  .foot-bottom{display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px; font-size:12.5px; color:var(--dim)}
+  .foot-bottom a{text-decoration:none; margin-left:14px; color:var(--dim)}
+  .foot-bottom a:hover{color:var(--red)}
+
+  @media(max-width:760px){
+    nav.primary{order:3; width:100%; gap:16px; overflow-x:auto}
+    .rules-grid{grid-template-columns:1fr}
+    .logo-sizes{align-items:center}
+  }
+</style>
+</head>
+<body>
+
+<div class="preview-ribbon">Design concept preview, vorbereitet von <b>Envisionar</b> für PGSJ. Referenzseite aus den Markenrichtlinien Version 2025.</div>
+
+<header class="bar"><div class="wrap" style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:14px;width:100%">
+  <a class="brand" href="index.html"><img src="assets/pgsj-logo.png" alt="PGSJ Planungsgesellschaft mbH"></a>
+  <nav class="primary">
+    <a href="index.html">Home</a>
+    <a href="design-system.html">Design System</a>
+  </nav>
+  <a class="btn btn-fill" href="index.html#kontakt">Kontakt</a>
+</div></header>
+
+<main>
+<section class="ds-hero"><div class="wrap">
+  <p class="kicker">Markenrichtlinien Version 2025</p>
+  <h1>PGSJ Design System</h1>
+  <p>Logo, Farbpalette und Typografie, wie in den PGSJ Markenrichtlinien festgelegt. Diese Seite dient als schnelle Referenz für digitale Anwendungen.</p>
+</div></section>
+
+<section class="ds"><div class="wrap">
+  <div class="ds-head">
+    <span class="kicker">2.0 Logo</span>
+    <h2>Logo Mark</h2>
+    <p>Inspiriert vom roten Eingang des PGSJ-Bürogebäudes. Das rote Element bleibt unter allen Umständen unverändert.</p>
+  </div>
+  <div class="logo-frame"><img src="assets/pgsj-logo.png" alt="PGSJ Standard-Logo"></div>
+  <div class="logo-frame dark"><img src="assets/pgsj-logo.png" alt="PGSJ Logo auf dunklem Hintergrund"></div>
+  <p style="font-size:13px;color:var(--mid);margin-top:10px">Auf hellen Hintergründen: Schriftzug und Rahmen in Schwarz. Auf dunklen Hintergründen: Schriftzug und Rahmen in Weiß. Andere Farben für das Logo sind nicht erlaubt.</p>
+
+  <div class="rules-grid" style="margin-top:36px">
+    <div class="do">
+      <h4>Schutzraum &amp; Größe</h4>
+      <ul>
+        <li>Mindestschutzraum: die halbe Logohöhe auf allen Seiten</li>
+        <li>Mindesthöhe: 6&nbsp;mm bzw. 30&nbsp;px</li>
+        <li>Bevorzugte Platzierung: rechte obere Ecke, sonst links oben oder unten</li>
+      </ul>
+    </div>
+    <div class="dont">
+      <h4>Häufige Fehler</h4>
+      <ul>
+        <li>Nicht drehen, spiegeln, strecken oder quetschen</li>
+        <li>Keine Schatten, keine Verpixelung, kein Zuschneiden</li>
+        <li>Logomarke und Schriftzug nicht als Gestaltungselemente verwenden</li>
+      </ul>
+    </div>
+  </div>
+</div></section>
+
+<section class="ds"><div class="wrap">
+  <div class="ds-head">
+    <span class="kicker">3.0 Farbe</span>
+    <h2>Farbpalette</h2>
+    <p>Klick auf eine Farbe, um den Hex-Code zu kopieren.</p>
+  </div>
+
+  <div class="swatch-group">
+    <h4>Primärfarbe (Logofarben)</h4>
+    <div class="swatch-row">
+      <button class="swatch sw" data-hex="#D53032" style="background:#D53032;color:#fff"><b>Rot</b><span>#D53032</span></button>
+      <button class="swatch sw" data-hex="#000000" style="background:#000000;color:#fff"><b>Schwarz</b><span>#000000</span></button>
+      <button class="swatch sw" data-hex="#FFFFFF" style="background:#FFFFFF;color:#000;border:1px solid var(--line)"><b>Weiß</b><span>#FFFFFF</span></button>
+    </div>
+  </div>
+
+  <div class="swatch-group">
+    <h4>Sekundärfarbe</h4>
+    <div class="swatch-row">
+      <button class="swatch sw" data-hex="#A4262C" style="background:#A4262C;color:#fff"><b>Dunkelrot</b><span>#A4262C</span></button>
+      <button class="swatch sw" data-hex="#F7F7F7" style="background:#F7F7F7;color:#000;border:1px solid var(--line)"><b>Hellgrau</b><span>#F7F7F7</span></button>
+      <button class="swatch sw" data-hex="#7F7F7F" style="background:#7F7F7F;color:#fff"><b>Grau</b><span>#7F7F7F</span></button>
+      <button class="swatch sw" data-hex="#646464" style="background:#646464;color:#fff"><b>Stahlgrau</b><span>#646464</span></button>
+    </div>
+  </div>
+  <p class="copy-note" id="copyNote">&nbsp;</p>
+</div></section>
+
+<section class="ds"><div class="wrap">
+  <div class="ds-head">
+    <span class="kicker">4.0 Typografie</span>
+    <h2>Schriftart</h2>
+    <p>Primärschriftart Century Gothic für Überschriften und spezielle Anwendungen. Sekundärschriftart Verdana Pro für Fließtexte. Beide sind kommerzielle Schriften; diese Referenzseite zeigt sie mit den nächstliegenden frei verfügbaren Ersatzschriften (Jost / Verdana), falls die lizenzierten Schriften nicht installiert sind.</p>
+  </div>
+
+  <div class="type-block">
+    <span class="label">Primärschriftart · Century Gothic</span>
+    <div class="type-sample" style="font-size:44px;font-weight:600">Bauen mit Verantwortung</div>
+    <div class="weights">
+      <div class="w"><span>Bold</span><div class="type-sample" style="font-size:22px;font-weight:700">Century Gothic</div></div>
+      <div class="w"><span>Regular</span><div class="type-sample" style="font-size:22px;font-weight:500">Century Gothic</div></div>
+    </div>
+  </div>
+
+  <div class="type-block">
+    <span class="label">Sekundärschriftart · Verdana Pro</span>
+    <div class="type-sample body" style="font-size:16px;max-width:64ch">Von der Projektentwicklung bis zum fertigen Objekt und darüber hinaus setzen wir unsere langjährige Kompetenz in Bauleitung und Projektmanagement professionell ein.</div>
+    <div class="weights">
+      <div class="w"><span>Bold</span><div class="type-sample body" style="font-size:16px;font-weight:700">Verdana Pro</div></div>
+      <div class="w"><span>Regular</span><div class="type-sample body" style="font-size:16px;font-weight:400">Verdana Pro</div></div>
+      <div class="w"><span>Light</span><div class="type-sample body" style="font-size:16px;font-weight:300">Verdana Pro Light</div></div>
+    </div>
+  </div>
+
+  <div class="type-block">
+    <span class="label">Skalierung</span>
+    <div class="scale-row"><span class="px">72 px</span><span class="type-sample" style="font-size:44px;font-weight:600">Heading 1</span></div>
+    <div class="scale-row"><span class="px">36 px</span><span class="type-sample" style="font-size:26px;font-weight:600">Heading 2</span></div>
+    <div class="scale-row"><span class="px">16 px</span><span class="type-sample body" style="font-size:16px">Fließtext</span></div>
+  </div>
+</div></section>
+
+<section class="ds" style="border-bottom:none"><div class="wrap">
+  <div class="ds-head">
+    <span class="kicker">1.4 Markenwerte</span>
+    <h2>Tonalität</h2>
+  </div>
+  <div class="rules-grid" style="grid-template-columns:repeat(4,1fr)">
+    <div><h4 style="color:var(--red)">Selbstbewusst</h4><p style="font-size:13.5px;color:var(--mid);margin:0">Wir zeigen unsere Expertise in Generalplanung und nachhaltiger Architektur.</p></div>
+    <div><h4 style="color:var(--red)">Inspirierend</h4><p style="font-size:13.5px;color:var(--mid);margin:0">Wir setzen Impulse für zukunftsfähige Baukonzepte.</p></div>
+    <div><h4 style="color:var(--red)">Nahbar</h4><p style="font-size:13.5px;color:var(--mid);margin:0">Unsere Kommunikation ist professionell, aber zugänglich.</p></div>
+    <div><h4 style="color:var(--red)">Kompetent</h4><p style="font-size:13.5px;color:var(--mid);margin:0">Wir teilen unser Wissen und positionieren uns als vertrauenswürdige Experten.</p></div>
+  </div>
+</div></section>
+</main>
+
+<footer class="site"><div class="wrap foot-bottom">
+  <span>&copy; 2026 PGSJ Planungsgesellschaft mbH</span>
+  <span><a href="index.html">Home</a><a href="design-system.html">Design System</a><a href="datenschutz.html">Datenschutz</a><a href="impressum.html">Impressum</a></span>
+</div></footer>
+
+<script>
+(function(){
+  var note = document.getElementById('copyNote');
+  document.querySelectorAll('.sw').forEach(function(b){
+    b.addEventListener('click', function(){
+      var hex = b.getAttribute('data-hex');
+      function done(){ note.textContent = hex + ' kopiert.'; setTimeout(function(){ note.innerHTML = '&nbsp;'; }, 2200); }
+      if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(hex).then(done, done);
+      else done();
+    });
+  });
+})();
+</script>
+</body>
+</html>

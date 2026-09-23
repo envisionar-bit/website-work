@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>PGSJ Planungsgesellschaft mbH</title>
+<meta name="description" content="Design concept preview: ein visuelles Refresh der Startseite von pgsj.de für PGSJ Planungsgesellschaft mbH, Münster. Inhalte unverändert.">
+<meta name="robots" content="noindex,nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --red:#A3080C; --red-deep:#7E0609; --ink:#161513; --mid:#5B5A57; --dim:#8F8E8A; --line:#E4E2DD; --paper:#FFFFFF; --tint:#F7F6F3;
+    --font-display:'Fraunces', serif; --font-body:'Inter', -apple-system, sans-serif;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0; background:var(--paper); color:var(--ink); font-family:var(--font-body); line-height:1.65; -webkit-font-smoothing:antialiased}
+  a{color:inherit}
+  img{max-width:100%; display:block}
+  .wrap{max-width:1180px; margin:0 auto; padding:0 24px}
+  h1,h2,h3{font-family:var(--font-display); font-weight:600; margin:0; letter-spacing:-0.01em}
+
+  .preview-ribbon{background:var(--ink); color:#fff; text-align:center; font-size:12.5px; font-weight:600; letter-spacing:.02em; padding:9px 16px}
+  .preview-ribbon b{color:#e7a3a5}
+
+  header.bar{display:flex; align-items:center; justify-content:space-between; padding:20px 0; flex-wrap:wrap; gap:14px}
+  .brand img{height:44px; width:auto}
+  nav.primary{display:flex; align-items:center; gap:26px; flex-wrap:wrap}
+  nav.primary a{font-size:13px; font-weight:600; letter-spacing:.03em; text-transform:uppercase; text-decoration:none; color:var(--ink)}
+  nav.primary a:hover{color:var(--red)}
+  .btn{display:inline-flex; align-items:center; gap:8px; font-weight:600; font-size:13.5px; padding:12px 22px; text-decoration:none; border:1.5px solid var(--ink); letter-spacing:.02em}
+  .btn-fill{background:var(--ink); color:#fff; border-color:var(--ink)}
+  .btn-fill:hover{background:var(--red); border-color:var(--red)}
+  .btn-line:hover{border-color:var(--red); color:var(--red)}
+
+  /* hero */
+  section.hero{padding:8px 0 0}
+  .hero-media{position:relative; height:420px; overflow:hidden}
+  .hero-media img{width:100%; height:100%; object-fit:cover}
+  .hero-media::after{content:''; position:absolute; inset:0; background:linear-gradient(0deg, rgba(22,21,19,.72) 0%, rgba(22,21,19,.15) 55%, rgba(22,21,19,.05) 100%)}
+  .hero-copy{position:absolute; left:0; right:0; bottom:0; padding:44px 0; color:#fff; z-index:2}
+  .hero-copy .kicker{font-size:12.5px; font-weight:700; letter-spacing:.16em; text-transform:uppercase; color:#e7a3a5; margin-bottom:14px}
+  .hero-copy h1{font-size:clamp(26px,3.6vw,42px); line-height:1.18; max-width:20ch; margin-bottom:18px}
+  .hero-copy p{font-size:15px; color:rgba(255,255,255,.85); max-width:60ch; margin:0 0 24px}
+
+  /* stats */
+  section.stats{background:var(--ink); padding:0}
+  .stats-row{display:grid; grid-template-columns:repeat(5,1fr); margin-top:-1px}
+  .stat{padding:30px 20px; border-right:1px solid rgba(255,255,255,.14); text-align:left}
+  .stat:last-child{border-right:none}
+  .stat .n{font-family:var(--font-display); font-weight:600; font-size:clamp(24px,2.6vw,32px); color:#fff}
+  .stat .n span{color:var(--red-deep); background:#fff; display:none}
+  .stat .n em{font-style:normal; color:#e7a3a5}
+  .stat p{font-size:11.5px; letter-spacing:.08em; text-transform:uppercase; color:rgba(255,255,255,.6); margin:8px 0 0}
+
+  /* about */
+  section.about{padding:88px 0}
+  .about-grid{display:grid; grid-template-columns:0.9fr 1.1fr; gap:56px; align-items:center}
+  .about-grid img{border-radius:2px}
+  .kicker{font-size:12.5px; font-weight:700; letter-spacing:.14em; text-transform:uppercase; color:var(--red); margin-bottom:14px; display:block}
+  .about-copy h2{font-size:clamp(24px,3vw,32px); margin-bottom:18px; max-width:16ch}
+  .about-copy p{font-size:15px; color:var(--mid); margin:0 0 16px}
+
+  /* services */
+  section.services{padding:88px 0; background:var(--tint)}
+  .sec-head{max-width:60ch; margin-bottom:40px}
+  .sec-head h2{font-size:clamp(24px,3vw,32px)}
+  .services-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--line); border:1px solid var(--line)}
+  .service-card{background:var(--paper); padding:0}
+  .service-card .ph{height:170px; overflow:hidden; background:var(--ink)}
+  .service-card .ph img{width:100%; height:100%; object-fit:cover; opacity:.92}
+  .service-card .body{padding:22px}
+  .service-card h3{font-size:17px}
+
+  /* team */
+  section.team{padding:88px 0}
+  .team-grid{display:grid; grid-template-columns:1fr 1fr; gap:56px; align-items:start}
+  .team-grid p{font-size:15px; color:var(--mid); margin:0 0 16px}
+
+  /* contact */
+  section.contact{padding:88px 0; background:var(--ink); color:#fff}
+  .contact-grid{display:grid; grid-template-columns:1.2fr 1fr; gap:48px}
+  .contact-grid .kicker{color:#e7a3a5}
+  .contact-grid h2{color:#fff; font-size:clamp(24px,3vw,30px); margin-bottom:18px; max-width:18ch}
+  .contact-card{border:1px solid rgba(255,255,255,.2); padding:26px}
+  .contact-card .row{margin-bottom:16px}
+  .contact-card .row:last-child{margin-bottom:0}
+  .contact-card b{display:block; font-size:11px; letter-spacing:.1em; text-transform:uppercase; color:#e7a3a5; margin-bottom:5px}
+  .contact-card span, .contact-card a{font-size:14.5px; line-height:1.7}
+  .social-row{display:flex; gap:10px; margin-top:22px}
+  .social-row a{width:38px; height:38px; border:1px solid rgba(255,255,255,.3); display:flex; align-items:center; justify-content:center}
+  .social-row a:hover{border-color:#fff}
+  .social-row svg{width:16px; height:16px; fill:#fff}
+
+  footer.site{padding:24px 0; border-top:1px solid var(--line)}
+  .foot-bottom{display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px; font-size:12.5px; color:var(--dim)}
+  .foot-bottom a{text-decoration:none; margin-left:14px; color:var(--dim)}
+  .foot-bottom a:hover{color:var(--red)}
+
+  @media(max-width:900px){
+    nav.primary{order:3; width:100%; gap:16px; overflow-x:auto}
+    .about-grid, .team-grid, .contact-grid{grid-template-columns:1fr}
+    .services-grid{grid-template-columns:1fr 1fr}
+    .stats-row{grid-template-columns:1fr 1fr}
+    .stat{border-bottom:1px solid rgba(255,255,255,.14)}
+  }
+  @media(max-width:560px){
+    .services-grid{grid-template-columns:1fr}
+    .stats-row{grid-template-columns:1fr}
+  }
+</style>
+</head>
+<body>
+
+<div class="preview-ribbon">Design concept preview — vorbereitet von <b>Envisionar</b> für PGSJ · nur Startseite, Inhalte unverändert · nicht die Live-Website</div>
+
+<header class="bar"><div class="wrap" style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:14px;width:100%">
+  <a class="brand" href="index.html"><img src="assets/pgsj-logo.png" alt="PGSJ Planungsgesellschaft mbH"></a>
+  <nav class="primary">
+    <a href="index.html">Home</a>
+    <a href="ueber-uns.html">Über uns</a>
+    <a href="team.html">Team</a>
+    <a href="karriere.html">Karriere</a>
+    <a href="leistungen.html">Leistungen</a>
+    <a href="projekte.html">Projekte</a>
+  </nav>
+  <a class="btn btn-fill" href="#kontakt">Kontakt</a>
+</div></header>
+
+<main>
+<section class="hero">
+  <div class="hero-media">
+    <img src="assets/slider-web-01.jpg" alt="PGSJ Bauprojekt">
+    <div class="wrap hero-copy">
+      <p class="kicker">Generalplanung aus Münster</p>
+      <h1>Von der Fach- bis zur Generalplanung sind wir Ihr kompetenter Partner</h1>
+      <p>Als Architektur-, Ingenieur- und General-Planungsbüro entwickeln wir seit über 60 Jahren erfolgreich wirtschaftliche und nachhaltige Loesungen für alle Planungsaufgaben bis hin zu umfassenden Generalplanungsleistungen aus einer Hand.</p>
+      <a class="btn btn-fill" href="ueber-uns.html">Über uns</a>
+    </div>
+  </div>
+</section>
+
+<section class="stats"><div class="wrap">
+  <div class="stats-row">
+    <div class="stat"><div class="n"><em>*</em> 1954</div><p>Gegruendet</p></div>
+    <div class="stat"><div class="n"><em>&rsaquo;</em> 3.500</div><p>Realisierte Projekte</p></div>
+    <div class="stat"><div class="n"><em>&rsaquo;</em> 30</div><p>Mitarbeiter</p></div>
+    <div class="stat"><div class="n">250 m&sup2;</div><p>Unser kleinstes Projekt</p></div>
+    <div class="stat"><div class="n">72.000 m&sup2;</div><p>Unser größtes Projekt</p></div>
+  </div>
+</div></section>
+
+<section class="about"><div class="wrap about-grid">
+  <img src="assets/PGSJ_Web_Über_uns.jpg" alt="PGSJ Büro, Münster-Handorf">
+  <div class="about-copy">
+    <span class="kicker">Über uns</span>
+    <h2>PGSJ Planungsgesellschaft</h2>
+    <p>Die PGSJ Planungsgesellschaft tritt mit dem Anspruch an, dem Bauherrn eine professionelle und schnittstellenübergreifende Gesamtleistung anzubieten. Unsere Stärke ist die Bündelung von Fachwissen in interdisziplinären Teams. Wir arbeiten lösungsorientiert und zielgerichtet und können Ihnen daher ein breites Leistungsspektrum anbieten.</p>
+    <p>Von der Projektentwicklung bis zum fertigen Objekt und darüber hinaus setzen wir unsere langjährige Kompetenz in Bauleitung und Projektmanagement professionell ein, um vor Ort die Interessen des Bauherrn zielgerichtet und wirtschaftlich zu stärken und ihm ein verlässlicher Partner zu sein.</p>
+    <a class="btn btn-line" href="ueber-uns.html">Mehr erfahren</a>
+  </div>
+</div></section>
+
+<section class="services"><div class="wrap">
+  <div class="sec-head">
+    <span class="kicker">Leistungen</span>
+    <h2>Fachkompetenz als Einzelleistung oder Generalplanung</h2>
+  </div>
+  <div class="services-grid">
+    <div class="service-card"><div class="ph"><img src="assets/PGSJ_Leistungen_Generalplanung_Vorschaubild_web-756x756.jpg" alt="Generalplanung"></div><div class="body"><h3>Generalplanung</h3></div></div>
+    <div class="service-card"><div class="ph" style="background:var(--red)"></div><div class="body"><h3>Hochbau</h3></div></div>
+    <div class="service-card"><div class="ph" style="background:var(--ink)"></div><div class="body"><h3>Bauleitplanung</h3></div></div>
+    <div class="service-card"><div class="ph"><img src="assets/PGSJ_Leistungen_Frei_Verkehrsanlagen_Vorschaubild_web-756x756.jpg" alt="Frei- und Verkehrsanlagen"></div><div class="body"><h3>Frei- und Verkehrsanlagen</h3></div></div>
+    <div class="service-card"><div class="ph"><img src="assets/PGSJ_Leistungen_Gutachter_Vorschaubild_web-756x756.jpg" alt="Gutachtertätigkeiten"></div><div class="body"><h3>Gutachtertätigkeiten</h3></div></div>
+    <div class="service-card"><div class="ph"><img src="assets/PGSJ_Leistungen_BIM_Vorschaubild_web-756x756.jpg" alt="BIM Planung"></div><div class="body"><h3>BIM Planung</h3></div></div>
+  </div>
+</div></section>
+
+<section class="team"><div class="wrap team-grid">
+  <div>
+    <span class="kicker">Team</span>
+    <h2 style="font-size:clamp(24px,3vw,32px);margin-bottom:18px">Unser Team</h2>
+    <p>Unser inhabergefuehrtes Planungsbüro steht seit über 60 Jahren für Erfahrung, Kompetenz und Innovation. Als eingespieltes Team können wir flexibel auf die Anforderungen neuer Projekte reagieren und sie erfolgreich realisieren. Unsere Architekten, Ingenieure und Fachplaner arbeiten interdisziplinär und begleiten Sie während der gesamten Planung und Umsetzung.</p>
+  </div>
+  <div>
+    <p>Dynamisch, engagiert und qualifiziert – unser Team bringt innovative Ideen, ein hohes Know-how und Leidenschaft für den Beruf mit. Wir stehen für Zusammenhalt, Kompetenz und Zuverlaessigkeit und begleiten gemeinsam unsere Projekte.</p>
+    <a class="btn btn-line" href="karriere.html">Aktuelle Jobangebote: Karriere</a>
+  </div>
+</div></section>
+
+<section class="contact" id="kontakt"><div class="wrap contact-grid">
+  <div>
+    <span class="kicker">Kontakt</span>
+    <h2>Wir reden nicht nur über Zukunft, wir planen sie.</h2>
+    <p style="color:rgba(255,255,255,.7);font-size:15px;max-width:48ch">Wir sind Ihr erfahrener Partner, mit breitem Leistungsspektrum vereint unter einem Dach.</p>
+  </div>
+  <div class="contact-card">
+    <div class="row"><b>Adresse</b><span>PGSJ Planungsgesellschaft mbH<br>Gildenstr. 2, 48157 Münster-Handorf</span></div>
+    <div class="row"><b>Telefon</b><span>+49 251 14335-0</span></div>
+    <div class="row"><b>E-Mail</b><span><a href="mailto:info@pgsj.de">info@pgsj.de</a></span></div>
+    <div class="row"><b>Anfahrt</b><span><a href="https://www.google.de/maps/dir//PGSJ+Planungsgesellschaft+mbH,+Gildenstra%C3%9Fe,+48157+M%C3%BCnster/@51.9800992,7.6340308,12z" target="_blank" rel="noopener">Anfahrt planen &rarr;</a></span></div>
+    <div class="social-row">
+      <a href="https://www.instagram.com/pgsj_mbh/" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24"><path d="M12 2c2.7 0 3.06.01 4.12.06 1.06.05 1.79.22 2.43.47.66.26 1.21.6 1.76 1.15.5.5.9 1.1 1.15 1.76.25.64.42 1.37.47 2.43.05 1.06.06 1.42.06 4.12s-.01 3.06-.06 4.12c-.05 1.06-.22 1.79-.47 2.43a4.9 4.9 0 0 1-1.15 1.76 4.9 4.9 0 0 1-1.76 1.15c-.64.25-1.37.42-2.43.47-1.06.05-1.42.06-4.12.06s-3.06-.01-4.12-.06c-1.06-.05-1.79-.22-2.43-.47a4.9 4.9 0 0 1-1.76-1.15 4.9 4.9 0 0 1-1.15-1.76c-.25-.64-.42-1.37-.47-2.43C2.01 15.06 2 14.7 2 12s.01-3.06.06-4.12c.05-1.06.22-1.79.47-2.43.26-.66.6-1.21 1.15-1.76A4.9 4.9 0 0 1 5.44.53C6.08.28 6.81.11 7.87.06 8.94.01 9.3 0 12 0zm0 5a5 5 0 1 0 0 10 5 5 0 0 0 0-10zm0 8.2a3.2 3.2 0 1 1 0-6.4 3.2 3.2 0 0 1 0 6.4zm5.2-8.4a1.17 1.17 0 1 0 0-2.34 1.17 1.17 0 0 0 0 2.34z"/></svg></a>
+      <a href="https://www.facebook.com/people/PGSJ-Planungsgesellschaft-MbH/100065094548550/" target="_blank" rel="noopener" aria-label="Facebook"><svg viewBox="0 0 24 24"><path d="M22 12a10 10 0 1 0-11.6 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.5h-1.3c-1.2 0-1.6.8-1.6 1.6V12h2.8l-.4 2.9h-2.4v7A10 10 0 0 0 22 12"/></svg></a>
+      <a href="https://www.linkedin.com/company/pgsj-planungsgesellschaft-mbh/" target="_blank" rel="noopener" aria-label="LinkedIn"><svg viewBox="0 0 24 24"><path d="M6.9 8.4H3.3V21h3.6V8.4ZM5.1 3a2.1 2.1 0 1 0 0 4.2 2.1 2.1 0 0 0 0-4.2ZM21 13.6c0-3.4-1.8-5-4.3-5-2 0-2.8 1.1-3.3 1.8V8.4H9.8c0 .9 0 12.6 0 12.6h3.6v-7c0-.4 0-.7.1-1 .3-.7.9-1.4 2-1.4 1.4 0 2 1.1 2 2.6V21H21v-7.4Z"/></svg></a>
+    </div>
+  </div>
+</div></section>
+</main>
+
+<footer class="site"><div class="wrap foot-bottom">
+  <span>&copy; 2026 PGSJ Planungsgesellschaft mbH</span>
+  <span><a href="datenschutz.html">Datenschutz</a><a href="impressum.html">Impressum</a></span>
+</div></footer>
+
+</body>
+</html>

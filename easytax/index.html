@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>EasyTax Private Limited</title>
+<meta name="description" content="Design concept preview: a visual refresh of easytax.online's homepage for EasyTax Private Limited, Nagpur, using their existing brand identity. Content unchanged.">
+<meta name="robots" content="noindex,nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Inter:wght@400;500;600;700&family=Noto+Sans+Devanagari:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --blue:#1A76E5; --blue-deep:#0067E0; --blue-mid:#438CE7; --blue-soft:#90BCF0; --blue-pale:#B2D3F6;
+    --ink:#101010; --mid:#565B66; --dim:#8A8F99; --line:#E3E8F0; --paper:#FFFFFF; --tint:#F4F8FE;
+    --font-display:'Sora', sans-serif; --font-body:'Inter', -apple-system, sans-serif; --font-deva:'Noto Sans Devanagari', sans-serif;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0; background:var(--paper); color:var(--ink); font-family:var(--font-body); line-height:1.6; -webkit-font-smoothing:antialiased}
+  a{color:inherit}
+  img{max-width:100%; display:block}
+  .wrap{max-width:1180px; margin:0 auto; padding:0 24px}
+  h1,h2,h3{font-family:var(--font-display); font-weight:700; margin:0; letter-spacing:-0.01em}
+
+  .preview-ribbon{background:var(--ink); color:#fff; text-align:center; font-size:12.5px; font-weight:600; letter-spacing:.02em; padding:9px 16px}
+  .preview-ribbon b{color:var(--blue-soft)}
+
+  header.bar{display:flex; align-items:center; justify-content:space-between; padding:16px 0; border-bottom:1px solid var(--line); flex-wrap:wrap; gap:12px}
+  .brand{display:flex; align-items:center; text-decoration:none}
+  .brand img{height:38px; width:auto}
+  nav.primary{display:flex; align-items:center; gap:22px; flex-wrap:wrap}
+  nav.primary a{font-size:13.5px; font-weight:600; text-decoration:none; color:var(--mid)}
+  nav.primary a.active{color:var(--blue)}
+  nav.primary a:hover{color:var(--blue)}
+  .btn{display:inline-flex; align-items:center; gap:8px; font-weight:700; font-size:14.5px; padding:11px 22px; border-radius:8px; text-decoration:none; border:1.5px solid transparent; transition:.15s}
+  .btn-fill{background:var(--blue); color:#fff}
+  .btn-fill:hover{background:var(--blue-deep)}
+
+  /* hero */
+  section.hero{padding:64px 0 0}
+  .hero-grid{display:grid; grid-template-columns:1.1fr 0.9fr; gap:48px; align-items:center; padding-bottom:56px}
+  h1.hero-h{font-size:clamp(30px,4vw,44px); line-height:1.1; color:var(--ink); margin-bottom:10px}
+  .hero-sub{font-family:var(--font-display); font-weight:600; font-size:17px; color:var(--blue-deep); margin-bottom:22px}
+  .hero-hindi-q{font-family:var(--font-deva); font-size:17px; font-weight:500; color:var(--ink); line-height:1.8; margin-bottom:14px}
+  .hero-hindi-p{font-family:var(--font-deva); font-size:15px; color:var(--mid); line-height:1.9; margin-bottom:26px}
+  .hero-art{position:relative}
+  .hero-art .panel{background:linear-gradient(135deg,var(--blue) 0%,var(--blue-deep) 100%); border-radius:20px; padding:44px 32px; display:flex; flex-direction:column; align-items:center; text-align:center; color:#fff}
+  .hero-art .panel img{height:64px; width:auto; margin-bottom:20px; filter:brightness(0) invert(1)}
+  .hero-art .panel p{font-size:14px; color:rgba(255,255,255,.85); margin:0; max-width:32ch}
+
+  /* mission strip */
+  section.mission{background:var(--ink); padding:0}
+  .mission-row{display:grid; grid-template-columns:repeat(4,1fr); margin-top:-34px; border-radius:16px; overflow:hidden; box-shadow:0 20px 50px -20px rgba(26,118,229,.35)}
+  .mission-box{background:var(--paper); padding:26px 22px; border-right:1px solid var(--line)}
+  .mission-box:last-child{border-right:none}
+  .mission-icon{width:42px; height:42px; border-radius:10px; background:var(--tint); color:var(--blue); display:flex; align-items:center; justify-content:center; margin-bottom:14px}
+  .mission-icon svg{width:22px; height:22px}
+  .mission-box h3{font-size:15px; font-weight:700; line-height:1.4; color:var(--ink)}
+  .mission-spacer{height:56px}
+
+  /* hindi rhyme band */
+  section.rhyme{background:var(--tint); padding:40px 0; text-align:center}
+  .rhyme h2{font-family:var(--font-deva); font-size:clamp(20px,2.6vw,28px); font-weight:600; color:var(--blue-deep); line-height:1.6; margin:0}
+
+  /* services */
+  section.services{padding:80px 0}
+  .sec-head{max-width:64ch; margin-bottom:36px}
+  .sec-head .kicker{font-size:12.5px; font-weight:700; letter-spacing:.14em; text-transform:uppercase; color:var(--blue-deep); margin-bottom:10px; display:block}
+  .sec-head h2{font-size:clamp(24px,3.2vw,32px)}
+  .services-layout{display:grid; grid-template-columns:1fr 340px; gap:40px}
+  .tabs{display:flex; gap:8px; margin-bottom:26px; border-bottom:1px solid var(--line)}
+  .tab-btn{font-family:var(--font-body); font-weight:700; font-size:14.5px; background:none; border:none; padding:12px 6px; cursor:pointer; color:var(--dim); border-bottom:2.5px solid transparent; margin-bottom:-1px}
+  .tab-btn.active{color:var(--blue); border-color:var(--blue)}
+  .tab-pane{display:none}
+  .tab-pane.active{display:grid}
+  #paneTaxation.active{grid-template-columns:repeat(3,1fr); gap:24px}
+  #paneFinancial.active{grid-template-columns:repeat(2,1fr); gap:24px}
+  .service-group h3{font-size:16px; margin-bottom:12px; color:var(--ink)}
+  .service-group ul{list-style:none; margin:0; padding:0}
+  .service-group li{font-size:14px; color:var(--mid); padding:8px 0 8px 20px; border-bottom:1px solid var(--line); position:relative}
+  .service-group li::before{content:''; position:absolute; left:0; top:16px; width:7px; height:7px; border-radius:50%; background:var(--blue-soft)}
+  .service-group li:last-child{border-bottom:none}
+
+  .gallery-side h2{font-size:20px; margin-bottom:18px}
+  .gallery-grid{display:grid; grid-template-columns:1fr 1fr; gap:8px}
+  .gallery-grid a{display:block; border-radius:8px; overflow:hidden; aspect-ratio:1/1}
+  .gallery-grid img{width:100%; height:100%; object-fit:cover; transition:transform .3s ease}
+  .gallery-grid a:hover img{transform:scale(1.06)}
+
+  /* value props */
+  section.values{background:var(--tint); padding:56px 0}
+  .values-row{display:grid; grid-template-columns:repeat(5,1fr); gap:16px}
+  .value-item{background:var(--paper); border:1px solid var(--line); border-radius:14px; padding:24px 16px; text-align:center}
+  .value-icon{width:44px; height:44px; border-radius:50%; background:var(--blue); color:#fff; display:flex; align-items:center; justify-content:center; margin:0 auto 14px}
+  .value-icon svg{width:22px; height:22px}
+  .value-item h4{font-size:14px; font-weight:700; margin:0}
+
+  /* lightbox */
+  .lightbox{position:fixed; inset:0; z-index:999; display:none; align-items:center; justify-content:center; background:rgba(16,16,16,.92); padding:32px}
+  .lightbox.open{display:flex}
+  .lightbox img{max-width:min(900px,90vw); max-height:86vh; border-radius:6px}
+  .lightbox .close{position:absolute; top:22px; right:28px; width:38px; height:38px; border-radius:50%; border:1px solid rgba(255,255,255,.35); background:transparent; color:#fff; font-size:20px; cursor:pointer}
+
+  footer.site{padding:56px 0 24px; border-top:1px solid var(--line)}
+  .foot-grid{display:grid; grid-template-columns:1.2fr 1.4fr 1fr; gap:36px; margin-bottom:32px}
+  .foot-grid h5{font-size:13px; letter-spacing:.04em; text-transform:uppercase; color:var(--blue-deep); margin:0 0 14px}
+  .foot-grid a{display:block; font-size:13.5px; color:var(--mid); text-decoration:none; margin-bottom:9px}
+  .foot-grid a:hover{color:var(--blue)}
+  .foot-contact p{font-size:13.5px; color:var(--mid); line-height:1.8; margin:0 0 14px}
+  .foot-social{display:flex; gap:10px}
+  .foot-social a{width:36px; height:36px; border-radius:50%; background:var(--tint); color:var(--blue); display:flex; align-items:center; justify-content:center}
+  .foot-social a:hover{background:var(--blue); color:#fff}
+  .foot-social svg{width:17px; height:17px}
+  .foot-bottom{display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px; font-size:12.5px; color:var(--dim); padding-top:20px; border-top:1px solid var(--line)}
+
+  @media(max-width:900px){
+    nav.primary{order:3; width:100%; justify-content:flex-start; gap:16px; overflow-x:auto}
+    .hero-grid, .services-layout{grid-template-columns:1fr}
+    .mission-row{grid-template-columns:1fr 1fr; margin-top:0; border-radius:0; box-shadow:none}
+    .mission-box{border-bottom:1px solid var(--line)}
+    .values-row{grid-template-columns:1fr 1fr}
+    .foot-grid{grid-template-columns:1fr}
+  }
+  @media(max-width:560px){
+    #paneTaxation.active{grid-template-columns:1fr}
+    #paneFinancial.active{grid-template-columns:1fr}
+    .gallery-grid{grid-template-columns:1fr 1fr}
+  }
+</style>
+</head>
+<body>
+
+<div class="preview-ribbon">Design concept preview — prepared by <b>Envisionar</b> for EasyTax · homepage only, content unchanged · not the live site</div>
+
+<header class="bar"><div class="wrap" style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;width:100%">
+  <a class="brand" href="index.html"><img src="assets/easytax-logo.svg" alt="EasyTax"></a>
+  <nav class="primary">
+    <a class="active" href="index.html">Home</a>
+    <a href="aboutus.html">About Us</a>
+    <a href="services.html">Services</a>
+    <a href="new.php">Online E-Filing</a>
+    <a href="knowledge.html">Knowledge Center</a>
+    <a href="charges.html">Charges</a>
+    <a href="blog.html">Blog</a>
+    <a href="contacts.php">Contact Us</a>
+  </nav>
+</div></header>
+
+<main>
+<section class="hero"><div class="wrap hero-grid">
+  <div>
+    <h1 class="hero-h">EasyTax Private Limited</h1>
+    <p class="hero-sub">All India E-Filling of Income tax, GST returns by experts.</p>
+    <p class="hero-hindi-q">क्या आप Income Tax Return फाइल करना चाहते हैं? PAN, TAN, GST के बारे में जानना चाहते हैं ? मगर परेशान हैं ?</p>
+    <p class="hero-hindi-p">EasyTax Private Limited में हम यह आपके लिए आसान बनाते हैं । हम अपने ग्राहकों के लिए complicated/ जटिल taxation से जुड़े कामो को सरल और परेशानी से मुक्त बनाने पर ध्यान केंद्रित करते हैं ।</p>
+    <a class="btn btn-fill" href="aboutus.html">Read More</a>
+  </div>
+  <div class="hero-art">
+    <div class="panel">
+      <img src="assets/easytax-logo.svg" alt="">
+      <p>b'cos money matters</p>
+    </div>
+  </div>
+</div></section>
+
+<section class="mission"><div class="wrap">
+  <div class="mission-row">
+    <div class="mission-box"><div class="mission-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div><h3>Tax saving through tax planning</h3></div>
+    <div class="mission-box"><div class="mission-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg></div><h3>Simplified Taxation by team of experts</h3></div>
+    <div class="mission-box"><div class="mission-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div><h3>Quality work with cost &amp; time efficiency</h3></div>
+    <div class="mission-box"><div class="mission-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 6l-9.5 9.5-5-5L1 18"/><path d="M17 6h6v6"/></svg></div><h3>Growth oriented investment &amp; financial planning</h3></div>
+  </div>
+  <div class="mission-spacer"></div>
+</div></section>
+
+<section class="rhyme"><div class="wrap">
+  <h2>हो TAX से आहत, <br>तो हम देंगे आपको राहत</h2>
+</div></section>
+
+<section class="services"><div class="wrap">
+  <div class="sec-head">
+    <span class="kicker">What we offer</span>
+    <h2>Our Services</h2>
+  </div>
+  <div class="services-layout">
+    <div>
+      <div class="tabs">
+        <button class="tab-btn active" data-tab="paneTaxation" type="button">Taxation</button>
+        <button class="tab-btn" data-tab="paneFinancial" type="button">Financial</button>
+      </div>
+      <div class="tab-pane active" id="paneTaxation">
+        <div class="service-group"><h3>Tax Returns</h3><ul><li>Income Tax</li><li>GST</li><li>Other taxation matters</li></ul></div>
+        <div class="service-group"><h3>Consultancy</h3><ul><li>Tax Planning</li><li>Accounting</li><li>Business Management</li></ul></div>
+        <div class="service-group"><h3>Other</h3><ul><li>PAN, TAN Application</li><li>GST Registration</li><li>Accounting &amp; Other</li></ul></div>
+      </div>
+      <div class="tab-pane" id="paneFinancial">
+        <div class="service-group"><h3>Investment</h3><ul><li>Equity</li><li>Mutual Fund</li><li>Debt Fund</li><li>Bonds</li></ul></div>
+        <div class="service-group"><h3>Loans/Business Funding</h3><ul><li>Project Finance</li><li>Term Loan/CC/OD/LAP</li><li>Preparation of CMA</li><li>Data/Project Report</li></ul></div>
+      </div>
+    </div>
+    <div class="gallery-side">
+      <h2>Photo Gallery</h2>
+      <div class="gallery-grid" id="galleryGrid">
+        <a href="assets/gallery/gal00.jpg" data-full="assets/gallery/gal00.jpg"><img src="assets/gallery/gal00.jpg" alt="EasyTax office"></a>
+        <a href="assets/gallery/gal01.jpg" data-full="assets/gallery/gal01.jpg"><img src="assets/gallery/gal01.jpg" alt="EasyTax office"></a>
+        <a href="assets/gallery/gal02.jpg" data-full="assets/gallery/gal02.jpg"><img src="assets/gallery/gal02.jpg" alt="EasyTax office"></a>
+        <a href="assets/gallery/gal03.jpg" data-full="assets/gallery/gal03.jpg"><img src="assets/gallery/gal03.jpg" alt="EasyTax office"></a>
+        <a href="assets/gallery/gal04.jpg" data-full="assets/gallery/gal04.jpg"><img src="assets/gallery/gal04.jpg" alt="EasyTax office"></a>
+        <a href="assets/gallery/gal05.jpg" data-full="assets/gallery/gal05.jpg"><img src="assets/gallery/gal05.jpg" alt="EasyTax office"></a>
+      </div>
+    </div>
+  </div>
+</div></section>
+
+<section class="values"><div class="wrap">
+  <div class="values-row">
+    <div class="value-item"><div class="value-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2 4 5v6c0 5.5 3.4 9.7 8 11 4.6-1.3 8-5.5 8-11V5z"/></svg></div><h4>Data Privacy</h4></div>
+    <div class="value-item"><div class="value-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2 3 14h7l-1 8 10-12h-7z"/></svg></div><h4>Efficiency</h4></div>
+    <div class="value-item"><div class="value-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M9.5 12.5l1.8 1.8L15 10.5"/></svg></div><h4>Affordable</h4></div>
+    <div class="value-item"><div class="value-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l2.4 6.8L22 9l-5.5 4.6L18 22l-6-4-6 4 1.5-8.4L2 9l7.6-.2z"/></svg></div><h4>Quality Service</h4></div>
+    <div class="value-item"><div class="value-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg></div><h4>Transparency in Work</h4></div>
+  </div>
+</div></section>
+</main>
+
+<div class="lightbox" id="lightbox"><button class="close" id="lbClose" aria-label="Close">&times;</button><img id="lbImg" src="" alt=""></div>
+
+<footer class="site"><div class="wrap">
+  <div class="foot-grid">
+    <div>
+      <h5>Links</h5>
+      <a href="index.html">Home</a>
+      <a href="aboutus.html">About Us</a>
+      <a href="services.html">Services</a>
+      <a href="knowledge.html">Knowledge Center</a>
+      <a href="charges.html">Charges</a>
+      <a href="blog.html">Blog</a>
+      <a href="contacts.php">Contact Us</a>
+    </div>
+    <div class="foot-contact">
+      <h5>Contacts</h5>
+      <p>501/502, Ashirwad Towers<br>53, Bajaj Nagar,<br>Near Vodafone Gallery<br>Nagpur 440010</p>
+      <p>+91(0) 712-2248245<br>+91(0) 8806012388 / 9822649363<br>+91(0) 9922444496<br>E-mail : <a href="mailto:easytaxpvtltd@gmail.com" style="display:inline;margin:0">easytaxpvtltd@gmail.com</a></p>
+    </div>
+    <div>
+      <h5>Social Media</h5>
+      <div class="foot-social">
+        <a href="https://www.facebook.com/easytaxpvtltd" target="_blank" rel="noopener" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 12a10 10 0 1 0-11.6 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.5h-1.3c-1.2 0-1.6.8-1.6 1.6V12h2.8l-.4 2.9h-2.4v7A10 10 0 0 0 22 12"/></svg></a>
+        <a href="https://twitter.com/EasyTax8" target="_blank" rel="noopener" aria-label="Twitter"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 5.9c-.7.3-1.5.6-2.4.7.8-.5 1.5-1.3 1.8-2.3-.8.5-1.7.8-2.6 1a4.1 4.1 0 0 0-7 3.7A11.6 11.6 0 0 1 3.4 4.9a4.1 4.1 0 0 0 1.3 5.5c-.7 0-1.3-.2-1.9-.5v.1c0 2 1.4 3.6 3.3 4a4.1 4.1 0 0 1-1.9.1 4.1 4.1 0 0 0 3.8 2.8A8.2 8.2 0 0 1 2 18.6a11.6 11.6 0 0 0 6.3 1.8c7.5 0 11.7-6.3 11.7-11.7v-.5c.8-.6 1.5-1.3 2-2.1"/></svg></a>
+        <a href="https://www.linkedin.com/in/easytax-pvt-ltd-3974a8169" target="_blank" rel="noopener" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M6.9 8.4H3.3V21h3.6V8.4ZM5.1 3a2.1 2.1 0 1 0 0 4.2 2.1 2.1 0 0 0 0-4.2ZM21 13.6c0-3.4-1.8-5-4.3-5-2 0-2.8 1.1-3.3 1.8V8.4H9.8c0 .9 0 12.6 0 12.6h3.6v-7c0-.4 0-.7.1-1 .3-.7.9-1.4 2-1.4 1.4 0 2 1.1 2 2.6V21H21v-7.4Z"/></svg></a>
+        <a href="https://www.youtube.com/channel/UCW0P--1yGbY3VxAMcwNKCSg" target="_blank" rel="noopener" aria-label="YouTube"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M23 12s0-3.5-.4-5.1a2.9 2.9 0 0 0-2-2C18.9 4.5 12 4.5 12 4.5s-6.9 0-8.6.4a2.9 2.9 0 0 0-2 2C1 8.5 1 12 1 12s0 3.5.4 5.1a2.9 2.9 0 0 0 2 2c1.7.4 8.6.4 8.6.4s6.9 0 8.6-.4a2.9 2.9 0 0 0 2-2C23 15.5 23 12 23 12ZM9.8 15.5V8.5l6 3.5-6 3.5Z"/></svg></a>
+      </div>
+    </div>
+  </div>
+  <div class="foot-bottom">
+    <span>Copyright © 2026 EasyTax Private Limited. All Rights Reserved.</span>
+    <span>Design concept by Envisionar Design Atelier</span>
+  </div>
+</div></footer>
+
+<script>
+(function(){
+  var tabBtns = document.querySelectorAll('.tab-btn');
+  var panes = document.querySelectorAll('.tab-pane');
+  tabBtns.forEach(function(btn){
+    btn.addEventListener('click', function(){
+      tabBtns.forEach(function(b){ b.classList.remove('active'); });
+      panes.forEach(function(p){ p.classList.remove('active'); });
+      btn.classList.add('active');
+      document.getElementById(btn.getAttribute('data-tab')).classList.add('active');
+    });
+  });
+
+  var lb = document.getElementById('lightbox');
+  var lbImg = document.getElementById('lbImg');
+  document.querySelectorAll('#galleryGrid a').forEach(function(a){
+    a.addEventListener('click', function(e){
+      e.preventDefault();
+      lbImg.src = a.getAttribute('data-full');
+      lb.classList.add('open');
+    });
+  });
+  document.getElementById('lbClose').addEventListener('click', function(){ lb.classList.remove('open'); });
+  lb.addEventListener('click', function(e){ if (e.target === lb) lb.classList.remove('open'); });
+  document.addEventListener('keydown', function(e){ if (e.key === 'Escape') lb.classList.remove('open'); });
+})();
+</script>
+</body>
+</html>

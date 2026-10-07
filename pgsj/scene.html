@@ -1,0 +1,473 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>PGSJ Projektwelt</title>
+
+<style>
+/* Layout concept: one pinned stage. A low-poly diorama grows through five stops while the page scrolls.
+   Palette follows the PGSJ Markenrichtlinien 2026: one red element, greys, black, white. */
+:root{
+  --red:#D53032; --ink:#000000; --mid:#646464; --dim:#7F7F7F; --line:#E4E2DD; --paper:#FFFFFF; --tint:#F7F7F7;
+  --glass:rgba(255,255,255,.9);
+  --font-display:'Century Gothic','Jost',sans-serif;
+  --font-body:'Verdana Pro',Verdana,Geneva,sans-serif;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:auto}
+body{margin:0; background:var(--tint); color:var(--ink); font-family:var(--font-body); font-size:15px; line-height:1.65; -webkit-font-smoothing:antialiased}
+h1,h2,h3{font-family:var(--font-display); font-weight:600; line-height:1.15; margin:0}
+a{color:inherit}
+button{font:inherit; color:inherit}
+:focus-visible{outline:2px solid var(--ink); outline-offset:2px}
+
+.bar{display:flex; align-items:center; justify-content:space-between; gap:16px; padding:18px 24px; background:var(--paper); border-bottom:1px solid var(--line)}
+.mark{font-family:var(--font-display); font-weight:700; font-size:22px; letter-spacing:.04em}
+.proto{font-size:11.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--dim)}
+
+.wrap{max-width:1180px; margin:0 auto; padding-inline:24px}
+.intro{padding-block:56px 40px}
+.kicker{display:inline-block; font-size:11.5px; font-weight:700; letter-spacing:.16em; text-transform:uppercase; color:var(--red); margin-bottom:12px}
+.intro h1{font-size:clamp(28px,4.4vw,44px); max-width:18ch; text-wrap:balance; margin-bottom:14px}
+.intro p{margin:0; max-width:58ch; color:var(--mid)}
+
+/* pinned stage */
+.world{position:relative; height:380vh; height:380svh}
+.pin{position:sticky; top:0; height:100vh; height:100svh; overflow:hidden; background:var(--tint)}
+#gl{position:absolute; inset:0; width:100%; height:100%; display:block}
+.nogl #gl{display:none}
+.nogl-msg{display:none; position:absolute; right:24px; top:24px; max-width:260px; font-size:12.5px; color:var(--mid)}
+.nogl .nogl-msg{display:block}
+
+.card{position:absolute; left:24px; top:24px; width:min(390px,calc(100% - 48px)); padding:26px 28px 28px; background:var(--glass); backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px); display:flex; flex-direction:column; gap:14px}
+.card .count{font-family:var(--font-display); font-weight:600; font-size:13px; letter-spacing:.1em; color:var(--mid)}
+.card h2{font-size:clamp(22px,2.4vw,28px); text-wrap:balance}
+.card p{margin:0; color:#222; font-size:14.5px}
+.lph{display:none; gap:3px; margin:2px 0 0}
+.lph.on{display:flex}
+.lph span{flex:1; text-align:center; font-family:var(--font-display); font-weight:600; font-size:11px; padding:5px 0; background:var(--ink); color:#fff}
+.btn{display:inline-flex; align-items:center; gap:10px; align-self:flex-start; padding:11px 18px; border:1.5px solid var(--ink); background:transparent; text-decoration:none; font-size:13.5px; font-weight:600; letter-spacing:.02em; cursor:pointer; transition:background .2s,color .2s}
+.btn:hover{background:var(--ink); color:#fff}
+
+.variant{position:absolute; right:24px; top:24px; display:none; gap:0; background:var(--glass)}
+.variant.on{display:flex}
+.variant button{appearance:none; border:1.5px solid var(--ink); background:transparent; padding:10px 16px; font-size:13px; font-weight:600; cursor:pointer}
+.variant button+button{border-left:0}
+.variant button[aria-pressed="true"]{background:var(--ink); color:#fff}
+
+.hotspots{position:absolute; inset:0; pointer-events:none}
+.hs{position:absolute; left:0; top:0; width:42px; height:42px; margin:-21px 0 0 -21px; border:0; border-radius:50%; background:#fff; color:var(--ink); font-size:24px; line-height:1; cursor:pointer; box-shadow:0 2px 10px rgba(0,0,0,.22); display:grid; place-items:center; pointer-events:auto; transition:background .2s,color .2s}
+.hs::after{content:''; position:absolute; inset:-6px; border-radius:50%; border:1.5px solid rgba(0,0,0,.35); animation:pulse 2.2s ease-out infinite}
+.hs[aria-expanded="true"]{background:var(--ink); color:#fff}
+.hs[aria-expanded="true"]::after{animation:none; opacity:0}
+.hs[hidden]{display:none}
+@keyframes pulse{0%{transform:scale(.8); opacity:.9}100%{transform:scale(1.5); opacity:0}}
+
+.info{position:absolute; right:24px; bottom:92px; width:min(370px,calc(100% - 48px)); background:#fff; padding:22px 24px 24px; box-shadow:0 6px 28px rgba(0,0,0,.18); display:flex; flex-direction:column; gap:14px}
+.info[hidden]{display:none}
+.info .x{position:absolute; right:10px; top:10px; width:34px; height:34px; border:0; background:transparent; font-size:22px; cursor:pointer}
+.info h3{font-size:19px; padding-right:34px}
+.info .glance{font-size:11px; font-weight:700; letter-spacing:.14em; text-transform:uppercase; color:var(--dim)}
+.info dl{margin:0; display:grid; grid-template-columns:auto 1fr; gap:0 18px}
+.info dt,.info dd{margin:0; padding:9px 0; border-top:1px solid var(--line); font-size:13.5px; line-height:1.5}
+.info dt{color:var(--dim)}
+.info dd{text-align:right}
+.info .btn{padding:9px 14px; font-size:12.5px}
+
+.steps{position:absolute; left:24px; right:24px; bottom:24px; display:flex; align-items:center; gap:8px}
+.step{appearance:none; display:flex; align-items:center; gap:10px; padding:11px 14px; background:var(--glass); border:0; cursor:pointer; font-family:var(--font-display); font-weight:600; font-size:13.5px; letter-spacing:.06em; color:var(--mid); transition:background .25s,color .25s}
+.step:hover{color:var(--ink)}
+.step .lbl{display:none; letter-spacing:.02em; white-space:nowrap}
+.step[aria-current="step"]{background:var(--ink); color:#fff}
+.step[aria-current="step"] .lbl{display:inline}
+.all{margin-left:auto; padding:11px 16px; background:var(--glass); text-decoration:none; font-size:13px; font-weight:600; white-space:nowrap}
+.all:hover{background:var(--ink); color:#fff}
+
+.hint{position:absolute; left:50%; bottom:86px; transform:translateX(-50%); display:flex; flex-direction:column; align-items:center; gap:8px; font-size:11px; letter-spacing:.16em; text-transform:uppercase; color:var(--mid); pointer-events:none; transition:opacity .4s}
+.hint i{display:block; width:1px; height:34px; background:var(--ink); transform-origin:top; animation:drip 1.8s ease-in-out infinite}
+@keyframes drip{0%{transform:scaleY(0)}60%{transform:scaleY(1)}100%{transform:scaleY(1); opacity:0}}
+
+.outro{padding-block:56px 72px; display:flex; flex-direction:column; gap:16px}
+.outro h2{font-size:clamp(22px,3vw,30px); max-width:22ch; text-wrap:balance}
+.outro p{margin:0; max-width:58ch; color:var(--mid)}
+
+@media(max-width:820px){
+  .bar{padding-inline:16px}
+  .wrap{padding-inline:16px}
+  .card{left:16px; top:16px; width:calc(100% - 32px); padding:16px 18px 18px; gap:8px}
+  .card p{font-size:13px; line-height:1.5}
+  .card .btn{padding:8px 12px; font-size:12.5px}
+  .lph span{padding:3px 0}
+  .variant{right:auto; left:16px; top:auto; bottom:84px}
+  .info{right:16px; left:16px; width:auto; bottom:76px}
+  .steps{left:16px; right:16px; bottom:16px; gap:6px}
+  .step{padding:11px 12px; font-size:12.5px}
+  .all{display:none}
+  .hint{display:none}
+}
+@media(prefers-reduced-motion:reduce){
+  .hs::after,.hint i{animation:none}
+}
+</style>
+
+</head>
+<body>
+<header class="bar"><span class="mark">PGSJ</span><span class="proto">Prototyp Projektwelt</span></header>
+
+<section class="wrap intro">
+  <span class="kicker">Was wir planen</span>
+  <h1>Vom Grundstück zum Gebäude</h1>
+  <p>Scrollen Sie durch ein Projekt. Jeder Halt zeigt eine Leistung von PGSJ. Die Plus-Symbole öffnen Details.</p>
+</section>
+
+<section class="world" id="welt" aria-label="Projektwelt, fünf Stationen">
+  <div class="pin" id="pin">
+    <canvas id="gl" aria-hidden="true"></canvas>
+    <p class="nogl-msg">Die 3D-Ansicht ist auf diesem Gerät nicht verfügbar. Die Stationen lassen sich trotzdem durchklicken.</p>
+
+    <div class="card" aria-live="polite">
+      <span class="count" id="count">01 / 05</span>
+      <h2 id="title"></h2>
+      <p id="lead"></p>
+      <div class="lph" id="lph" aria-label="Leistungsphasen 1 bis 9"></div>
+      <a class="btn" id="more" href="#" target="_blank" rel="noopener"></a>
+    </div>
+
+    <div class="variant" id="variant" role="group" aria-label="Gebäudetyp">
+      <button type="button" data-v="logistik" aria-pressed="true">Logistik</button>
+      <button type="button" data-v="handel" aria-pressed="false">Handel</button>
+    </div>
+
+    <div class="hotspots" id="hotspots"></div>
+
+    <aside class="info" id="info" hidden>
+      <button class="x" type="button" id="infoX" aria-label="Schließen">&times;</button>
+      <span class="glance">Auf einen Blick</span>
+      <h3 id="infoTitle"></h3>
+      <dl id="infoRows"></dl>
+      <a class="btn" id="infoRef" href="#" target="_blank" rel="noopener" hidden></a>
+    </aside>
+
+    <div class="hint" id="hint"><span>Scrollen</span><i></i></div>
+
+    <nav class="steps" id="steps" aria-label="Stationen"></nav>
+  </div>
+</section>
+
+<section class="wrap outro">
+  <span class="kicker">Alle Leistungen</span>
+  <h2>Jede Station hat eine eigene Seite</h2>
+  <p>Auf pgsj.de finden Sie zu jeder Leistung die Projekte und Ansprechpersonen.</p>
+  <a class="btn" href="https://www.pgsj.de/leistungen/" target="_blank" rel="noopener">Zu allen Leistungen <span aria-hidden="true">&rarr;</span></a>
+</section>
+
+<script src="assets/vendor/three.min.js"></script>
+<script>
+(function(){
+  var L='https://www.pgsj.de/leistungen/', P='https://www.pgsj.de/pgsj-projekte/';
+  var STOPS=[
+    {label:'Entwicklung', title:'Projektentwicklung und Bauleitplanung',
+     lead:'Am Anfang steht das Grundstück. Wir begleiten Projekte von der Grundstücksfindung bis zum fertigen Objekt.',
+     link:[L+'bauleitplanung/','Mehr zu Bauleitplanung'],
+     hs:[
+      {a:[2,.3,-4], t:'Bauleitplanung', rows:[['Leistung','Bauleitplanung einschließlich städtebaulicher Verträge'],['Danach','Erschließungsplanung']]},
+      {a:[-12,.3,-8], t:'Standortprüfung', rows:[['Leistung','Standortuntersuchung und Grundstücksbewertung'],['Dazu','Planungsvarianten, Erweiterungsmöglichkeiten und Investitionsprognose']]}
+     ]},
+    {label:'Verkehr und Freiraum', title:'Frei- und Verkehrsanlagen',
+     lead:'Zufahrt, Stellplätze und Freiräume gehören von Anfang an zur Planung.',
+     link:[L+'frei-und-verkehrsanlagen/','Mehr zu Frei- und Verkehrsanlagen'],
+     hs:[
+      {a:[-6,.3,15], t:'Erschließung und Verkehr', rows:[['Leistung','Verkehrsanalysen und Parkraumkonzepte'],['Beispiel','Erschließung und Verkehrsführung bei IKEA Einrichtungshäusern']]},
+      {a:[14.5,2,-2], t:'Freianlagen', rows:[['Leistung','Plätze, Parks und Gärten, Sportstätten und Friedhöfe'],['Beispiel','Landesgartenschau Lünen, ca. 60 ha']], ref:['Landesgartenschau Lünen',P+'landesgartenschau-luenen/']}
+     ]},
+    {label:'Hochbau', title:'Hochbau',
+     lead:{logistik:'Logistikzentren planen wir als Neubau, Umbau und Erweiterung.', handel:'Einrichtungshäuser und Handelsimmobilien planen wir mit Parkebenen auf dem Gebäude.'},
+     link:[L+'hochbau/','Mehr zu Hochbau'],
+     hs:[
+      {v:'logistik', a:[2,6,-4], t:'Logistikzentrum', rows:[['Beispiel','REWE Neu-Isenburg'],['BGF','72.100 m²'],['Zertifizierung','DGNB Gold'],['Leistung','Neubau, Umbau und Erweiterung']], ref:['REWE Neu-Isenburg',P+'rewe-neu-isenburg/']},
+      {v:'handel', a:[2,4.4,-4], t:'Einrichtungshaus', rows:[['Beispiele','IKEA Wuppertal, Kaarst, Karlsruhe'],['Besonderheit','Parkebenen auf dem Gebäude'],['Kaarst','Umwelt-Vorzeigehaus (More Sustainable Store)']], ref:['IKEA Kaarst',P+'ikea-einrichtungshaus-kaarst/']}
+     ]},
+    {label:'Generalplanung', title:'Generalplanung',
+     lead:'Gebäude, Freianlagen und Verkehrsanlagen planen wir in einem Projekt, über die Leistungsphasen 1 bis 9.',
+     link:[L+'generalplanung/','Mehr zu Generalplanung'], lph:true,
+     hs:[
+      {a:[2,3,-4], t:'Generalplanung', rows:[['Leistungsphasen','1 bis 9'],['Umfang','Hochbau und Außenanlagen aus einem Team']]},
+      {a:[12.2,2.6,10.5], t:'Gesamtes Gelände', rows:[['Umfang','Frei- und Verkehrsanlagen im selben Projekt geplant']]}
+     ]},
+    {label:'BIM', title:'BIM Planung',
+     lead:'Das Gebäude entsteht zuerst als digitales Modell, als digitaler Zwilling.',
+     link:[L+'bim-planung/','Mehr zu BIM Planung'],
+     hs:[
+      {a:[2,4.6,-4], t:'Digitaler Zwilling', rows:[['Ergebnis','Pläne, Mengen- und Kostenermittlungen aus einem Modell'],['Lebenszyklus','Planung, Bauausführung, Facility Management']]},
+      {a:[-5.5,4.2,-5.4], t:'Fachplanung', rows:[['Leistung','Koordination der Fachplanung'],['Netzwerk','Mitglied der BIM Allianz']]}
+     ]}
+  ];
+
+  var $=function(id){return document.getElementById(id)};
+  var world=$('welt'), pin=$('pin'), canvas=$('gl');
+  var reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var variant='logistik', stop=0, p=0, target=0, openHs=null;
+
+  /* ---------- DOM: steps, hotspots, lph ---------- */
+  var stepsEl=$('steps'), stepBtns=[], hsEls=[];
+  STOPS.forEach(function(s,i){
+    var b=document.createElement('button'); b.type='button'; b.className='step';
+    b.innerHTML='<span>0'+(i+1)+'</span><span class="lbl">'+s.label+'</span>';
+    b.setAttribute('aria-label','Station '+(i+1)+': '+s.title);
+    b.addEventListener('click',function(){goTo(i)});
+    stepsEl.appendChild(b); stepBtns.push(b);
+    s.hs.forEach(function(h){
+      var e=document.createElement('button'); e.type='button'; e.className='hs'; e.textContent='+';
+      e.setAttribute('aria-label','Mehr zu '+h.t); e.setAttribute('aria-expanded','false'); e.hidden=true;
+      e.addEventListener('click',function(){toggleHs(h,e)});
+      $('hotspots').appendChild(e); h.el=e; h.stop=i; h.v3=null; hsEls.push(h);
+    });
+  });
+  var all=document.createElement('a'); all.className='all'; all.href=L; all.target='_blank'; all.rel='noopener';
+  all.innerHTML='Zu allen Leistungen <span aria-hidden="true">&rarr;</span>'; stepsEl.appendChild(all);
+  for(var k=1;k<=9;k++){var sp=document.createElement('span'); sp.textContent=k; $('lph').appendChild(sp);}
+
+  function leadFor(s){return typeof s.lead==='string'?s.lead:s.lead[variant]}
+  function renderStop(){
+    var s=STOPS[stop];
+    $('count').textContent='0'+(stop+1)+' / 05';
+    $('title').textContent=s.title;
+    $('lead').textContent=leadFor(s);
+    var m=$('more'); m.href=s.link[0]; m.innerHTML=s.link[1]+' <span aria-hidden="true">&rarr;</span><span class="sr" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)"> (öffnet pgsj.de in einem neuen Tab)</span>';
+    $('lph').classList.toggle('on',!!s.lph);
+    $('variant').classList.toggle('on',stop===2);
+    stepBtns.forEach(function(b,i){ if(i===stop) b.setAttribute('aria-current','step'); else b.removeAttribute('aria-current'); });
+    if(openHs && openHs.stop!==stop) closeInfo();
+  }
+  function toggleHs(h,e){
+    if(openHs===h){closeInfo();return}
+    closeInfo(); openHs=h; e.setAttribute('aria-expanded','true');
+    $('infoTitle').textContent=h.t;
+    var dl=$('infoRows'); dl.innerHTML='';
+    h.rows.forEach(function(r){var dt=document.createElement('dt'),dd=document.createElement('dd'); dt.textContent=r[0]; dd.textContent=r[1]; dl.appendChild(dt); dl.appendChild(dd)});
+    var ref=$('infoRef'); if(h.ref){ref.hidden=false; ref.href=h.ref[1]; ref.textContent=h.ref[0]+' ansehen'} else ref.hidden=true;
+    $('info').hidden=false;
+  }
+  function closeInfo(){ if(openHs){openHs.el.setAttribute('aria-expanded','false'); openHs=null} $('info').hidden=true; }
+  $('infoX').addEventListener('click',function(){var e=openHs&&openHs.el; closeInfo(); if(e)e.focus()});
+  document.addEventListener('keydown',function(e){ if(e.key==='Escape'&&openHs){var el=openHs.el; closeInfo(); el.focus()} });
+
+  $('variant').addEventListener('click',function(e){
+    var b=e.target.closest('button'); if(!b) return;
+    variant=b.getAttribute('data-v');
+    [].forEach.call($('variant').querySelectorAll('button'),function(x){x.setAttribute('aria-pressed',x===b?'true':'false')});
+    closeInfo(); renderStop();
+  });
+
+  /* ---------- scroll ---------- */
+  function clamp(v,a,b){return Math.max(a,Math.min(b,v))}
+  function sstep(a,b,x){x=clamp((x-a)/(b-a),0,1); return x*x*(3-2*x)}
+  function seg(){return Math.max(1,(world.offsetHeight-pin.offsetHeight)/4)}
+  function rawNow(){ return clamp(-world.getBoundingClientRect().top/seg(),0,4) }
+  function shape(raw){ if(raw>=4) return 4; var s=Math.floor(raw); return s+sstep(.3,.8,raw-s) }
+  function goTo(i){
+    var top=world.getBoundingClientRect().top+window.pageYOffset;
+    window.scrollTo({top:top+i*seg()+1, behavior:reduce?'auto':'smooth'});
+  }
+
+  /* ---------- three.js scene ---------- */
+  var renderer=null, scene, camera, G={};
+  try{
+    renderer=new THREE.WebGLRenderer({canvas:canvas, antialias:true});
+  }catch(err){ renderer=null }
+  if(!renderer){ pin.classList.add('nogl'); }
+  else init3d();
+
+  function init3d(){
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio||1,2));
+    renderer.setClearColor(0xF7F7F7,1);
+    renderer.shadowMap.enabled=true; renderer.shadowMap.type=THREE.PCFSoftShadowMap;
+    scene=new THREE.Scene();
+    camera=new THREE.OrthographicCamera(-20,20,20,-20,.1,300);
+    scene.add(new THREE.HemisphereLight(0xffffff,0xb9b9b9,.82));
+    var sun=new THREE.DirectionalLight(0xffffff,.62); sun.position.set(-22,40,26); sun.castShadow=true;
+    sun.shadow.mapSize.set(2048,2048); var sc=sun.shadow.camera; sc.left=-34; sc.right=34; sc.top=34; sc.bottom=-34; sc.near=1; sc.far=140; sun.shadow.bias=-0.0006;
+    scene.add(sun);
+
+    var seed=7; function rnd(){seed|=0; seed=seed+0x6D2B79F5|0; var t=Math.imul(seed^seed>>>15,1|seed); t=t+Math.imul(t^t>>>7,61|t)^t; return((t^t>>>14)>>>0)/4294967296}
+
+    function grp(){var g=new THREE.Group(); g.userData.mats=[]; scene.add(g); return g}
+    function mk(color,g,flat){var m=flat?new THREE.MeshPhongMaterial({color:color,transparent:true,flatShading:true,shininess:0,specular:0x000000}):new THREE.MeshLambertMaterial({color:color,transparent:true}); g.userData.mats.push(m); return m}
+    function box(g,w,h,d,color,x,y,z,cast){var m=new THREE.Mesh(new THREE.BoxGeometry(w,h,d),mk(color,g)); m.position.set(x,y,z); m.castShadow=!!cast; m.receiveShadow=true; g.add(m); return m}
+
+    /* slab */
+    var slab=new THREE.Group(); scene.add(slab);
+    var s1=new THREE.Mesh(new THREE.BoxGeometry(38,.8,30.8),new THREE.MeshLambertMaterial({color:0xffffff})); s1.position.set(0,-.4,1.4); s1.receiveShadow=true; slab.add(s1);
+    var s2=new THREE.Mesh(new THREE.BoxGeometry(37,.5,29.8),new THREE.MeshLambertMaterial({color:0xd2d2d2})); s2.position.set(0,-1.05,1.4); slab.add(s2);
+
+    /* red plot boundary: the one red element */
+    var frame=new THREE.Group(); scene.add(frame);
+    var rm=new THREE.MeshLambertMaterial({color:0xD53032});
+    [[34,.25,-12],[34,.25,13]].forEach(function(e){var m=new THREE.Mesh(new THREE.BoxGeometry(e[0],.18,e[1]),rm); m.position.set(0,.09,e[2]); frame.add(m)});
+    [-17,17].forEach(function(x){var m=new THREE.Mesh(new THREE.BoxGeometry(.25,.18,25.25),rm); m.position.set(x,.09,.5); frame.add(m)});
+
+    /* plan: Baufelder */
+    G.plan=grp();
+    function field(w,d,x,z,c){
+      var m=new THREE.Mesh(new THREE.PlaneGeometry(w,d),mk(c,G.plan)); m.rotation.x=-Math.PI/2; m.position.set(x,.03,z); m.receiveShadow=true; G.plan.add(m);
+      var pts=[new THREE.Vector3(-w/2,0,-d/2),new THREE.Vector3(w/2,0,-d/2),new THREE.Vector3(w/2,0,d/2),new THREE.Vector3(-w/2,0,d/2)];
+      var l=new THREE.LineLoop(new THREE.BufferGeometry().setFromPoints(pts),new THREE.LineBasicMaterial({color:0x7f7f7f})); l.position.set(x,.06,z); G.plan.add(l);
+    }
+    field(19,12,2,-4,0xECECEC); field(18.5,6,-6,9.5,0xF1F1F1); field(8,6.5,2,3.7,0xF1F1F1);
+
+    /* road, apron, parking */
+    G.road=grp();
+    box(G.road,38,.07,3.6,0x8e8e8e,0,.035,15);
+    box(G.road,2,.07,6.8,0x8e8e8e,9,.035,10.1);
+    for(var i=-8;i<=8;i++) box(G.road,1.2,.08,.18,0xffffff,i*2.2,.045,15);
+    box(G.road,16,.06,6,0xc6c6c6,2,.03,3.5);
+    box(G.road,18,.06,5,0xc6c6c6,-6,.03,9.5);
+    for(var j=0;j<=9;j++) box(G.road,.12,.08,3.6,0xffffff,-14.4+j*1.9,.045,9.5);
+    var carCols=[0x6e6e6e,0x9b9b9b,0x4a4a4a,0xb8b8b8,0x555555];
+    for(var c=0;c<8;c++){ var cx=-13.5+c*1.9+(c>4?1.9:0); if(cx>2.5) continue; box(G.road,1.4,.7,3,carCols[c%5],cx,.4,9.5,true) }
+
+    /* trees */
+    G.trees=grp(); G.trees.userData.list=[];
+    function tree(x,z,s){
+      var t=new THREE.Group(); t.position.set(x,0,z);
+      var tr=new THREE.Mesh(new THREE.CylinderGeometry(.16*s,.22*s,1.2*s,5),mk(0x8a8a8a,G.trees,true)); tr.position.y=.6*s; tr.castShadow=true; t.add(tr);
+      var cr=new THREE.Mesh(new THREE.ConeGeometry(1.15*s,2.8*s,6),mk(rnd()>.5?0xb4b4b4:0xa2a2a2,G.trees,true)); cr.position.y=1.2*s+1.4*s; cr.castShadow=true; t.add(cr);
+      G.trees.add(t); G.trees.userData.list.push(t);
+    }
+    for(var x=-14;x<=14;x+=3.4) tree(x+rnd()*1.2,-11+rnd()*1.2,.9+rnd()*.5);
+    for(var z=-8;z<=10;z+=3.2) tree(14.8+rnd()*1.2,z+rnd(),.9+rnd()*.5);
+    for(var z2=-8;z2<=3;z2+=3.4) tree(-15.4+rnd()*.8,z2+rnd(),.9+rnd()*.5);
+    tree(5,12.2,.8); tree(-16,11,.8); tree(5.6,5,.8);
+
+    /* building: logistik and handel */
+    G.bld=grp(); G.bld.position.set(2,0,-4); G.bld.userData.edges=[]; G.bld.userData.bimMeshes=[];
+    function edges(m){var e=new THREE.LineSegments(new THREE.EdgesGeometry(m.geometry),new THREE.LineBasicMaterial({color:0x1a1a1a,transparent:true,opacity:0})); e.position.copy(m.position); G.bld.add(e); G.bld.userData.edges.push(e.material); return e}
+    var V={logistik:new THREE.Group(), handel:new THREE.Group()};
+    V.logistik.userData.mats=G.bld.userData.mats; V.handel.userData.mats=G.bld.userData.mats;
+    G.bld.add(V.logistik); G.bld.add(V.handel);
+    function vbox(v,w,h,d,color,x,y,z,cast,edge){var m=box(V[v],w,h,d,color,x,y,z,cast); if(edge){var e=edges(m); V[v].add(e)} return m}
+    /* logistik */
+    vbox('logistik',16,5,9,0xffffff,0,2.5,0,true,true);
+    vbox('logistik',16.4,.35,9.4,0xdadada,0,5.15,0,true);
+    for(var d=-3;d<=3;d++) vbox('logistik',1.6,2.2,.15,0x4a4a4a,d*2.2,1.1,4.58);
+    vbox('logistik',5,3,4,0xf1f1f1,-10.5,1.5,2.5,true,true);
+    vbox('logistik',4.6,.8,.1,0x8c8c8c,-10.5,1.8,4.55);
+    [[-4,0],[0,1],[4,-1]].forEach(function(u){vbox('logistik',2,.9,1.6,0xbdbdbd,u[0],5.8,u[1])});
+    /* handel */
+    vbox('handel',20,3.6,10,0xffffff,0,1.8,0,true,true);
+    vbox('handel',20.4,.3,10.4,0xdadada,0,3.75,0,true);
+    vbox('handel',20,.9,.15,0x7a7a7a,0,1.2,5.05);
+    vbox('handel',3.4,2.4,.6,0x2b2b2b,-5,1.2,5.2);
+    vbox('handel',20.4,.5,.2,0xcfcfcf,0,4.15,5.1);
+    vbox('handel',20.4,.5,.2,0xcfcfcf,0,4.15,-5.1);
+    vbox('handel',.2,.5,10.4,0xcfcfcf,10.1,4.15,0);
+    vbox('handel',.2,.5,10.4,0xcfcfcf,-10.1,4.15,0);
+    vbox('handel',1.1,9,1.1,0xe6e6e6,-9,4.5,6.6,true);
+    vbox('handel',3.6,1.4,.3,0x4a4a4a,-9,8.2,6.6);
+    for(var q=0;q<7;q++) vbox('handel',1.4,.65,2.9,carCols[q%5],-7.5+q*2.4,4.4,(q%2?-2.2:1.6));
+    vbox('handel',3,.3,10,0xcfcfcf,11.6,.8,0);
+    /* BIM internals (shared) */
+    G.bim=new THREE.Group(); G.bld.add(G.bim); G.bim.userData.mats=[];
+    function bm(c){var m=new THREE.MeshLambertMaterial({color:c,transparent:true,opacity:0}); G.bim.userData.mats.push(m); return m}
+    for(var cx2=-7;cx2<=7;cx2+=3.5) for(var cz=-3;cz<=3;cz+=3){var col=new THREE.Mesh(new THREE.BoxGeometry(.32,5,.32),bm(0x7f7f7f)); col.position.set(cx2,2.5,cz); G.bim.add(col)}
+    for(var bz=-3;bz<=3;bz+=3){var bt=new THREE.Mesh(new THREE.BoxGeometry(15.4,.3,.3),bm(0x646464)); bt.position.set(0,4.85,bz); G.bim.add(bt)}
+    [[-1.4,0x9b9b9b],[0,0x4a4a4a],[1.4,0xb8b8b8]].forEach(function(pp){var pipe=new THREE.Mesh(new THREE.CylinderGeometry(.18,.18,15,8),bm(pp[1])); pipe.rotation.z=Math.PI/2; pipe.position.set(0,4.2,pp[0]); G.bim.add(pipe)});
+    var duct=new THREE.Mesh(new THREE.BoxGeometry(14,.7,1),bm(0xcfcfcf)); duct.position.set(0,3.3,-3.6); G.bim.add(duct);
+
+    /* site details */
+    G.site=grp();
+    box(G.site,2.2,2.2,2.2,0xf1f1f1,12.2,1.1,10.5,true); box(G.site,2.6,.25,2.6,0xcfcfcf,12.2,2.3,10.5);
+    [[-1,6.2],[-9,6.2],[5.5,6.2],[-12,12.2],[13.5,1]].forEach(function(l){ box(G.site,.12,3.6,.12,0x4a4a4a,l[0],1.8,l[1]); box(G.site,.9,.16,.4,0x4a4a4a,l[0],3.65,l[1]) });
+    [[-2.4,0xbdbdbd],[4.2,0xe6e6e6]].forEach(function(t){ box(G.site,2.5,3,5,t[1],t[0]+.0,1.7,3.4,true); box(G.site,2.4,2.4,2,0x646464,t[0],1.4,.55) });
+
+    /* hotspot anchors */
+    hsEls.forEach(function(h){h.v3=new THREE.Vector3(h.a[0],h.a[1],h.a[2])});
+    resize();
+  }
+
+  var ZOOM=[44,42,38,52,36];
+  var TGT=[[0,0,0],[0,0,4],[2,2,-3],[0,1,2],[2,2.5,-4]];
+  function lerp(a,b,t){return a+(b-a)*t}
+  function ease(t){return t*t*(3-2*t)}
+  var W=0,H=0, vv={logistik:1,handel:0}, lastT=0;
+
+  function resize(){
+    if(!renderer) return;
+    W=pin.clientWidth; H=pin.clientHeight; renderer.setSize(W,H,false);
+  }
+  window.addEventListener('resize',resize);
+
+  function frame(t){
+    var dt=Math.min(.05,(t-lastT)/1000||.016); lastT=t;
+    target=shape(rawNow());
+    p=reduce?target:p+(target-p)*(1-Math.exp(-dt*6));
+    var ns=clamp(Math.round(p),0,4);
+    if(ns!==stop){stop=ns; renderStop()}
+    $('hint').style.opacity=p<.15?1:0;
+    if(!renderer) return;
+    if(!W||!H) resize();
+
+    var i0=Math.min(3,Math.floor(p)), f=p-i0;
+    var theta=.75+p*.3, elev=.58;
+    var zoom=lerp(ZOOM[i0],ZOOM[i0+1],f), tg=[0,1,2].map(function(k){return lerp(TGT[i0][k],TGT[i0+1][k],f)});
+    var R=70;
+    camera.position.set(tg[0]+Math.sin(theta)*Math.cos(elev)*R, tg[1]+Math.sin(elev)*R, tg[2]+Math.cos(theta)*Math.cos(elev)*R);
+    camera.lookAt(tg[0],tg[1],tg[2]);
+    var asp=W/H, hh=Math.max(zoom, asp<1?58/asp:0);
+    camera.left=-hh*asp/2; camera.right=hh*asp/2; camera.top=hh/2; camera.bottom=-hh/2;
+    if(W>820) camera.setViewOffset(W,H,-W*.13,0,W,H); else camera.setViewOffset(W,H,0,-H*.12,W,H);
+    camera.updateProjectionMatrix(); camera.updateMatrixWorld();
+
+    function ap(s){return ease(clamp(p-s+1,0,1))}
+    function fade(g,a,rise){ g.visible=a>.01; g.userData.mats.forEach(function(m){m.opacity=a}); if(rise) g.position.y=(a-1)*1.6 }
+    fade(G.plan,1,false);
+    fade(G.road,ap(1),true);
+    var ta=ap(1); G.trees.visible=ta>.01; G.trees.userData.mats.forEach(function(m){m.opacity=ta});
+    G.trees.userData.list.forEach(function(t){t.scale.setScalar(Math.max(.001,ta))});
+    var ba=ap(2), bim=ease(clamp(p-3,0,1));
+    ['logistik','handel'].forEach(function(k){ vv[k]+=((variant===k?1:0)-vv[k])*(reduce?1:Math.min(1,dt*8)) });
+    G.bld.visible=ba>.01;
+    G.bld.scale.y=Math.max(.001,ba);
+    G.bld.children[0].visible=vv.logistik>.02; G.bld.children[1].visible=vv.handel>.02;
+    G.bld.children[0].scale.y=Math.max(.001,vv.logistik); G.bld.children[1].scale.y=Math.max(.001,vv.handel);
+    var bo=1-.88*bim;
+    G.bld.userData.mats.forEach(function(m){m.opacity=bo; m.depthWrite=bim<.5});
+    G.bld.userData.edges.forEach(function(m){m.opacity=bim});
+    G.bim.visible=bim>.01; G.bim.userData.mats.forEach(function(m){m.opacity=bim});
+    fade(G.site,ap(3),true);
+
+    renderer.render(scene,camera);
+
+    /* hotspots */
+    var v=new THREE.Vector3();
+    hsEls.forEach(function(h){
+      var near=Math.max(0,1-Math.abs(p-h.stop)*2.4);
+      var show=near>.3&&(!h.v||h.v===variant)&&(stop===h.stop);
+      if(!show){ if(!h.el.hidden) h.el.hidden=true; return }
+      v.copy(h.v3).project(camera);
+      h.el.hidden=false;
+      h.el.style.left=((v.x*.5+.5)*W)+'px'; h.el.style.top=((-v.y*.5+.5)*H)+'px';
+      h.el.style.opacity=near;
+    });
+  }
+
+  /* ---------- loop, only while visible ---------- */
+  var running=false, vis=true;
+  function loop(t){ if(!running) return; frame(t); requestAnimationFrame(loop) }
+  function start(){ if(!running&&vis&&!document.hidden){running=true; lastT=performance.now(); requestAnimationFrame(loop)} }
+  function stopLoop(){running=false}
+  if('IntersectionObserver' in window){
+    new IntersectionObserver(function(en){vis=en[0].isIntersecting; vis?start():stopLoop()},{rootMargin:'200px'}).observe(world);
+  }
+  document.addEventListener('visibilitychange',function(){document.hidden?stopLoop():start()});
+
+  p=target=shape(rawNow());
+  renderStop(); start();
+  window.__pgsj={frame:frame, get p(){return p}, get stop(){return stop}};
+})();
+</script>
+
+</body>
+</html>

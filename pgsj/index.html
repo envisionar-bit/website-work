@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
+<script>document.documentElement.className+=" js"</script>
 <title>PGSJ Planungsgesellschaft mbH</title>
 <meta name="description" content="Design concept preview: ein visuelles Refresh der Startseite von pgsj.de für PGSJ Planungsgesellschaft mbH, Münster. Inhalte unverändert.">
 <meta name="robots" content="noindex,nofollow">
@@ -81,6 +82,80 @@
   .service-card .body{padding:22px}
   .service-card h3{font-size:17px}
 
+  /* schwerpunkte (interaktiv) */
+  .sr{position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap}
+  section.focus{padding:88px 0; background:var(--ink); color:#fff}
+  .focus-head{max-width:60ch; margin-bottom:44px}
+  .focus-head .kicker{color:#EF6B6D}
+  .focus-head h2{font-size:clamp(24px,3vw,32px); color:#fff; margin-bottom:12px}
+  .focus-head p{font-size:15px; color:rgba(255,255,255,.78); margin:0}
+  .focus-grid{display:grid; grid-template-columns:270px 1fr; gap:48px; align-items:start}
+  .focus-tabs{display:flex; flex-direction:column; border-top:1px solid rgba(255,255,255,.18); position:sticky; top:24px; scroll-behavior:smooth}
+  .focus-tab{appearance:none; background:none; border:0; border-bottom:1px solid rgba(255,255,255,.18); color:rgba(255,255,255,.72); font:inherit; text-align:left; cursor:pointer; display:grid; grid-template-columns:44px 1fr; align-items:baseline; padding:20px 0 20px 18px; position:relative; transition:color .2s}
+  .focus-tab::before{content:''; position:absolute; left:0; top:-1px; bottom:-1px; width:3px; background:transparent; transition:background .2s}
+  .focus-tab .num{font-family:var(--font-display); font-weight:600; font-size:14px; letter-spacing:.08em; color:rgba(255,255,255,.6)}
+  .focus-tab .lbl{font-family:var(--font-display); font-weight:600; font-size:19px; line-height:1.25}
+  .focus-tab:hover, .focus-tab[aria-selected="true"]{color:#fff}
+  .focus-tab[aria-selected="true"]::before{background:var(--red)}
+  .focus-tab:focus-visible{outline:2px solid #fff; outline-offset:-2px}
+
+  .focus-stage{display:grid}
+  html:not(.js) .focus-stage{gap:28px}
+  html:not(.js) .focus-tabs, html:not(.js) .focus-nav{display:none}
+  .js .focus-panel{grid-area:1/1; visibility:hidden; opacity:0; transition:opacity .35s ease, visibility 0s linear .35s}
+  .js .focus-panel.is-active{visibility:visible; opacity:1; transition:opacity .35s ease}
+  .focus-panel{display:flex; flex-direction:column; background:rgba(255,255,255,.05)}
+  .focus-media{margin:0; height:300px; overflow:hidden; background:#111}
+  .focus-media img{width:100%; height:100%; object-fit:cover}
+  .focus-body{padding:36px 40px 40px; display:flex; flex-direction:column; gap:26px}
+  .focus-body h3{font-size:clamp(22px,2.4vw,28px); color:#fff}
+  .focus-body .lead{font-size:15.5px; color:rgba(255,255,255,.84); margin:0; max-width:62ch}
+  .focus-cols{display:grid; grid-template-columns:1.3fr 1fr; gap:36px}
+  .focus-cols.single{grid-template-columns:1fr}
+  .focus-list{list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:12px}
+  .focus-list li{position:relative; padding-left:20px; font-size:14.5px; line-height:1.55; color:rgba(255,255,255,.9)}
+  .focus-list li::before{content:''; position:absolute; left:0; top:.78em; width:8px; height:2px; background:#fff}
+  .focus-stats{display:grid; gap:20px; margin:0; align-content:start}
+  .focus-stats div{border-top:1px solid rgba(255,255,255,.22); padding-top:12px}
+  .focus-stats dt{font-family:var(--font-display); font-weight:600; font-size:clamp(26px,2.8vw,34px); line-height:1.1; color:#fff}
+  .focus-stats dd{margin:6px 0 0; font-size:12px; line-height:1.5; letter-spacing:.06em; text-transform:uppercase; color:#BDBDBD}
+  .focus-refs{display:flex; flex-direction:column; gap:10px}
+  .focus-refs .refs-label{font-size:11.5px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:#BDBDBD}
+  .focus-refs ul{list-style:none; margin:0; padding:0; display:flex; flex-wrap:wrap; gap:8px}
+  .focus-refs a{display:inline-block; font-size:12.5px; line-height:1; padding:9px 12px; border:1px solid rgba(255,255,255,.3); color:#fff; text-decoration:none; transition:background .2s, color .2s, border-color .2s}
+  .focus-refs a:hover{background:#fff; color:#000; border-color:#fff}
+  .focus-refs a:focus-visible, .focus .btn:focus-visible, .focus-step:focus-visible{outline:2px solid #fff; outline-offset:2px}
+  .focus .btn-light{border-color:#fff; color:#fff; align-self:flex-start}
+  .focus .btn-light:hover{background:#fff; color:#000}
+
+  .focus-nav{display:flex; align-items:center; gap:20px; margin-top:28px}
+  .focus-progress{flex:1; height:2px; background:rgba(255,255,255,.2); position:relative}
+  .focus-progress i{position:absolute; left:0; top:0; bottom:0; width:20%; background:#fff; transition:width .35s ease}
+  .focus-count{font-family:var(--font-display); font-weight:600; font-size:14px; letter-spacing:.08em; color:#BDBDBD; min-width:62px; text-align:center}
+  .focus-step{appearance:none; background:none; border:1.5px solid rgba(255,255,255,.4); color:#fff; font:inherit; font-size:13.5px; font-weight:600; padding:10px 18px; cursor:pointer; letter-spacing:.02em; transition:background .2s, color .2s, border-color .2s}
+  .focus-step:hover{background:#fff; color:#000; border-color:#fff}
+
+  @media(max-width:900px){
+    section.focus{padding:64px 0}
+    .focus-grid{grid-template-columns:1fr; gap:24px}
+    .focus-tabs{flex-direction:row; overflow-x:auto; position:static; border-top:none; border-bottom:1px solid rgba(255,255,255,.18); scrollbar-width:none; margin:0 -24px; padding:0 24px}
+    .focus-tabs::-webkit-scrollbar{display:none}
+    .focus-tab{flex:0 0 auto; grid-template-columns:auto; gap:2px; border-bottom:none; padding:12px 18px 16px 0; margin-right:14px}
+    .focus-tab::before{left:0; right:18px; top:auto; bottom:0; width:auto; height:3px}
+    .focus-tab .lbl{font-size:16px; white-space:nowrap}
+    .js .focus-panel:not(.is-active){display:none}
+    .focus-media{height:200px}
+    .focus-body{padding:24px 22px 28px}
+    .focus-cols{grid-template-columns:1fr; gap:24px}
+    .focus-nav{gap:12px}
+    .focus-step{padding:10px 14px}
+  }
+  @media(prefers-reduced-motion:reduce){
+    html{scroll-behavior:auto}
+    .focus-tabs{scroll-behavior:auto}
+    .js .focus-panel, .js .focus-panel.is-active, .focus-progress i, .focus-tab, .focus-tab::before{transition:none}
+  }
+
   /* team */
   section.team{padding:88px 0}
   .team-grid{display:grid; grid-template-columns:1fr 1fr; gap:56px; align-items:start}
@@ -143,7 +218,7 @@
     <div class="wrap hero-copy">
       <p class="kicker">Generalplanung aus Münster</p>
       <h1>Von der Fach- bis zur Generalplanung sind wir Ihr kompetenter Partner</h1>
-      <p>Als Architektur-, Ingenieur- und General-Planungsbüro entwickeln wir seit über 60 Jahren erfolgreich wirtschaftliche und nachhaltige Loesungen für alle Planungsaufgaben bis hin zu umfassenden Generalplanungsleistungen aus einer Hand.</p>
+      <p>Als Architektur-, Ingenieur- und General-Planungsbüro entwickeln wir seit über 60 Jahren erfolgreich wirtschaftliche und nachhaltige Lösungen für alle Planungsaufgaben bis hin zu umfassenden Generalplanungsleistungen aus einer Hand.</p>
       <a class="btn btn-fill" href="ueber-uns.html">Über uns</a>
     </div>
   </div>
@@ -151,7 +226,7 @@
 
 <section class="stats"><div class="wrap">
   <div class="stats-row">
-    <div class="stat"><div class="n"><em>*</em> 1954</div><p>Gegruendet</p></div>
+    <div class="stat"><div class="n"><em>*</em> 1954</div><p>Gegründet</p></div>
     <div class="stat"><div class="n"><em>&rsaquo;</em> 3.500</div><p>Realisierte Projekte</p></div>
     <div class="stat"><div class="n"><em>&rsaquo;</em> 30</div><p>Mitarbeiter</p></div>
     <div class="stat"><div class="n">250 m&sup2;</div><p>Unser kleinstes Projekt</p></div>
@@ -160,13 +235,178 @@
 </div></section>
 
 <section class="about"><div class="wrap about-grid">
-  <img src="assets/PGSJ_Web_Über_uns.jpg" alt="PGSJ Büro, Münster-Handorf">
+  <img src="assets/PGSJ_Web_Ueber_uns.jpg" alt="PGSJ Büro, Münster-Handorf">
   <div class="about-copy">
     <span class="kicker">Über uns</span>
     <h2>PGSJ Planungsgesellschaft</h2>
     <p>Die PGSJ Planungsgesellschaft tritt mit dem Anspruch an, dem Bauherrn eine professionelle und schnittstellenübergreifende Gesamtleistung anzubieten. Unsere Stärke ist die Bündelung von Fachwissen in interdisziplinären Teams. Wir arbeiten lösungsorientiert und zielgerichtet und können Ihnen daher ein breites Leistungsspektrum anbieten.</p>
     <p>Von der Projektentwicklung bis zum fertigen Objekt und darüber hinaus setzen wir unsere langjährige Kompetenz in Bauleitung und Projektmanagement professionell ein, um vor Ort die Interessen des Bauherrn zielgerichtet und wirtschaftlich zu stärken und ihm ein verlässlicher Partner zu sein.</p>
     <a class="btn btn-line" href="ueber-uns.html">Mehr erfahren</a>
+  </div>
+</div></section>
+
+<section class="focus" id="schwerpunkte" aria-labelledby="focus-title"><div class="wrap">
+  <div class="focus-head">
+    <span class="kicker">Schwerpunkte</span>
+    <h2 id="focus-title">Was wir planen</h2>
+    <p>Wählen Sie ein Feld. Sie sehen, was wir dort leisten und welche Projekte dazugehören.</p>
+  </div>
+  <div class="focus-grid" data-focus>
+    <div class="focus-tabs" role="tablist" aria-label="Schwerpunkte">
+      <button class="focus-tab" role="tab" type="button" id="tab-logistik" data-key="logistik" aria-controls="panel-logistik" aria-selected="true"><span class="num">01</span><span class="lbl">Logistik und Verwaltung</span></button>
+      <button class="focus-tab" role="tab" type="button" id="tab-handel" data-key="handel" aria-controls="panel-handel" aria-selected="false" tabindex="-1"><span class="num">02</span><span class="lbl">Groß- und Einzelhandel</span></button>
+      <button class="focus-tab" role="tab" type="button" id="tab-frei" data-key="frei" aria-controls="panel-frei" aria-selected="false" tabindex="-1"><span class="num">03</span><span class="lbl">Frei- und Verkehrsanlagen</span></button>
+      <button class="focus-tab" role="tab" type="button" id="tab-entwicklung" data-key="entwicklung" aria-controls="panel-entwicklung" aria-selected="false" tabindex="-1"><span class="num">04</span><span class="lbl">Projektentwicklung und Bauleitplanung</span></button>
+      <button class="focus-tab" role="tab" type="button" id="tab-bim" data-key="bim" aria-controls="panel-bim" aria-selected="false" tabindex="-1"><span class="num">05</span><span class="lbl">BIM Planung</span></button>
+    </div>
+
+    <div class="focus-main">
+      <div class="focus-stage">
+
+        <article class="focus-panel is-active" id="panel-logistik" role="tabpanel" aria-labelledby="tab-logistik">
+          <figure class="focus-media"><img src="assets/PGSJ_Leistungen_Generalplanung_Vorschaubild_web-756x756.jpg" alt="Luftbild eines Logistikgebäudes mit Parkplatz und Zufahrtsstraße" width="756" height="756" style="object-position:50% 40%"></figure>
+          <div class="focus-body">
+            <h3>Logistikzentren und Verwaltung</h3>
+            <p class="lead">Wir planen Logistikzentren für Lebensmittel als Generalplaner. Vom Neubau bis zum Umbau und zur Erweiterung im Bestand.</p>
+            <div class="focus-cols">
+              <ul class="focus-list">
+                <li>Neubau, Umbau und Erweiterung von Logistikzentren</li>
+                <li>Generalplanung über die Leistungsphasen 1 bis 9</li>
+                <li>Frei- und Verkehrsanlagen im selben Projekt geplant</li>
+                <li>Auch Sonderformen: ein trimodales Container-Terminal in Neuss</li>
+              </ul>
+              <dl class="focus-stats">
+                <div><dt>72.100 m²</dt><dd>BGF, REWE Neu-Isenburg</dd></div>
+                <div><dt>DGNB Gold</dt><dd>Zertifizierung, REWE Neu-Isenburg</dd></div>
+              </dl>
+            </div>
+            <div class="focus-refs"><span class="refs-label">Projekte</span>
+              <ul>
+                <li><a href="https://www.pgsj.de/pgsj-projekte/rewe-neu-isenburg/" target="_blank" rel="noopener">REWE Neu-Isenburg</a></li>
+                <li><a href="https://www.pgsj.de/pgsj-projekte/rewe-dortmund/" target="_blank" rel="noopener">REWE Dortmund</a></li>
+                <li><a href="https://www.pgsj.de/pgsj-projekte/rewe-lahr/" target="_blank" rel="noopener">REWE Lahr</a></li>
+                <li><a href="https://www.pgsj.de/pgsj-projekte/rewe-stelle/" target="_blank" rel="noopener">REWE Stelle</a></li>
+                <li><a href="https://www.pgsj.de/pgsj-projekte/rewe-woelfersheim/" target="_blank" rel="noopener">REWE Wölfersheim</a></li>
+                <li><a href="https://www.pgsj.de/pgsj-projekte/transgourmet-koeln/" target="_blank" rel="noopener">Transgourmet Köln</a></li>
+                <li><a href="https://www.pgsj.de/pgsj-projekte/container-terminal-neuss/" target="_blank" rel="noopener">Container Terminal Neuss</a></li>
+              </ul>
+            </div>
+            <a class="btn btn-light" href="https://www.pgsj.de/leistungen/generalplanung/" target="_blank" rel="noopener">Mehr zu Generalplanung <span aria-hidden="true">&rarr;</span><span class="sr">(öffnet pgsj.de in einem neuen Tab)</span></a>
+          </div>
+        </article>
+
+        <article class="focus-panel" id="panel-handel" role="tabpanel" aria-labelledby="tab-handel">
+          <figure class="focus-media"><img src="assets/slider-web-02-1.jpg" alt="Architekturdetail: Deckenuntersicht mit Pendelleuchten" width="2000" height="1000" loading="lazy" decoding="async"></figure>
+          <div class="focus-body">
+            <h3>Einrichtungshäuser und Handelsimmobilien</h3>
+            <p class="lead">Für IKEA planen wir Einrichtungshäuser samt Erschließung, Parkebenen und Außenanlagen.</p>
+            <div class="focus-cols">
+              <ul class="focus-list">
+                <li>Bauleitplanung, Hochbau und Außenanlagen aus einem Team</li>
+                <li>Öffentliche Erschließung und Verkehrsführung</li>
+                <li>Parkdeck und Parkebenen auf dem Gebäude</li>
+                <li>Kaarst als Umwelt-Vorzeigehaus (More Sustainable Store)</li>
+              </ul>
+              <dl class="focus-stats">
+                <div><dt>3</dt><dd>IKEA Einrichtungshäuser: Wuppertal, Kaarst, Karlsruhe</dd></div>
+                <div><dt>2016 bis 2020</dt><dd>Fertigstellung der drei Häuser</dd></div>
+              </dl>
+            </div>
+            <div class="focus-refs"><span class="refs-label">Projekte</span>
+              <ul>
+                <li><a href="https://www.pgsj.de/pgsj-projekte/ikea-einrichtungshaus-wuppertal/" target="_blank" rel="noopener">IKEA Wuppertal</a></li>
+                <li><a href="https://www.pgsj.de/pgsj-projekte/ikea-einrichtungshaus-kaarst/" target="_blank" rel="noopener">IKEA Kaarst</a></li>
+                <li><a href="https://www.pgsj.de/pgsj-projekte/ikea-einrichtungshaus-karlsruhe/" target="_blank" rel="noopener">IKEA Karlsruhe</a></li>
+              </ul>
+            </div>
+            <a class="btn btn-light" href="https://www.pgsj.de/leistungen/hochbau/" target="_blank" rel="noopener">Mehr zu Hochbau <span aria-hidden="true">&rarr;</span><span class="sr">(öffnet pgsj.de in einem neuen Tab)</span></a>
+          </div>
+        </article>
+
+        <article class="focus-panel" id="panel-frei" role="tabpanel" aria-labelledby="tab-frei">
+          <figure class="focus-media"><img src="assets/IMG_0808.jpg" alt="Gepflasterte Gasse mit Leuchten in der Abenddämmerung zwischen Neubau und historischem Bestand" width="2000" height="1720" loading="lazy" decoding="async" style="object-position:50% 62%"></figure>
+          <div class="focus-body">
+            <h3>Freiräume und Verkehrsanlagen</h3>
+            <p class="lead">Architektur und Außenraum gehören zusammen. Wir planen Parks, Plätze, Sportstätten und Verkehrsanlagen.</p>
+            <div class="focus-cols">
+              <ul class="focus-list">
+                <li>Plätze, Parks und Gärten</li>
+                <li>Sportstätten und Friedhöfe</li>
+                <li>Freianlagen gewerblicher Objekte</li>
+                <li>Verkehrsanalysen und Parkraumkonzepte</li>
+              </ul>
+              <dl class="focus-stats">
+                <div><dt>ca. 60 ha</dt><dd>Landesgartenschau Lünen</dd></div>
+                <div><dt>1996 bis heute</dt><dd>Von der Landesgartenschau Lünen bis zum Kurpark Werl (in Planung)</dd></div>
+              </dl>
+            </div>
+            <div class="focus-refs"><span class="refs-label">Projekte</span>
+              <ul>
+                <li><a href="https://www.pgsj.de/pgsj-projekte/landesgartenschau-luenen/" target="_blank" rel="noopener">Landesgartenschau Lünen</a></li>
+                <li><a href="https://www.pgsj.de/pgsj-projekte/preussenhafen-luenen/" target="_blank" rel="noopener">Preussenhafen Lünen</a></li>
+                <li><a href="https://www.pgsj.de/pgsj-projekte/kurpark-werl/" target="_blank" rel="noopener">Kurpark Werl</a></li>
+                <li><a href="https://www.pgsj.de/pgsj-projekte/sportanlage-werne/" target="_blank" rel="noopener">Sportanlage Werne</a></li>
+                <li><a href="https://www.pgsj.de/pgsj-projekte/friedhof-und-aussegnungshalle-altenberge/" target="_blank" rel="noopener">Friedhof Altenberge</a></li>
+                <li><a href="https://www.pgsj.de/pgsj-projekte/diozoesanbibliothek-muenster/" target="_blank" rel="noopener">Diözesanbibliothek Münster</a></li>
+              </ul>
+            </div>
+            <a class="btn btn-light" href="https://www.pgsj.de/leistungen/frei-und-verkehrsanlagen/" target="_blank" rel="noopener">Mehr zu Frei- und Verkehrsanlagen <span aria-hidden="true">&rarr;</span><span class="sr">(öffnet pgsj.de in einem neuen Tab)</span></a>
+          </div>
+        </article>
+
+        <article class="focus-panel" id="panel-entwicklung" role="tabpanel" aria-labelledby="tab-entwicklung">
+          <figure class="focus-media"><img src="assets/slider-web-03-1.jpg" alt="Bebauungsplan mit farbig markierten Baufeldern und Straßen" width="2000" height="1000" loading="lazy" decoding="async"></figure>
+          <div class="focus-body">
+            <h3>Projektentwicklung und Bauleitplanung</h3>
+            <p class="lead">Wir begleiten Projekte von der Grundstücksfindung bis zum fertigen Objekt. Am Anfang stehen Standortprüfung und Bauleitplanung.</p>
+            <div class="focus-cols single">
+              <ul class="focus-list">
+                <li>Standortuntersuchung und Grundstücksbewertung</li>
+                <li>Planungsvarianten, Erweiterungsmöglichkeiten und Investitionsprognose</li>
+                <li>Bauleitplanung einschließlich städtebaulicher Verträge</li>
+                <li>Erschließungsplanung</li>
+              </ul>
+            </div>
+            <div class="focus-refs"><span class="refs-label">Projekte</span>
+              <ul>
+                <li><a href="https://www.pgsj.de/pgsj-projekte/rewe-woelfersheim/" target="_blank" rel="noopener">REWE Wölfersheim</a></li>
+                <li><a href="https://www.pgsj.de/pgsj-projekte/ikea-einrichtungshaus-wuppertal/" target="_blank" rel="noopener">IKEA Wuppertal</a></li>
+                <li><a href="https://www.pgsj.de/pgsj-projekte/transgourmet-koeln/" target="_blank" rel="noopener">Transgourmet Köln</a></li>
+              </ul>
+            </div>
+            <a class="btn btn-light" href="https://www.pgsj.de/leistungen/bauleitplanung/" target="_blank" rel="noopener">Mehr zu Bauleitplanung <span aria-hidden="true">&rarr;</span><span class="sr">(öffnet pgsj.de in einem neuen Tab)</span></a>
+          </div>
+        </article>
+
+        <article class="focus-panel" id="panel-bim" role="tabpanel" aria-labelledby="tab-bim">
+          <figure class="focus-media"><img src="assets/PGSJ_Leistungen_BIM_Vorschaubild_web-756x756.jpg" alt="Arbeitsplatz mit Laptop und Plänen zur digitalen Planung" width="756" height="756" loading="lazy" decoding="async" style="object-position:50% 38%"></figure>
+          <div class="focus-body">
+            <h3>BIM: Planung im digitalen Modell</h3>
+            <p class="lead">Mit Building Information Modeling bilden wir das spätere Gebäude als digitalen Zwilling ab.</p>
+            <div class="focus-cols">
+              <ul class="focus-list">
+                <li>Pläne, Mengen- und Kostenermittlungen aus einem Modell</li>
+                <li>Koordination der Fachplanung</li>
+                <li>Von der Planung über die Bauausführung bis zum Facility Management</li>
+                <li>Weniger Planungsfehler durch vernetzte Zusammenarbeit</li>
+              </ul>
+              <dl class="focus-stats">
+                <div><dt>BIM Allianz</dt><dd>PGSJ ist Mitglied</dd></div>
+              </dl>
+            </div>
+            <a class="btn btn-light" href="https://www.pgsj.de/leistungen/bim-planung/" target="_blank" rel="noopener">Mehr zu BIM Planung <span aria-hidden="true">&rarr;</span><span class="sr">(öffnet pgsj.de in einem neuen Tab)</span></a>
+          </div>
+        </article>
+
+      </div>
+
+      <div class="focus-nav">
+        <button class="focus-step" type="button" data-step="-1" aria-label="Vorheriger Schwerpunkt">&larr; Zurück</button>
+        <div class="focus-progress" aria-hidden="true"><i></i></div>
+        <span class="focus-count" aria-live="polite">01 / 05</span>
+        <button class="focus-step" type="button" data-step="1" aria-label="Nächster Schwerpunkt">Weiter &rarr;</button>
+      </div>
+    </div>
   </div>
 </div></section>
 
@@ -189,10 +429,10 @@
   <div>
     <span class="kicker">Team</span>
     <h2 style="font-size:clamp(24px,3vw,32px);margin-bottom:18px">Unser Team</h2>
-    <p>Unser inhabergefuehrtes Planungsbüro steht seit über 60 Jahren für Erfahrung, Kompetenz und Innovation. Als eingespieltes Team können wir flexibel auf die Anforderungen neuer Projekte reagieren und sie erfolgreich realisieren. Unsere Architekten, Ingenieure und Fachplaner arbeiten interdisziplinär und begleiten Sie während der gesamten Planung und Umsetzung.</p>
+    <p>Unser inhabergeführtes Planungsbüro steht seit über 60 Jahren für Erfahrung, Kompetenz und Innovation. Als eingespieltes Team können wir flexibel auf die Anforderungen neuer Projekte reagieren und sie erfolgreich realisieren. Unsere Architekten, Ingenieure und Fachplaner arbeiten interdisziplinär und begleiten Sie während der gesamten Planung und Umsetzung.</p>
   </div>
   <div>
-    <p>Dynamisch, engagiert und qualifiziert – unser Team bringt innovative Ideen, ein hohes Know-how und Leidenschaft für den Beruf mit. Wir stehen für Zusammenhalt, Kompetenz und Zuverlaessigkeit und begleiten gemeinsam unsere Projekte.</p>
+    <p>Dynamisch, engagiert und qualifiziert – unser Team bringt innovative Ideen, ein hohes Know-how und Leidenschaft für den Beruf mit. Wir stehen für Zusammenhalt, Kompetenz und Zuverlässigkeit und begleiten gemeinsam unsere Projekte.</p>
     <a class="btn btn-line" href="karriere.html">Aktuelle Jobangebote: Karriere</a>
   </div>
 </div></section>
@@ -222,5 +462,88 @@
   <span><a href="design-system.html">Design System</a><a href="datenschutz.html">Datenschutz</a><a href="impressum.html">Impressum</a></span>
 </div></footer>
 
+<script>
+(function(){
+  var root = document.querySelector('[data-focus]');
+  if(!root) return;
+  var tabs = [].slice.call(root.querySelectorAll('[role="tab"]'));
+  var panels = tabs.map(function(t){ return document.getElementById(t.getAttribute('aria-controls')); });
+  var keys = tabs.map(function(t){ return t.getAttribute('data-key'); });
+  var count = root.querySelector('.focus-count');
+  var bar = root.querySelector('.focus-progress i');
+  var stage = root.querySelector('.focus-stage');
+  var cur = 0;
+
+  function pad(n){ return (n < 10 ? '0' : '') + n; }
+
+  function select(i, o){
+    o = o || {};
+    i = (i + tabs.length) % tabs.length;
+    cur = i;
+    tabs.forEach(function(t, j){
+      var on = j === i;
+      t.setAttribute('aria-selected', on ? 'true' : 'false');
+      t.tabIndex = on ? 0 : -1;
+      panels[j].classList.toggle('is-active', on);
+    });
+    count.textContent = pad(i + 1) + ' / ' + pad(tabs.length);
+    bar.style.width = ((i + 1) / tabs.length * 100) + '%';
+    if(o.focus) tabs[i].focus();
+    if(o.center){
+      var c = tabs[i].parentNode;
+      c.scrollLeft = tabs[i].offsetLeft - (c.clientWidth - tabs[i].offsetWidth) / 2;
+    }
+    if(o.hash && window.history && history.replaceState){
+      history.replaceState(null, '', '#schwerpunkte=' + keys[i]);
+    }
+  }
+
+  tabs.forEach(function(t, i){
+    t.addEventListener('click', function(){ select(i, {hash: true, center: true}); });
+    t.addEventListener('keydown', function(e){
+      var k = e.key, n = null;
+      if(k === 'ArrowDown' || k === 'ArrowRight') n = cur + 1;
+      else if(k === 'ArrowUp' || k === 'ArrowLeft') n = cur - 1;
+      else if(k === 'Home') n = 0;
+      else if(k === 'End') n = tabs.length - 1;
+      if(n === null) return;
+      e.preventDefault();
+      select(n, {focus: true, hash: true, center: true});
+    });
+  });
+
+  [].forEach.call(root.querySelectorAll('[data-step]'), function(b){
+    b.addEventListener('click', function(){
+      select(cur + parseInt(b.getAttribute('data-step'), 10), {hash: true, center: true});
+    });
+  });
+
+  var sx = null, sy = null;
+  stage.addEventListener('touchstart', function(e){
+    var t = e.changedTouches[0]; sx = t.clientX; sy = t.clientY;
+  }, {passive: true});
+  stage.addEventListener('touchend', function(e){
+    if(sx === null) return;
+    var t = e.changedTouches[0], dx = t.clientX - sx, dy = t.clientY - sy;
+    sx = null;
+    if(Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy) * 1.5){
+      select(cur + (dx < 0 ? 1 : -1), {hash: true, center: true});
+    }
+  }, {passive: true});
+
+  function fromHash(){
+    var m = /^#schwerpunkte=([\w-]+)$/.exec(location.hash);
+    if(!m) return false;
+    var i = keys.indexOf(m[1]);
+    if(i < 0) return false;
+    select(i, {center: true});
+    return true;
+  }
+  window.addEventListener('hashchange', fromHash);
+
+  select(0);
+  if(fromHash()) document.getElementById('schwerpunkte').scrollIntoView();
+})();
+</script>
 </body>
 </html>

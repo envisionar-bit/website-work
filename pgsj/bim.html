@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<script>document.documentElement.className+=" js"</script>
+<title>BIM und Digital | PGSJ Planungsgesellschaft mbH</title>
+<meta name="description" content="Design concept preview: Seite BIM und Digital mit 3D-Modellviewer und klickbarem BIM-Ablauf für PGSJ Planungsgesellschaft mbH, Münster. Demomodell, kein realisiertes Projekt.">
+<meta name="robots" content="noindex,nofollow">
+<style>
+  :root{
+    /* PGSJ Markenrichtlinien: Rot nur als Akzent, sonst Schwarz, Weiß und Grautöne. */
+    --red:#D53032; --red-deep:#A4262C; --ink:#000000; --graphite:#212224; --mid:#646464; --dim:#7F7F7F; --line:#E4E2DD; --paper:#FFFFFF; --tint:#F7F7F7;
+    /* Century Gothic und Verdana sind die Hausschriften. Ohne Installation greift die Systemschrift.
+       Es werden bewusst keine externen Schriften nachgeladen. */
+    --font-display:'Century Gothic', 'CenturyGothic', 'Avant Garde', 'Jost', sans-serif;
+    --font-body:'Verdana Pro', Verdana, Geneva, sans-serif;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0; background:var(--paper); color:var(--ink); font-family:var(--font-body); line-height:1.65; -webkit-font-smoothing:antialiased}
+  a{color:inherit}
+  img{max-width:100%; display:block}
+  .wrap{max-width:1180px; margin:0 auto; padding:0 24px}
+  h1,h2,h3{font-family:var(--font-display); font-weight:600; margin:0; letter-spacing:-0.01em}
+  .kicker{font-size:12.5px; font-weight:700; letter-spacing:.14em; text-transform:uppercase; color:var(--red); margin-bottom:14px; display:block}
+  button{font-family:inherit}
+  :focus-visible{outline:2px solid var(--ink); outline-offset:2px}
+
+  .preview-ribbon{background:var(--ink); color:#fff; text-align:center; font-size:12.5px; font-weight:600; letter-spacing:.02em; padding:9px 16px}
+  .preview-ribbon b{color:#EF6B6D}
+
+  header.bar{display:flex; align-items:center; justify-content:space-between; padding:20px 0; flex-wrap:wrap; gap:14px}
+  .brand img{height:44px; width:auto}
+  nav.primary{display:flex; align-items:center; gap:26px; flex-wrap:wrap}
+  nav.primary a{font-size:13px; font-weight:600; letter-spacing:.03em; text-transform:uppercase; text-decoration:none; color:var(--ink)}
+  nav.primary a:hover, nav.primary a[aria-current="page"]{color:var(--red)}
+  .btn{display:inline-flex; align-items:center; gap:8px; font-weight:600; font-size:13.5px; padding:12px 22px; text-decoration:none; border:1.5px solid var(--ink); letter-spacing:.02em; background:none; cursor:pointer; color:var(--ink)}
+  .btn-fill{background:var(--ink); color:#fff; border-color:var(--ink)}
+  .btn-fill:hover{background:var(--red); border-color:var(--red)}
+  .btn-line:hover{border-color:var(--red); color:var(--red)}
+
+  /* intro */
+  section.intro{padding:56px 0 40px; border-top:1px solid var(--line)}
+  .intro h1{font-size:clamp(28px,4vw,46px); line-height:1.14; max-width:18ch; margin-bottom:20px}
+  .intro .lead{font-size:16px; color:var(--mid); max-width:62ch; margin:0 0 22px}
+  .demo-note{display:inline-block; border-left:4px solid var(--ink); background:var(--tint); padding:12px 18px; font-size:13.5px; line-height:1.6; max-width:76ch; margin:0}
+  .demo-note b{font-weight:700}
+
+  /* workflow + viewer */
+  section.bim{padding:8px 0 80px}
+  .bim-head{margin-bottom:26px}
+  .bim-head h2{font-size:clamp(24px,3vw,32px); margin-bottom:10px}
+  .bim-head p{margin:0; color:var(--mid); font-size:15px; max-width:64ch}
+
+  .steps{display:grid; grid-template-columns:repeat(4,1fr); border-top:1px solid var(--line); margin-bottom:28px}
+  html:not(.js) .steps{display:none}
+  .step{appearance:none; background:none; border:0; border-top:4px solid transparent; margin-top:-1px; text-align:left; padding:16px 18px 18px 0; cursor:pointer; display:grid; gap:2px; color:var(--ink)}
+  .step .n{font-family:var(--font-display); font-weight:600; font-size:13px; letter-spacing:.1em; color:var(--dim)}
+  .step .t{font-family:var(--font-display); font-weight:600; font-size:clamp(16px,1.8vw,20px); line-height:1.25}
+  .step .s{font-size:12.5px; line-height:1.5; color:var(--mid)}
+  .step:hover .t{color:var(--red)}
+  .step[aria-selected="true"]{border-top-color:var(--red)}
+  .step[aria-selected="true"] .n{color:var(--red)}
+  .step:focus-visible{outline-offset:-2px}
+
+  .bim-grid{display:grid; grid-template-columns:minmax(0,1.5fr) minmax(0,1fr); gap:32px; align-items:start}
+  html:not(.js) .vwrap{display:none}
+  .vstage{position:relative; aspect-ratio:16/10; background:var(--tint); border:1px solid var(--line); overflow:hidden}
+  .vstage canvas{position:absolute; inset:0; width:100%; height:100%; display:block; touch-action:pan-y; cursor:grab}
+  .vstage canvas:active{cursor:grabbing}
+  .vstage canvas:focus-visible{outline:2px solid var(--ink); outline-offset:-4px}
+  .vtag{position:absolute; left:0; top:0; background:var(--ink); color:#fff; font-size:11.5px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; padding:7px 12px; pointer-events:none}
+  .vlegend{position:absolute; right:12px; bottom:10px; font-size:11.5px; color:var(--mid); display:flex; gap:8px; align-items:center; pointer-events:none}
+  .vlegend i{display:inline-block; width:10px; height:10px; background:var(--red); border-radius:50%}
+  .vlegend[hidden]{display:none}
+  .vfallback{position:absolute; inset:0; display:none; align-items:center; justify-content:center; text-align:center; padding:24px; font-size:14px; color:var(--mid)}
+  .vstage.is-fallback .vfallback{display:flex}
+  .vstage.is-fallback canvas, .vstage.is-fallback .vlegend{display:none}
+
+  .vtools{margin-top:16px; display:grid; gap:14px}
+  .vtools-row{display:flex; flex-wrap:wrap; gap:8px; align-items:center}
+  .vtools-label{font-size:11.5px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:var(--mid); min-width:76px}
+  .ltog{appearance:none; display:inline-flex; align-items:center; gap:9px; background:#fff; border:1.5px solid var(--ink); color:var(--ink); font-size:13.5px; font-weight:600; padding:9px 14px; cursor:pointer; line-height:1.2}
+  .ltog .sw{width:12px; height:12px; border:1.5px solid var(--ink); background:var(--sw)}
+  .ltog[aria-pressed="false"]{border-color:#BDBDBD; color:var(--dim); background:var(--tint)}
+  .ltog[aria-pressed="false"] .sw{background:transparent; border-color:#BDBDBD}
+  .ltog.is-ghost .sw{background:transparent}
+  .ltog:hover{border-color:var(--red)}
+  .vbtn{appearance:none; background:#fff; border:1.5px solid var(--ink); font-size:13px; font-weight:600; padding:8px 12px; cursor:pointer; color:var(--ink); line-height:1.2}
+  .vbtn:hover{border-color:var(--red); color:var(--red)}
+  .vbtn[aria-pressed="true"]{background:var(--ink); color:#fff}
+  .vbtn[aria-pressed="true"]:hover{background:var(--red); border-color:var(--red); color:#fff}
+  .vrange{display:flex; align-items:center; gap:12px; font-size:13px}
+  .vrange input{width:min(240px,50vw); accent-color:var(--ink)}
+  .vstatus{margin:0; font-size:12.5px; color:var(--mid)}
+  .vhint{margin:0; font-size:12.5px; color:var(--dim)}
+
+  .vpanel{background:var(--tint); border-top:4px solid var(--ink); padding:26px 28px 28px}
+  .vpanel h3{font-size:clamp(20px,2.2vw,24px); margin-bottom:12px}
+  .vpanel p{margin:0 0 14px; font-size:14.5px; color:var(--graphite)}
+  .vpanel .inview{border-left:3px solid var(--ink); padding-left:12px; font-size:13.5px; color:var(--mid)}
+  html:not(.js) .step-panel{margin-bottom:28px}
+  .js .step-panel[hidden]{display:none}
+  .pnav{display:flex; gap:10px; margin-top:20px}
+  html:not(.js) .pnav{display:none}
+
+  .clash-list{list-style:none; margin:14px 0 0; padding:0; display:grid; gap:8px}
+  .clash-list button{appearance:none; width:100%; display:grid; grid-template-columns:auto 1fr; gap:12px; text-align:left; background:#fff; border:1px solid var(--line); padding:10px 12px; cursor:pointer; font-size:13px; line-height:1.45; color:var(--ink)}
+  .clash-list button:hover, .clash-list button[aria-pressed="true"]{border-color:var(--ink)}
+  .clash-list .id{background:var(--red); color:#fff; font-weight:700; font-size:11.5px; letter-spacing:.06em; padding:3px 8px; align-self:start}
+  .clash-list small{display:block; color:var(--mid); font-size:12px}
+  .clash-sum{font-weight:700; font-size:14.5px}
+
+  table.qty{width:100%; border-collapse:collapse; font-size:13px; margin-top:6px}
+  table.qty th, table.qty td{padding:7px 0; border-bottom:1px solid var(--line); text-align:left; font-weight:400}
+  table.qty td.v{text-align:right; font-variant-numeric:tabular-nums; font-weight:700; white-space:nowrap}
+  table.qty td.u{width:44px; padding-left:8px; color:var(--mid)}
+  table.qty tbody.grp th[colspan]{padding-top:16px; font-size:11.5px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; border-bottom:2px solid var(--ink)}
+  table.qty .qrow{appearance:none; background:none; border:0; padding:0; font-size:13px; text-align:left; cursor:pointer; color:var(--ink); text-decoration:underline; text-decoration-color:#BDBDBD; text-underline-offset:3px}
+  table.qty .qrow:hover{color:var(--red); text-decoration-color:var(--red)}
+  .qty-note{font-size:12px; color:var(--mid); margin:12px 0 0}
+
+  .release{margin-top:56px; display:grid; grid-template-columns:1fr 1.4fr; gap:40px; border-top:1px solid var(--line); padding-top:32px}
+  .release h2{font-size:clamp(20px,2.4vw,26px)}
+  .release p{margin:0 0 12px; font-size:14.5px; color:var(--mid)}
+  .release ul{margin:0; padding:0; list-style:none; display:grid; gap:8px}
+  .release li{position:relative; padding-left:20px; font-size:14.5px; line-height:1.55}
+  .release li::before{content:''; position:absolute; left:0; top:.8em; width:8px; height:2px; background:var(--ink)}
+
+  footer.site{padding:24px 0; border-top:1px solid var(--line)}
+  .foot-bottom{display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px; font-size:12.5px; color:var(--dim)}
+  .foot-bottom a{text-decoration:none; margin-left:14px; color:var(--dim)}
+  .foot-bottom a:hover{color:var(--red)}
+
+  @media(max-width:900px){
+    .bim-grid{grid-template-columns:1fr; gap:24px}
+    .steps{grid-template-columns:1fr 1fr}
+    .step{padding-right:12px}
+    .release{grid-template-columns:1fr; gap:20px}
+    .vstage{aspect-ratio:4/3}
+    .vpanel{padding:22px 20px 24px}
+  }
+  @media(prefers-reduced-motion:reduce){ html{scroll-behavior:auto} }
+</style>
+</head>
+<body>
+<div class="preview-ribbon">Design concept preview, vorbereitet von <b>Envisionar</b> für PGSJ. Seite BIM und Digital mit Demomodell. Nicht die Live-Website.</div>
+
+<header class="bar"><div class="wrap" style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:14px;width:100%">
+  <a class="brand" href="index.html"><img src="assets/pgsj-logo.png" alt="PGSJ Planungsgesellschaft mbH"></a>
+  <nav class="primary" aria-label="Hauptnavigation">
+    <a href="index.html">Home</a>
+    <a href="ueber-uns.html">Über uns</a>
+    <a href="team.html">Team</a>
+    <a href="karriere.html">Karriere</a>
+    <a href="leistungen.html">Leistungen</a>
+    <a href="bim.html" aria-current="page">BIM und Digital</a>
+    <a href="projekte.html">Projekte</a>
+  </nav>
+  <a class="btn btn-fill" href="index.html#kontakt">Kontakt</a>
+</div></header>
+
+<main id="bim">
+<section class="intro">
+  <div class="wrap">
+    <span class="kicker">BIM und Digital</span>
+    <h1>Planen am digitalen Modell</h1>
+    <p class="lead">Das Demomodell zeigt, wie Architektur, Tragwerk, TGA und Außenanlagen in einem Modell zusammenkommen. Blenden Sie Ebenen ein und aus. Folgen Sie dem Ablauf von der Modellierung bis zu den Mengen.</p>
+    <p class="demo-note"><b>Demomodell.</b> Das Hallengebäude ist fiktiv und zeigt kein realisiertes Projekt. Modelle echter Projekte zeigen wir erst nach Freigabe des Auftraggebers.</p>
+  </div>
+</section>
+
+<section class="bim" aria-labelledby="bim-h">
+  <div class="wrap">
+    <div class="bim-head">
+      <h2 id="bim-h">Vom Modell zur Menge in vier Schritten</h2>
+      <p>Jeder Schritt verändert die Ansicht des Modells. Die Ebenen darunter lassen sich jederzeit selbst schalten.</p>
+    </div>
+
+    <div class="steps" role="tablist" aria-label="BIM-Ablauf">
+      <button class="step" role="tab" id="tab-0" aria-controls="step-0" aria-selected="true" tabindex="0"><span class="n">01</span><span class="t">Modell</span><span class="s">Fachmodelle aufbauen</span></button>
+      <button class="step" role="tab" id="tab-1" aria-controls="step-1" aria-selected="false" tabindex="-1"><span class="n">02</span><span class="t">Koordination</span><span class="s">Modelle zusammenführen</span></button>
+      <button class="step" role="tab" id="tab-2" aria-controls="step-2" aria-selected="false" tabindex="-1"><span class="n">03</span><span class="t">Kollisionsprüfung</span><span class="s">Konflikte finden</span></button>
+      <button class="step" role="tab" id="tab-3" aria-controls="step-3" aria-selected="false" tabindex="-1"><span class="n">04</span><span class="t">Mengen</span><span class="s">Werte ableiten</span></button>
+    </div>
+
+    <div class="bim-grid">
+      <div class="vwrap">
+        <div class="vstage" id="vstage">
+          <canvas id="vcanvas" tabindex="0" role="group" aria-label="3D-Ansicht des Demomodells. Mit den Pfeiltasten drehen, mit Plus und Minus zoomen."></canvas>
+          <span class="vtag">Demomodell · fiktives Hallengebäude</span>
+          <span class="vlegend" id="vlegend" hidden><i></i>Kollision</span>
+          <div class="vfallback" id="vfallback" role="status">Die 3D-Ansicht lässt sich auf diesem Gerät nicht anzeigen. Ablauf, Kollisionsliste und Mengen darunter funktionieren weiterhin.</div>
+        </div>
+        <div class="vtools" id="vtools">
+          <div class="vtools-row" role="group" aria-label="Ebenen ein- und ausblenden">
+            <span class="vtools-label">Ebenen</span>
+            <button class="ltog" type="button" data-layer="arch" aria-pressed="true" style="--sw:#E4E2DD"><span class="sw"></span>Architektur</button>
+            <button class="ltog" type="button" data-layer="struct" aria-pressed="true" style="--sw:#3F4042"><span class="sw"></span>Tragwerk</button>
+            <button class="ltog" type="button" data-layer="mep" aria-pressed="true" style="--sw:#9A9A9A"><span class="sw"></span>TGA</button>
+            <button class="ltog" type="button" data-layer="site" aria-pressed="true" style="--sw:#D0D0CE"><span class="sw"></span>Außenanlagen</button>
+          </div>
+          <div class="vtools-row">
+            <span class="vtools-label">Ansicht</span>
+            <label class="vrange">Auseinanderziehen <input type="range" id="vexplode" min="0" max="100" value="0" aria-label="Ebenen auseinanderziehen"></label>
+            <button class="vbtn" type="button" id="vauto" aria-pressed="false">Drehen</button>
+            <button class="vbtn" type="button" id="vzoomin" aria-label="Näher heranzoomen">+</button>
+            <button class="vbtn" type="button" id="vzoomout" aria-label="Weiter wegzoomen">−</button>
+            <button class="vbtn" type="button" id="vreset">Zurücksetzen</button>
+          </div>
+          <p class="vstatus" id="vstatus" aria-live="polite"></p>
+          <p class="vhint">Ziehen dreht das Modell. Pfeiltasten drehen, Plus und Minus zoomen.</p>
+        </div>
+        <noscript><p class="demo-note">Für die 3D-Ansicht ist JavaScript nötig. Die vier Schritte stehen rechts als Text.</p></noscript>
+      </div>
+
+      <div class="vpanel" aria-live="off">
+        <div class="step-panel" id="step-0" role="tabpanel" aria-labelledby="tab-0">
+          <h3>01 Modell</h3>
+          <p>Jedes Fach baut sein Teilmodell auf: Architektur, Tragwerk, TGA und Außenanlagen. Die Bauteile tragen Angaben wie Maß, Material und Lage. Der Austausch zwischen den Fächern läuft über offene Formate wie IFC.</p>
+          <p class="inview">Im Viewer: Alle vier Fachmodelle sind sichtbar. Schalten Sie Ebenen einzeln aus, um ein Fach allein zu sehen.</p>
+          <div class="pnav"><button class="vbtn js-next" type="button">Weiter: Koordination</button></div>
+        </div>
+        <div class="step-panel" id="step-1" role="tabpanel" aria-labelledby="tab-1">
+          <h3>02 Koordination</h3>
+          <p>Die Teilmodelle werden in einem Koordinationsmodell zusammengeführt. Das Planungsteam stimmt Achsen, Höhenlagen und Trassen ab, bevor gebaut wird.</p>
+          <p class="inview">Im Viewer: Die Ebenen sind auseinandergezogen. Mit dem Regler stellen Sie den Abstand ein.</p>
+          <div class="pnav"><button class="vbtn js-prev" type="button">Zurück</button><button class="vbtn js-next" type="button">Weiter: Kollisionsprüfung</button></div>
+        </div>
+        <div class="step-panel" id="step-2" role="tabpanel" aria-labelledby="tab-2">
+          <h3>03 Kollisionsprüfung</h3>
+          <p>Eine Prüfung findet Stellen, an denen sich Bauteile verschiedener Fächer durchdringen. Jeder Treffer wird dokumentiert und dem zuständigen Fach zur Klärung zugewiesen.</p>
+          <p class="inview">Im Viewer: Tragwerk und TGA sind hervorgehoben. Rote Punkte markieren die Treffer.</p>
+          <p class="clash-sum" id="clashSum"></p>
+          <ul class="clash-list" id="clashList"></ul>
+          <p class="qty-note">Vereinfachte Prüfung mit Hüllquadern. Reale Prüfregeln und Toleranzen legt jedes Projekt fest.</p>
+          <div class="pnav"><button class="vbtn js-prev" type="button">Zurück</button><button class="vbtn js-next" type="button">Weiter: Mengen</button></div>
+        </div>
+        <div class="step-panel" id="step-3" role="tabpanel" aria-labelledby="tab-3">
+          <h3>04 Mengen</h3>
+          <p>Aus den Bauteilen des Modells lassen sich Mengen ableiten, etwa für Leistungsverzeichnis und Kostenermittlung. Wählen Sie eine Zeile, um die zugehörige Ebene hervorzuheben.</p>
+          <table class="qty" id="qtyTable"><caption class="sr-only" style="position:absolute;left:-9999px">Mengen des Demomodells</caption><tbody id="qtyBody"></tbody></table>
+          <p class="qty-note">Beispielwerte aus dem fiktiven Demomodell, rechnerisch aus der Geometrie ermittelt. Sie sind keine Werte eines realen Projekts.</p>
+          <div class="pnav"><button class="vbtn js-prev" type="button">Zurück</button></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="release">
+      <h2>Echte Projektmodelle nur mit Freigabe</h2>
+      <div>
+        <p>Für diese Seite dient ein fiktives Modell. Soll später ein Modell aus einem realisierten Projekt erscheinen, gilt vorab:</p>
+        <ul>
+          <li>Der Auftraggeber gibt die Veröffentlichung schriftlich frei.</li>
+          <li>Das Modell wird für die Web-Ansicht vereinfacht. Sensible Details und technische Anlagen entfallen.</li>
+          <li>Das Modell wird von PGSJ selbst gehostet, ohne externe Dienste.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="site"><div class="wrap foot-bottom">
+  <span>&copy; 2026 PGSJ Planungsgesellschaft mbH</span>
+  <span><a href="design-system.html">Design System</a><a href="datenschutz.html">Datenschutz</a><a href="impressum.html">Impressum</a></span>
+</div></footer>
+
+<script src="assets/vendor/three.min.js"></script>
+<script>
+(function(){
+  'use strict';
+  var T = window.THREE;
+  var reduce = !!(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches);
+  var nf0 = new Intl.NumberFormat('de-DE',{maximumFractionDigits:0});
+  var nf1 = new Intl.NumberFormat('de-DE',{minimumFractionDigits:1,maximumFractionDigits:1});
+  function fmt(n,d){ return (d ? nf1 : nf0).format(n).replace('-','−'); }
+
+  var LAYERS = ['arch','struct','mep','site'];
+  var LNAME = {arch:'Architektur', struct:'Tragwerk', mep:'TGA', site:'Außenanlagen'};
+
+  /* ---------- Demomodell: reine Zahlen, unabhängig von WebGL ---------- */
+  var parts = [];
+  function B(layer,kind,name,cx,cy,cz,sx,sy,sz,color,base,noEdge){
+    var p = {layer:layer,kind:kind,name:name,shape:'box',c:[cx,cy,cz],s:[sx,sy,sz],
+      min:[cx-sx/2,cy-sy/2,cz-sz/2], max:[cx+sx/2,cy+sy/2,cz+sz/2], color:color, base:base||1, edge:!noEdge};
+    parts.push(p); return p;
+  }
+  function C(layer,kind,name,axis,cx,cy,cz,len,r,color){
+    var s = axis==='x' ? [len,2*r,2*r] : [2*r,2*r,len];
+    var p = {layer:layer,kind:kind,name:name,shape:'cyl',axis:axis,r:r,len:len,c:[cx,cy,cz],s:s,
+      min:[cx-s[0]/2,cy-s[1]/2,cz-s[2]/2], max:[cx+s[0]/2,cy+s[1]/2,cz+s[2]/2], color:color, base:1, edge:false};
+    parts.push(p); return p;
+  }
+  function tree(x,z){ parts.push({layer:'site',kind:'tree',name:'Baum',shape:'tree',c:[x,0,z],s:[4.4,6,4.4],min:[x-2.2,-0.4,z-2.2],max:[x+2.2,5.6,z+2.2],base:1,edge:false}); }
+
+  var i, x, z;
+  /* Architektur: Halle 60 x 30 m, Traufe 10,5 m */
+  B('arch','slab','Bodenplatte',0,-0.2,0,60,0.4,30,'#CFCFCF',1);
+  B('arch','wall','Wand hinten',0,5.25,-14.85,60,10.5,0.3,'#FFFFFF',0.30);
+  B('arch','wall','Wand vorne',0,5.25,14.85,60,10.5,0.3,'#FFFFFF',0.30);
+  B('arch','wall','Wand links',-29.85,5.25,0,0.3,10.5,29.4,'#FFFFFF',0.30);
+  B('arch','wall','Wand rechts',29.85,5.25,0,0.3,10.5,29.4,'#FFFFFF',0.30);
+  B('arch','roof','Dach',0,10.65,0,60.6,0.3,30.6,'#FFFFFF',0.22);
+  var DOORX = [-25,-15,-5,5,15,25];
+  for(i=0;i<DOORX.length;i++) B('arch','door','Tor '+(i+1),DOORX[i],2.1,15.1,3.5,4.2,0.2,'#3F4042',1);
+
+  /* Tragwerk */
+  var COLX = [-27,-18,-9,0,9,18,27], COLZ = [-14.5,0,14.5], n = 0;
+  for(i=0;i<COLX.length;i++){
+    for(var j=0;j<COLZ.length;j++){ n++; B('struct','column','Stütze S'+n,COLX[i],4.75,COLZ[j],0.5,9.5,0.5,'#3F4042',1); }
+    B('struct','girder','Binder B'+(i+1),COLX[i],9.85,0,0.4,0.7,29,'#3F4042',1);
+  }
+  var PURZ = [-12,-6,0,6,12];
+  for(i=0;i<PURZ.length;i++) B('struct','purlin','Pfette P'+(i+1),0,10.35,PURZ[i],60,0.3,0.25,'#3F4042',1);
+
+  /* TGA */
+  B('mep','duct','Lüftungskanal L1',0,8.2,7.5,56,1.2,1.4,'#9A9A9A',1);
+  B('mep','duct','Lüftungskanal L2',-16.25,9.2,-7.5,19.5,1.2,1.4,'#9A9A9A',1);
+  C('mep','pipe','Rohrleitung R1','z',9,3,0,24,0.2,'#646464');
+  C('mep','pipe','Rohrleitung R2','x',0,6,3,56,0.15,'#646464');
+  B('mep','tray','Kabeltrasse E1',-4.5,9.05,0,0.6,0.1,28,'#BDBDBD',1);
+
+  /* Außenanlagen */
+  B('site','ground','Gelände',0,-0.45,5,150,0.1,110,'#F0F0EE',1,true);
+  B('site','apron','Hoffläche',0,-0.38,29.65,90,0.04,28.7,'#DEDEDC',1,true);
+  B('site','pad','Stellplatzfläche',-7.5,-0.38,-26,29,0.04,12,'#D0D0CE',1,true);
+  for(i=0;i<10;i++) B('site','stall','Stellplatz '+(i+1),-22+2.9*i+1.45,-0.35,-29.25,2.7,0.02,5.4,'#FFFFFF',1,true);
+  var TREES = [[-40,-40],[-30,-40],[-20,-40],[-10,-40],[0,-40],[10,-40],[20,-40],[30,-40],[40,-40],
+               [-48,40],[48,40],[-48,0],[48,0],[48,-20]];
+  for(i=0;i<TREES.length;i++) tree(TREES[i][0],TREES[i][1]);
+  B('site','fence','Zaun vorne',0,0.5,44,90,1.8,0.1,'#646464',1,true);
+  B('site','fence','Zaun links',-45,0.5,29.5,0.1,1.8,29,'#646464',1,true);
+  B('site','fence','Zaun rechts',45,0.5,29.5,0.1,1.8,29,'#646464',1,true);
+  var TRX = [-15,5,25];
+  for(i=0;i<TRX.length;i++) B('site','trailer','Auflieger '+(i+1),TRX[i],1.6,24,2.6,3.6,13,'#E4E2DD',1);
+
+  /* ---------- Kollisionsprüfung: Hüllquadern Tragwerk gegen TGA ---------- */
+  function overlap(a,b){
+    for(var k=0;k<3;k++){ if(!(a.min[k] < b.max[k]-1e-6 && a.max[k] > b.min[k]+1e-6)) return null; }
+    var lo=[],hi=[];
+    for(k=0;k<3;k++){ lo.push(Math.max(a.min[k],b.min[k])); hi.push(Math.min(a.max[k],b.max[k])); }
+    return {c:[(lo[0]+hi[0])/2,(lo[1]+hi[1])/2,(lo[2]+hi[2])/2], s:[hi[0]-lo[0],hi[1]-lo[1],hi[2]-lo[2]]};
+  }
+  var clashes = [];
+  parts.forEach(function(a){
+    if(a.layer!=='struct') return;
+    parts.forEach(function(b){
+      if(b.layer!=='mep') return;
+      var o = overlap(a,b);
+      if(o) clashes.push({a:a,b:b,c:o.c,s:o.s});
+    });
+  });
+  clashes.sort(function(p,q){ return p.c[0]-q.c[0] || p.c[2]-q.c[2]; });
+
+  /* ---------- Mengen aus der Geometrie ---------- */
+  function sum(fn, filter){ var t=0; parts.forEach(function(p){ if(filter(p)) t+=fn(p); }); return t; }
+  function cnt(kind){ return sum(function(){return 1;}, function(p){return p.kind===kind;}); }
+  function area(p){ return p.s[0]*p.s[2]; }
+  function longest(p){ return Math.max(p.s[0],p.s[1],p.s[2]); }
+  var doorArea = sum(function(p){return p.s[0]*p.s[1];}, function(p){return p.kind==='door';});
+  var wallArea = sum(function(p){return Math.max(p.s[0],p.s[2])*p.s[1];}, function(p){return p.kind==='wall';}) - doorArea;
+  var QTY = [
+    {layer:'arch', rows:[
+      ['Bodenplatte', sum(area,function(p){return p.kind==='slab';}), 'm²', 0],
+      ['Außenwände netto', wallArea, 'm²', 0],
+      ['Dachfläche', sum(area,function(p){return p.kind==='roof';}), 'm²', 0],
+      ['Tore', cnt('door'), 'Stk', 0]]},
+    {layer:'struct', rows:[
+      ['Stützen', cnt('column'), 'Stk', 0],
+      ['Binder', cnt('girder'), 'Stk', 0],
+      ['Pfetten', sum(longest,function(p){return p.kind==='purlin';}), 'm', 1],
+      ['Stablänge gesamt', sum(longest,function(p){return p.layer==='struct';}), 'm', 1]]},
+    {layer:'mep', rows:[
+      ['Lüftungskanäle', sum(longest,function(p){return p.kind==='duct';}), 'm', 1],
+      ['Rohrleitungen', sum(longest,function(p){return p.kind==='pipe';}), 'm', 1],
+      ['Kabeltrassen', sum(longest,function(p){return p.kind==='tray';}), 'm', 1]]},
+    {layer:'site', rows:[
+      ['Hof- und Stellplatzfläche', sum(area,function(p){return p.kind==='apron'||p.kind==='pad';}), 'm²', 0],
+      ['Stellplätze', cnt('stall'), 'Stk', 0],
+      ['Bäume', cnt('tree'), 'Stk', 0],
+      ['Zaun', sum(longest,function(p){return p.kind==='fence';}), 'm', 0]]}
+  ];
+
+  /* ---------- Zustand ---------- */
+  var DEF = {yaw:-0.62, pitch:0.5, radius:128, tx:0, ty:3, tz:8};
+  var cam = {yaw:DEF.yaw, pitch:DEF.pitch, radius:DEF.radius, tx:DEF.tx, ty:DEF.ty, tz:DEF.tz};
+  var goal = {yaw:DEF.yaw, pitch:DEF.pitch, radius:DEF.radius, tx:DEF.tx, ty:DEF.ty, tz:DEF.tz};
+  var st = {
+    step:0, vis:{arch:1,struct:1,mep:1,site:1}, ghost:{arch:0,struct:0,mep:0,site:0},
+    focus:null, explode:0, explodeGoal:0, clash:false, sel:-1, auto:!reduce, drag:false
+  };
+  var alpha = {arch:1,struct:1,mep:1,site:1}, alphaGoal = {arch:1,struct:1,mep:1,site:1};
+  var OFFY = {arch:0, struct:16, mep:30, site:-7};
+
+  var PRESETS = [
+    {vis:{arch:1,struct:1,mep:1,site:1}, ghost:{}, explode:0, clash:false},
+    {vis:{arch:1,struct:1,mep:1,site:1}, ghost:{}, explode:0.75, clash:false},
+    {vis:{arch:1,struct:1,mep:1,site:1}, ghost:{arch:1,site:1}, explode:0, clash:true},
+    {vis:{arch:1,struct:1,mep:1,site:1}, ghost:{}, explode:0, clash:false}
+  ];
+
+  /* ---------- DOM ---------- */
+  var $ = function(s,r){ return (r||document).querySelector(s); };
+  var tabs = [].slice.call(document.querySelectorAll('.step'));
+  var panels = [0,1,2,3].map(function(k){ return document.getElementById('step-'+k); });
+  var togs = [].slice.call(document.querySelectorAll('.ltog'));
+  var stage = $('#vstage'), canvas = $('#vcanvas'), status = $('#vstatus');
+  var slider = $('#vexplode'), autoBtn = $('#vauto'), legend = $('#vlegend');
+  var renderer = null, scene, camera, groups = {}, regs = [], markers = [], wake = function(){}, needsRender = true;
+
+  /* ---------- Tabelle und Liste (ohne WebGL nutzbar) ---------- */
+  var qb = $('#qtyBody');
+  QTY.forEach(function(g){
+    var tb = document.createElement('tbody'); tb.className='grp';
+    var h = document.createElement('tr'); var th = document.createElement('th'); th.colSpan=3; th.scope='colgroup'; th.textContent=LNAME[g.layer]; h.appendChild(th); tb.appendChild(h);
+    g.rows.forEach(function(r){
+      var tr = document.createElement('tr');
+      var a = document.createElement('td'); var b = document.createElement('button'); b.type='button'; b.className='qrow'; b.textContent=r[0]; b.setAttribute('data-layer',g.layer); a.appendChild(b);
+      var v = document.createElement('td'); v.className='v'; v.textContent=fmt(r[1],r[3]);
+      var u = document.createElement('td'); u.className='u'; u.textContent=r[2];
+      tr.appendChild(a); tr.appendChild(v); tr.appendChild(u); tb.appendChild(tr);
+      function on(){ st.focus=g.layer; applyTargets(); }
+      function off(){ st.focus=null; applyTargets(); }
+      b.addEventListener('mouseenter',on); b.addEventListener('focus',on);
+      b.addEventListener('mouseleave',off); b.addEventListener('blur',off);
+    });
+    qb.parentNode.appendChild(tb);
+  });
+  qb.parentNode.removeChild(qb);
+
+  function cname(p){ return p.name; }
+  var clashList = $('#clashList');
+  $('#clashSum').textContent = clashes.length + ' Kollisionen zwischen Tragwerk und TGA gefunden';
+  clashes.forEach(function(c,k){
+    var li = document.createElement('li'); var b = document.createElement('button'); b.type='button'; b.setAttribute('aria-pressed','false');
+    b.innerHTML = '<span class="id">T'+(k+1)+'</span><span>'+cname(c.b)+' kreuzt '+cname(c.a)+'<small>bei x '+fmt(c.c[0],1)+' m, z '+fmt(c.c[2],1)+' m, Höhe '+fmt(c.c[1],1)+' m</small></span>';
+    b.addEventListener('click',function(){ selectClash(st.sel===k ? -1 : k); });
+    li.appendChild(b); clashList.appendChild(li);
+  });
+
+  /* ---------- Schritte ---------- */
+  function updateStatus(){
+    var on = LAYERS.filter(function(l){ return st.vis[l]; }).map(function(l){ return LNAME[l]; });
+    status.textContent = on.length ? 'Sichtbar: ' + on.join(', ') + '.' : 'Alle Ebenen sind ausgeblendet.';
+  }
+  function syncToggles(){
+    togs.forEach(function(t){
+      var l = t.getAttribute('data-layer');
+      t.setAttribute('aria-pressed', st.vis[l] ? 'true' : 'false');
+      t.classList.toggle('is-ghost', !!(st.vis[l] && st.ghost[l]));
+    });
+    slider.value = Math.round(st.explodeGoal*100);
+    legend.hidden = !(st.clash && renderer);
+    updateStatus();
+  }
+  function setStep(k, focusTab){
+    st.step = k;
+    tabs.forEach(function(t,j){
+      var on = j===k; t.setAttribute('aria-selected', on?'true':'false'); t.tabIndex = on?0:-1;
+      panels[j].hidden = !on;
+    });
+    if(focusTab) tabs[k].focus();
+    var p = PRESETS[k];
+    LAYERS.forEach(function(l){ st.vis[l]=p.vis[l]; st.ghost[l]=p.ghost[l]?1:0; });
+    st.explodeGoal = p.explode; st.clash = p.clash; st.sel = -1; st.focus = null;
+    [].forEach.call(clashList.querySelectorAll('button'),function(b){ b.setAttribute('aria-pressed','false'); });
+    resetView(true);
+    syncToggles(); applyTargets();
+  }
+  tabs.forEach(function(t,k){
+    t.addEventListener('click',function(){ setStep(k,false); });
+    t.addEventListener('keydown',function(e){
+      var d = e.key==='ArrowRight'||e.key==='ArrowDown' ? 1 : e.key==='ArrowLeft'||e.key==='ArrowUp' ? -1 : 0;
+      if(e.key==='Home'){ e.preventDefault(); setStep(0,true); }
+      else if(e.key==='End'){ e.preventDefault(); setStep(3,true); }
+      else if(d){ e.preventDefault(); setStep((k+d+4)%4,true); }
+    });
+  });
+  [].forEach.call(document.querySelectorAll('.js-next'),function(b){ b.addEventListener('click',function(){ setStep(Math.min(3,st.step+1),false); tabs[st.step].scrollIntoView({block:'nearest'}); }); });
+  [].forEach.call(document.querySelectorAll('.js-prev'),function(b){ b.addEventListener('click',function(){ setStep(Math.max(0,st.step-1),false); tabs[st.step].scrollIntoView({block:'nearest'}); }); });
+
+  togs.forEach(function(t){
+    t.addEventListener('click',function(){
+      var l = t.getAttribute('data-layer');
+      st.vis[l] = st.vis[l] ? 0 : 1; if(st.vis[l]) st.ghost[l]=0;
+      syncToggles(); applyTargets();
+    });
+  });
+  slider.addEventListener('input',function(){ st.explodeGoal = slider.value/100; applyTargets(); });
+
+  function applyTargets(){
+    LAYERS.forEach(function(l){
+      var a = st.vis[l] ? (st.ghost[l] ? 0.14 : 1) : 0;
+      if(st.focus && st.focus!==l && a>0) a = Math.min(a,0.16);
+      alphaGoal[l] = a;
+    });
+    wake();
+  }
+  function selectClash(k){
+    st.sel = k;
+    [].forEach.call(clashList.querySelectorAll('button'),function(b,j){ b.setAttribute('aria-pressed', j===k?'true':'false'); });
+    if(k>=0){
+      var c = clashes[k];
+      st.explodeGoal = 0; slider.value = 0;
+      goal.tx=c.c[0]; goal.ty=c.c[1]; goal.tz=c.c[2]; goal.radius=44;
+    } else { goal.tx=DEF.tx; goal.ty=DEF.ty; goal.tz=DEF.tz; goal.radius=DEF.radius; }
+    wake();
+  }
+  function resetView(soft){
+    goal.yaw=DEF.yaw; goal.pitch=DEF.pitch; goal.radius=DEF.radius; goal.tx=DEF.tx; goal.ty=DEF.ty; goal.tz=DEF.tz;
+    if(!soft){ st.explodeGoal = PRESETS[st.step].explode; slider.value = Math.round(st.explodeGoal*100); }
+    wake();
+  }
+  $('#vreset').addEventListener('click',function(){ resetView(false); });
+  function setAuto(on){ st.auto = on && !reduce; autoBtn.setAttribute('aria-pressed', st.auto?'true':'false'); wake(); }
+  autoBtn.addEventListener('click',function(){ setAuto(!st.auto); });
+  function zoom(f){ goal.radius = Math.max(34,Math.min(170,goal.radius*f)); wake(); }
+  $('#vzoomin').addEventListener('click',function(){ zoom(0.85); });
+  $('#vzoomout').addEventListener('click',function(){ zoom(1.18); });
+
+  /* ---------- three.js ---------- */
+  function fallback(msg){
+    stage.classList.add('is-fallback');
+    if(msg) $('#vfallback').textContent = msg;
+    [].forEach.call(document.querySelectorAll('.ltog,#vexplode,#vauto,#vzoomin,#vzoomout,#vreset'),function(el){ el.disabled = true; });
+    legend.hidden = true; renderer = null;
+  }
+
+  function init3d(){
+    if(!T){ fallback(); return; }
+    try { renderer = new T.WebGLRenderer({canvas:canvas, antialias:true, alpha:true}); }
+    catch(e){ fallback(); return; }
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio||1,2));
+    scene = new T.Scene();
+    camera = new T.PerspectiveCamera(32,1.6,1,600);
+    scene.add(new T.AmbientLight(0xffffff,0.72));
+    var dl = new T.DirectionalLight(0xffffff,0.62); dl.position.set(-40,80,50); scene.add(dl);
+
+    var matCache = {};
+    function mat(layer,color,base){
+      var key = layer+color+base;
+      if(matCache[key]) return matCache[key];
+      var m = new T.MeshPhongMaterial({color:new T.Color(color), specular:0x000000, shininess:0, flatShading:true});
+      regs.push({m:m, base:base, layer:layer}); matCache[key]=m; return m;
+    }
+    var lineMats = {};
+    var LINEC = {arch:'#8A8A8A', struct:'#212224', mep:'#3F4042'};
+    function lmat(layer){
+      if(lineMats[layer]) return lineMats[layer];
+      var m = new T.LineBasicMaterial({color:new T.Color(LINEC[layer]||'#646464')});
+      regs.push({m:m, base:0.55, layer:layer}); lineMats[layer]=m; return m;
+    }
+    LAYERS.forEach(function(l){ groups[l]=new T.Group(); scene.add(groups[l]); });
+
+    parts.forEach(function(p){
+      var g = groups[p.layer], mesh;
+      if(p.shape==='tree'){
+        var tg = new T.Group();
+        var trunk = new T.Mesh(new T.CylinderGeometry(0.25,0.3,1.6,6), mat('site','#646464',1)); trunk.position.set(p.c[0],0.4,p.c[2]);
+        var crown = new T.Mesh(new T.ConeGeometry(2.2,5,7), mat('site','#B5B5B5',1)); crown.position.set(p.c[0],3.7,p.c[2]);
+        tg.add(trunk); tg.add(crown); g.add(tg); return;
+      }
+      if(p.shape==='cyl'){
+        mesh = new T.Mesh(new T.CylinderGeometry(p.r,p.r,p.len,14), mat(p.layer,p.color,p.base));
+        if(p.axis==='x') mesh.rotation.z = Math.PI/2; else mesh.rotation.x = Math.PI/2;
+      } else {
+        var geo = new T.BoxGeometry(p.s[0],p.s[1],p.s[2]);
+        mesh = new T.Mesh(geo, mat(p.layer,p.color,p.base));
+        if(p.edge && LINEC[p.layer]){
+          var ln = new T.LineSegments(new T.EdgesGeometry(geo), lmat(p.layer));
+          ln.position.set(p.c[0],p.c[1],p.c[2]); g.add(ln);
+        }
+      }
+      mesh.position.set(p.c[0],p.c[1],p.c[2]);
+      g.add(mesh);
+    });
+
+    var mmat = new T.MeshBasicMaterial({color:0xD53032, transparent:true, opacity:0.92, depthTest:false});
+    clashes.forEach(function(c){
+      var m = new T.Mesh(new T.SphereGeometry(1,16,12), mmat);
+      m.position.set(c.c[0],c.c[1],c.c[2]); m.renderOrder = 10; m.visible = false;
+      scene.add(m); markers.push(m);
+    });
+
+    function resize(){
+      var w = stage.clientWidth, h = stage.clientHeight;
+      if(!w||!h) return;
+      renderer.setSize(w,h,false); camera.aspect = w/h; camera.updateProjectionMatrix(); needsRender = true; wake();
+    }
+    if(window.ResizeObserver) new ResizeObserver(resize).observe(stage); else window.addEventListener('resize',resize);
+    resize();
+
+    canvas.addEventListener('webglcontextlost',function(e){ e.preventDefault(); fallback(); });
+
+    /* Eingabe */
+    var lx=0, ly=0;
+    canvas.addEventListener('pointerdown',function(e){
+      st.drag = true; lx=e.clientX; ly=e.clientY;
+      try{ canvas.setPointerCapture(e.pointerId); }catch(_){}
+      if(st.auto) setAuto(false);
+    });
+    canvas.addEventListener('pointermove',function(e){
+      if(!st.drag) return;
+      var dx=e.clientX-lx, dy=e.clientY-ly; lx=e.clientX; ly=e.clientY;
+      cam.yaw -= dx*0.007; goal.yaw = cam.yaw;
+      if(e.pointerType!=='touch'){ cam.pitch = Math.max(0.12,Math.min(1.35,cam.pitch+dy*0.005)); goal.pitch = cam.pitch; }
+      needsRender = true; wake();
+    });
+    function up(){ st.drag=false; }
+    canvas.addEventListener('pointerup',up); canvas.addEventListener('pointercancel',up);
+    canvas.addEventListener('keydown',function(e){
+      var h = true;
+      if(e.key==='ArrowLeft') goal.yaw -= 0.14;
+      else if(e.key==='ArrowRight') goal.yaw += 0.14;
+      else if(e.key==='ArrowUp') goal.pitch = Math.min(1.35,goal.pitch+0.08);
+      else if(e.key==='ArrowDown') goal.pitch = Math.max(0.12,goal.pitch-0.08);
+      else if(e.key==='+'||e.key==='=') zoom(0.85);
+      else if(e.key==='-') zoom(1.18);
+      else h = false;
+      if(h){ e.preventDefault(); if(st.auto) setAuto(false); wake(); }
+    });
+
+    /* Schleife nur bei Bedarf und nur im Sichtbereich */
+    var raf = 0, last = 0, onscreen = true, clock = 0;
+    function lerp(a,b,k){ return a+(b-a)*k; }
+    function settled(){
+      if(st.auto || st.drag) return false;
+      if(st.clash && !reduce && markers.some(function(m){return m.visible;})) return false;
+      var eps = 0.002;
+      if(Math.abs(cam.yaw-goal.yaw)>eps || Math.abs(cam.pitch-goal.pitch)>eps || Math.abs(cam.radius-goal.radius)>0.05) return false;
+      if(Math.abs(cam.tx-goal.tx)>0.05 || Math.abs(cam.ty-goal.ty)>0.05 || Math.abs(cam.tz-goal.tz)>0.05) return false;
+      if(Math.abs(st.explode-st.explodeGoal)>eps) return false;
+      return LAYERS.every(function(l){ return Math.abs(alpha[l]-alphaGoal[l])<=eps; });
+    }
+    function frame(t){
+      raf = 0;
+      var dt = Math.min(0.05,(t-last)/1000||0.016); last = t; clock += dt;
+      var k = reduce ? 1 : 1-Math.exp(-dt*7);
+      if(st.auto && !st.drag){ goal.yaw += dt*0.16; cam.yaw = goal.yaw; }
+      cam.yaw=lerp(cam.yaw,goal.yaw,k); cam.pitch=lerp(cam.pitch,goal.pitch,k); cam.radius=lerp(cam.radius,goal.radius,k);
+      cam.tx=lerp(cam.tx,goal.tx,k); cam.ty=lerp(cam.ty,goal.ty,k); cam.tz=lerp(cam.tz,goal.tz,k);
+      st.explode = lerp(st.explode,st.explodeGoal,k);
+      LAYERS.forEach(function(l){ alpha[l]=lerp(alpha[l],alphaGoal[l],k); });
+      if(settled()){
+        cam.yaw=goal.yaw; cam.pitch=goal.pitch; cam.radius=goal.radius; cam.tx=goal.tx; cam.ty=goal.ty; cam.tz=goal.tz;
+        st.explode=st.explodeGoal; LAYERS.forEach(function(l){ alpha[l]=alphaGoal[l]; });
+      }
+      draw();
+      if(!settled() && onscreen) raf = requestAnimationFrame(frame);
+    }
+    function draw(){
+      LAYERS.forEach(function(l){
+        groups[l].visible = alpha[l] > 0.01;
+        groups[l].position.y = OFFY[l]*st.explode;
+      });
+      regs.forEach(function(r){
+        var op = r.base*alpha[r.layer];
+        r.m.opacity = op; r.m.transparent = op < 0.999 || r.base < 1; r.m.depthWrite = !r.m.transparent;
+      });
+      var showM = st.clash && st.explode < 0.03 && alpha.struct>0.5 && alpha.mep>0.5;
+      markers.forEach(function(m,j){
+        m.visible = showM;
+        var s = (st.sel===j ? 1.5 : 0.9) * (reduce ? 1 : 1 + 0.14*Math.sin(clock*4 + j));
+        m.scale.set(s,s,s);
+      });
+      var r = cam.radius + 40*st.explode, ty = cam.ty + 18*st.explode;
+      var cp = Math.cos(cam.pitch);
+      camera.position.set(cam.tx + r*Math.sin(cam.yaw)*cp, ty + r*Math.sin(cam.pitch), cam.tz + r*Math.cos(cam.yaw)*cp);
+      camera.lookAt(cam.tx,ty,cam.tz);
+      renderer.render(scene,camera);
+      legend.hidden = !showM;
+    }
+    wake = function(){ if(!raf && onscreen && renderer){ last = performance.now(); raf = requestAnimationFrame(frame); } };
+    if(window.IntersectionObserver){
+      new IntersectionObserver(function(es){ onscreen = es[0].isIntersecting; if(onscreen) wake(); }).observe(stage);
+    }
+    draw();
+    setAuto(!reduce);
+    wake();
+  }
+
+  init3d();
+  setStep(0,false);
+})();
+</script>
+</body>
+</html>

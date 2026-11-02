@@ -335,6 +335,76 @@
   html.turbo #bar{background:linear-gradient(90deg,var(--yel),var(--red))}
   @media (max-width:560px){.tt{padding:4px 5px; border-width:0; background:none} .tt span{display:none} .nav-r{gap:8px} .turbo-chip{left:12px; right:12px; bottom:12px; justify-content:space-between} html.turbo .tt[aria-checked="true"]{background:none}}
   @media (prefers-reduced-motion:reduce){#wipe{display:none}}
+
+  /* ===== TURBO v2: darker, harder, faster ===== */
+  .ticker.t2{display:none}
+  html.turbo{--red-l:#FFE9A0}
+  html.turbo body{background:#070A24; color:#fff}
+  html.turbo .hero{background:#070A24}
+  html.turbo .hero::before{content:""; position:absolute; inset:0; background:radial-gradient(ellipse at 70% 45%,rgba(59,91,255,.35),transparent 60%),radial-gradient(ellipse at 0% 100%,rgba(240,40,45,.28),transparent 55%); pointer-events:none}
+  html.turbo .hero::after{content:""; position:absolute; top:-10%; left:0; height:120%; width:7%; background:linear-gradient(90deg,transparent,rgba(255,210,31,.6),transparent); transform:skewX(-14deg); pointer-events:none; animation:flash 2.4s linear infinite}
+  @keyframes flash{from{translate:-200% 0}to{translate:1500% 0}}
+  html.turbo .hero .lead{color:#E8ECFF}
+  html.turbo .hero h1 .lim{text-shadow:0 0 38px rgba(255,210,31,.55); animation:glitchT 2.2s infinite}
+  @keyframes glitchT{
+    0%,38%,100%{text-shadow:0 0 38px rgba(255,210,31,.55); translate:0 0; skew:0deg}
+    4%{text-shadow:7px 0 #3B5BFF,-7px 0 #F0282D; translate:9px 0; skew:-6deg}
+    8%{text-shadow:-8px 0 #3B5BFF,8px 0 #fff; translate:-10px 0; skew:5deg}
+    12%{text-shadow:6px 0 #F0282D,-6px 0 #3B5BFF; translate:6px 2px; skew:-4deg}
+    16%{text-shadow:-9px 0 #fff,9px 0 #3B5BFF; translate:-8px -2px; skew:6deg}
+    20%{text-shadow:5px 0 #3B5BFF,-5px 0 #F0282D; translate:4px 0; skew:-3deg}
+    26%{text-shadow:-4px 0 #fff,4px 0 #3B5BFF; translate:-3px 0; skew:2deg}
+    32%{text-shadow:3px 0 #F0282D,-3px 0 #3B5BFF; translate:2px 0; skew:0deg}}
+  html.turbo .hero h1 .ch{animation-duration:.5s}
+  /* streaks: more, longer, brighter, much faster */
+  html.turbo .speed b{height:3px; transform-origin:right center; scale:2.4 1; opacity:1!important; opacity:var(--o,.6)!important; animation-duration:calc(var(--d,2)*.26s)!important}
+  html.turbo .speed b:nth-child(3n){height:5px; scale:3.4 1}
+  html.turbo .speed b:nth-child(5n){background:linear-gradient(90deg,transparent,#F0282D)}
+  html.turbo .speed b:nth-child(7n){background:linear-gradient(90deg,transparent,#3B5BFF)}
+  /* skater: faster, harder */
+  html.turbo .hero .skater img,html.turbo #nationals .skater img{animation:glideT 1.5s ease-in-out infinite!important; filter:drop-shadow(0 0 34px rgba(255,210,31,.45)) drop-shadow(-30px 0 24px rgba(59,91,255,.55))}
+  @keyframes glideT{0%,100%{translate:-6px 4px; rotate:1deg}50%{translate:30px -22px; rotate:-3.2deg}}
+  html.turbo .hero .skater::before,html.turbo #nationals .skater::before{animation-duration:3s; filter:blur(36px); opacity:1}
+  /* ticker: faster and longer */
+  html.turbo .ticker{padding:16px 0}
+  html.turbo .ticker span{font-size:46px; gap:56px}
+  html.turbo .ticker div{animation-duration:7s}
+  html.turbo .ticker.t2{display:block; background:#070A24; color:#FFD21F; transform:skewY(1.4deg); margin:26px 0 -14px; box-shadow:0 0 0 3px #FFD21F, 0 18px 40px rgba(0,0,0,.5)}
+  html.turbo .ticker.t2 div{animation-duration:9s; animation-direction:reverse}
+  html.turbo .ticker.t2 span::after{background:#F0282D}
+  /* dark sections */
+  html.turbo #skatemill{background:#0B1033}
+  html.turbo #verticals{background:#070A24!important}
+  html.turbo #trial{background:#0B1033}
+  html.turbo #nationals{background:#070A24}
+  html.turbo section h2{color:#fff; text-shadow:0 0 30px rgba(59,91,255,.35)}
+  html.turbo .intro{color:#AEB6E8}
+  html.turbo .eyebrow{color:var(--yel)}
+  html.turbo .card{background:#11173F; box-shadow:0 0 0 2px #26306F, 0 18px 40px rgba(0,0,0,.45)}
+  html.turbo .card:hover{box-shadow:0 0 0 2px var(--yel), 0 0 40px rgba(255,210,31,.35), 0 24px 50px rgba(0,0,0,.6)}
+  html.turbo .card h3{color:#fff} html.turbo .card:hover h3{color:var(--yel)}
+  html.turbo .card p{color:#AEB6E8}
+  html.turbo .card::before{background:var(--red); box-shadow:none}
+  html.turbo .card::after{background:radial-gradient(280px circle at var(--mx,50%) var(--my,50%),rgba(255,210,31,.2),transparent 70%)}
+  html.turbo .card .num{color:var(--yel); opacity:.12} html.turbo .card:hover .num{opacity:.3}
+  html.turbo .vert{background:#11173F; box-shadow:inset 0 0 0 2px #26306F}
+  html.turbo .vert:hover{box-shadow:inset 0 0 0 2px var(--yel), 0 0 34px rgba(255,210,31,.3)}
+  html.turbo .vert h3{color:#fff} html.turbo .vert p{color:#AEB6E8} html.turbo .vert b{color:var(--yel)}
+  html.turbo .vert.on{background:var(--blue); box-shadow:0 0 34px rgba(59,91,255,.55)}
+  html.turbo .vert.on h3{color:#fff} html.turbo .vert.on p{color:#E8ECFF}
+  html.turbo .steps li{color:#fff} html.turbo .steps li b{color:var(--yel)} html.turbo .steps li.act b{color:var(--red); text-shadow:0 0 20px rgba(240,40,45,.7)}
+  html.turbo form{background:#11173F; box-shadow:0 0 0 2px #26306F, 0 24px 60px rgba(0,0,0,.5)}
+  html.turbo label{color:#AEB6E8} html.turbo label:focus-within{color:var(--yel)}
+  html.turbo input,html.turbo select{background:#0B1033; color:#fff; border-color:#2A3370}
+  html.turbo input:focus,html.turbo select:focus{border-color:var(--yel); box-shadow:0 0 0 5px rgba(255,210,31,.2)}
+  html.turbo .ok{background:#0B1033; color:#fff}
+  html.turbo footer{background:#070A24}
+  html.turbo .fact{background:rgba(255,255,255,.06)}
+  /* stronger reveals */
+  html.turbo.js [data-r]:not(.in){translate:0 90px}
+  html.turbo.js .facts .fact[data-r]:not(.in),html.turbo.js .steps li[data-r]:not(.in){translate:-90px 0}
+  html.turbo .btn-red{box-shadow:0 0 30px rgba(255,210,31,.45)}
+  html.turbo .vert.on{animation-duration:1.4s}
 </style>
 </head>
 <body>
@@ -377,6 +447,7 @@
 </section>
 
 <div class="ticker" aria-hidden="true"><div><span>Beyond limits</span><span>Prowins Skatemill</span><span>Skating Nationals 2026</span><span>Bangalore</span><span>5 to 15 Dec</span><span>Train in place</span><span>Beyond limits</span><span>Prowins Skatemill</span><span>Skating Nationals 2026</span><span>Bangalore</span><span>5 to 15 Dec</span><span>Train in place</span></div></div>
+<div class="ticker t2" aria-hidden="true"><div><span>Turbo on</span><span>No brakes</span><span>Beyond limits</span><span>Full send</span><span>Faster every stride</span><span>Skatemill</span><span>Turbo on</span><span>No brakes</span><span>Beyond limits</span><span>Full send</span><span>Faster every stride</span><span>Skatemill</span><span>Turbo on</span><span>No brakes</span><span>Beyond limits</span><span>Full send</span><span>Faster every stride</span><span>Skatemill</span></div></div>
 
 <section id="skatemill">
   <div class="wrap">
@@ -516,13 +587,13 @@
   /* speed streaks */
   if(!reduce){
     $$('.speed').forEach(function(box){
-      for(var i=0;i<30;i++){
+      for(var i=0;i<90;i++){
         var b=document.createElement('b');if(i>=16)b.className='x';
         b.style.top=(Math.random()*100)+'%';
         b.style.width=(80+Math.random()*260)+'px';
-        b.style.animationDuration=(1.6+Math.random()*3.2)+'s';
+        var dd=1.6+Math.random()*3.2;b.style.animationDuration=dd+'s';b.style.setProperty('--d',dd.toFixed(2));
         b.style.animationDelay=(-Math.random()*4)+'s';
-        b.style.opacity=(.12+Math.random()*.3);
+        var oo=.12+Math.random()*.3;b.style.opacity=oo;b.style.setProperty('--o',Math.min(1,oo*2.4).toFixed(2));
         box.appendChild(b);
       }
     });
@@ -574,8 +645,9 @@
     $$('.card').forEach(function(c){
       c.addEventListener('pointermove',function(e){
         var r=c.getBoundingClientRect(),x=(e.clientX-r.left)/r.width,y=(e.clientY-r.top)/r.height;
-        c.style.setProperty('--ry',((x-.5)*10).toFixed(2)+'deg');
-        c.style.setProperty('--rx',((.5-y)*10).toFixed(2)+'deg');
+        var k=document.documentElement.classList.contains('turbo')?20:10;
+        c.style.setProperty('--ry',((x-.5)*k).toFixed(2)+'deg');
+        c.style.setProperty('--rx',((.5-y)*k).toFixed(2)+'deg');
         c.style.setProperty('--mx',(x*100)+'%');c.style.setProperty('--my',(y*100)+'%');
       });
       c.addEventListener('pointerleave',function(){c.style.setProperty('--rx','0deg');c.style.setProperty('--ry','0deg')});

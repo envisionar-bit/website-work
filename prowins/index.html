@@ -120,7 +120,6 @@
   .legal a{color:#BFC4EA}
 
   @media (max-width:900px){
-    .nav ul{display:none}
     .hero .wrap{grid-template-columns:1fr; min-height:0}
     .hero .skater{order:-1}
     .hero .skater img{width:240px}
@@ -415,6 +414,29 @@
   html.turbo .fact{background:#11173F; box-shadow:inset 0 0 0 2px rgba(255,210,31,.6)}
   html.turbo .fact small{color:#D5DAFF}
   html.turbo .intro,html.turbo .card p,html.turbo .vert p,html.turbo label{color:#D5DAFF}
+
+  /* nav: 7 links, burger below 1100px */
+  .nav ul{gap:clamp(14px,1.8vw,28px); flex-wrap:nowrap}
+  .nav ul a{white-space:nowrap; font-size:15px}
+  .m-only{display:none}
+  .burger{display:none; width:44px; height:44px; border:0; background:none; cursor:pointer; padding:0; position:relative}
+  .burger i{position:absolute; left:10px; width:24px; height:3px; background:var(--ink); border-radius:2px; transition:transform .3s, opacity .2s, top .3s}
+  .burger i:nth-child(1){top:14px} .burger i:nth-child(2){top:21px} .burger i:nth-child(3){top:28px}
+  .burger[aria-expanded="true"] i:nth-child(1){top:21px; transform:rotate(45deg)}
+  .burger[aria-expanded="true"] i:nth-child(2){opacity:0}
+  .burger[aria-expanded="true"] i:nth-child(3){top:21px; transform:rotate(-45deg)}
+  section,.vert{scroll-margin-top:84px}
+  #about{display:block; position:relative; top:-84px}
+  .vert:target{animation:tgt 1.6s ease-out}
+  @keyframes tgt{0%{box-shadow:0 0 0 0 rgba(227,38,46,.8)}60%{box-shadow:0 0 0 18px rgba(227,38,46,0)}}
+  @media (max-width:1100px){
+    .nav ul{display:none; position:absolute; top:100%; left:0; right:0; flex-direction:column; gap:0; background:#fff; padding:8px clamp(24px,6vw,120px) 20px; border-bottom:3px solid var(--red); box-shadow:0 20px 30px rgba(20,23,46,.15)}
+    .nav ul.open{display:flex; animation:rise .3s both}
+    .nav ul li a{display:block; padding:14px 0; font-size:20px; border-bottom:1px solid var(--blue-l)}
+    .nav ul a::after{display:none}
+    .burger{display:block}
+  }
+  @media (max-width:560px){.nav-cta{display:none} .m-only{display:block} .m-only a{color:var(--red); font-weight:600}}
 </style>
 </head>
 <body>
@@ -425,15 +447,20 @@
 <header>
   <div class="wrap nav">
     <a href="#top" aria-label="Prowins Sports World"><img src="assets/prowins-wordmark.png" alt="Prowins, Beyond Limits"></a>
-    <ul>
+    <ul id="menu">
       <li><a href="#skatemill">Skatemill</a></li>
-      <li><a href="#verticals">Verticals</a></li>
+      <li><a href="#academy">Academy</a></li>
+      <li><a href="#manufacturing">Manufacturing</a></li>
+      <li><a href="#infra">Infra</a></li>
       <li><a href="#nationals">Events</a></li>
+      <li><a href="#about">About</a></li>
       <li><a href="#contact">Contact</a></li>
+      <li class="m-only"><a href="#trial">Book a trial</a></li>
     </ul>
     <div class="nav-r">
       <button class="tt" id="turbo" type="button" role="switch" aria-checked="false" title="Preview the optional Turbo colour scheme"><span>Turbo</span><i class="trk"><i class="knob"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13 2 4 14h6l-1 8 9-12h-6z"/></svg></i></i></button>
-      <a class="btn btn-red" href="#trial">Book a trial</a>
+      <a class="btn btn-red nav-cta" href="#trial">Book a trial</a>
+      <button class="burger" id="burger" type="button" aria-label="Menu" aria-expanded="false" aria-controls="menu"><i></i><i></i><i></i></button>
     </div>
   </div>
 </header>
@@ -473,15 +500,16 @@
 </section>
 
 <section id="verticals" style="background:#fff">
+  <span id="about"></span>
   <div class="wrap">
     <p class="eyebrow">One group, four verticals</p>
     <h2>Prowins Sports World</h2>
     <p class="intro">From first lessons to finished equipment, venues and events, Prowins works across roller sports.</p>
     <div class="verts">
-      <div class="vert"><b>01</b><div><h3>Academy</h3><p>Skating Academy coaching for every level.</p></div></div>
-      <div class="vert on"><b>02</b><div><h3>Manufacturing</h3><p>Sports equipment, including the Skatemill.</p></div></div>
-      <div class="vert"><b>03</b><div><h3>Infra</h3><p>Sports infrastructure and skating venues.</p></div></div>
-      <div class="vert"><b>04</b><div><h3>Events</h3><p>Sports events and championships.</p></div></div>
+      <div class="vert" id="academy"><b>01</b><div><h3>Academy</h3><p>Skating Academy coaching for every level.</p></div></div>
+      <div class="vert on" id="manufacturing"><b>02</b><div><h3>Manufacturing</h3><p>Sports equipment, including the Skatemill.</p></div></div>
+      <div class="vert" id="infra"><b>03</b><div><h3>Infra</h3><p>Sports infrastructure and skating venues.</p></div></div>
+      <div class="vert" id="events-vertical"><b>04</b><div><h3>Events</h3><p>Sports events and championships.</p></div></div>
     </div>
   </div>
 </section>
@@ -753,6 +781,17 @@
   off.addEventListener('click',function(){flip(false)});
   sync();
   if(root.classList.contains('turbo'))tt.classList.add('used');
+})();
+</script>
+<script>
+(function(){
+  var b=document.getElementById('burger'),m=document.getElementById('menu');
+  if(!b||!m)return;
+  function close(){m.classList.remove('open');b.setAttribute('aria-expanded','false')}
+  b.addEventListener('click',function(){var o=m.classList.toggle('open');b.setAttribute('aria-expanded',o)});
+  m.addEventListener('click',function(e){if(e.target.tagName==='A')close()});
+  addEventListener('resize',function(){if(innerWidth>1100)close()});
+  addEventListener('keydown',function(e){if(e.key==='Escape')close()});
 })();
 </script>
 </body>

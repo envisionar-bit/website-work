@@ -3,23 +3,284 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>ProWins Sports World, Envisionar</title>
+<title>Prowins Skatemill | Beyond Limits</title>
+<meta name="description" content="Try the Prowins Skatemill at the Skating Nationals, Bangalore, 5 to 15 December 2026.">
 <meta name="robots" content="noindex,nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@1,700;1,800&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-  :root{ --ink:#14172E; --mid:#5B6080; --blue:#2B3190; --red:#E3262E; --paper:#fff; }
+  :root{
+    --blue:#2B3190; --navy:#1B2160; --red:#E3262E; --black:#1E1E1E;
+    --red-l:#F9D3D5; --blue-l:#D6D9EF; --silver:#C2C2C2; --off:#F4F5FA;
+    --ink:#14172E; --mid:#5B6080; --paper:#fff;
+    --head:'Barlow Condensed','Arial Narrow',Impact,sans-serif;
+    --body:'Barlow',-apple-system,Segoe UI,Arial,sans-serif;
+  }
   *{box-sizing:border-box}
-  body{margin:0; background:var(--paper); color:var(--ink); font-family:-apple-system,Segoe UI,Inter,Arial,sans-serif; line-height:1.5}
-  .wrap{max-width:760px; margin:0 auto; padding:64px 24px}
-  h1{font-size:28px; margin:0 0 6px; color:var(--blue)}
-  p{color:var(--mid); font-size:15px; margin:0 0 24px}
-  a{color:var(--red)}
+  html{scroll-behavior:smooth}
+  body{margin:0; background:var(--paper); color:var(--ink); font-family:var(--body); font-size:17px; line-height:1.55; -webkit-font-smoothing:antialiased}
+  img{max-width:100%; display:block}
+  a{color:inherit}
+  .wrap{max-width:1160px; margin:0 auto; padding:0 24px}
+  h1,h2,h3{font-family:var(--head); font-style:italic; font-weight:800; text-transform:uppercase; line-height:.95; margin:0; letter-spacing:-.01em}
+  .eyebrow{display:flex; align-items:center; gap:12px; font-weight:600; font-size:13px; letter-spacing:.18em; text-transform:uppercase; color:var(--red); margin:0 0 14px}
+  .eyebrow::before{content:""; width:34px; height:10px; background:var(--red); transform:skewX(-24deg); flex:none}
+  .light .eyebrow{color:#fff}
+  .btn{display:inline-block; font-weight:600; font-size:14px; letter-spacing:.14em; text-transform:uppercase; text-decoration:none; padding:16px 30px; border-radius:999px; border:0; cursor:pointer; font-family:var(--body); transition:transform .15s, background .15s}
+  .btn:hover{transform:translateY(-2px)}
+  .btn-red{background:var(--red); color:#fff}
+  .btn-red:hover{background:#c91d25}
+  .btn-ghost{border:2px solid rgba(255,255,255,.5); color:#fff; padding:14px 28px; background:transparent}
+
+  /* header */
+  header{position:sticky; top:0; z-index:20; background:#fff; border-bottom:1px solid var(--blue-l)}
+  .nav{display:flex; align-items:center; justify-content:space-between; height:72px}
+  .nav img{height:46px; width:auto}
+  .nav ul{list-style:none; display:flex; gap:30px; margin:0; padding:0}
+  .nav ul a{text-decoration:none; font-weight:500; font-size:15px; color:var(--ink)}
+  .nav ul a:hover{color:var(--red)}
+  .nav .btn{padding:11px 22px; font-size:12px}
+
+  /* hero */
+  .hero{background:var(--navy); color:#fff; position:relative; overflow:hidden}
+  .hero .stripes{position:absolute; inset:0; pointer-events:none}
+  .hero .stripes i{position:absolute; top:-10%; height:120%; transform:skewX(-14deg)}
+  .s1{right:22%; width:34%; background:var(--blue)}
+  .s2{right:9%; width:9%; background:var(--red)}
+  .s3{right:3%; width:2.5%; background:var(--blue)}
+  .hero .wrap{position:relative; display:grid; grid-template-columns:1.1fr .9fr; align-items:center; min-height:600px; padding-top:56px; padding-bottom:56px; gap:24px}
+  .hero h1{font-size:clamp(76px,12vw,168px)}
+  .hero h1 span{color:var(--red); display:block}
+  .hero p.lead{font-size:20px; max-width:480px; color:#DDE0F5; margin:22px 0 32px}
+  .hero .cta{display:flex; flex-wrap:wrap; gap:14px; align-items:center}
+  .hero .skater{display:flex; justify-content:center}
+  .hero .skater img{width:min(420px,100%); filter:drop-shadow(0 20px 30px rgba(0,0,0,.35))}
+  .pill{display:inline-block; background:rgba(255,255,255,.12); border-radius:999px; padding:8px 18px; font-size:13px; font-weight:600; letter-spacing:.14em; text-transform:uppercase; margin-bottom:22px}
+
+  section{padding:88px 0}
+  section h2{font-size:clamp(44px,6vw,76px); margin-bottom:18px}
+  .intro{color:var(--mid); max-width:620px; font-size:19px; margin:0 0 44px}
+
+  /* skatemill */
+  #skatemill{background:var(--off)}
+  .cards{display:grid; grid-template-columns:repeat(3,1fr); gap:20px}
+  .card{background:#fff; border-radius:16px; padding:30px 28px 32px; box-shadow:0 12px 34px rgba(20,23,46,.07)}
+  .card::before{content:""; display:block; width:30px; height:9px; background:var(--red); transform:skewX(-24deg); margin-bottom:20px}
+  .card h3{font-size:34px; color:var(--ink); margin-bottom:12px}
+  .card p{margin:0; color:var(--mid); font-size:16px}
+
+  /* verticals */
+  .verts{display:grid; grid-template-columns:repeat(4,1fr); gap:16px}
+  .vert{background:var(--blue-l); border-radius:14px; padding:28px 24px 26px; min-height:190px; display:flex; flex-direction:column; justify-content:space-between; transition:transform .15s}
+  .vert:hover{transform:translateY(-4px)}
+  .vert b{font-family:var(--head); font-style:italic; font-weight:800; font-size:44px; line-height:1; color:var(--red)}
+  .vert h3{font-size:34px; color:var(--navy); margin:0 0 6px}
+  .vert p{margin:0; font-size:15px; color:var(--mid)}
+  .vert.on{background:var(--blue); }
+  .vert.on h3{color:#fff} .vert.on p{color:#D6D9EF} .vert.on b{color:#fff}
+
+  /* nationals */
+  #nationals{background:var(--navy); color:#fff; position:relative; overflow:hidden}
+  #nationals .wrap{position:relative; display:grid; grid-template-columns:1.2fr .8fr; gap:40px; align-items:end}
+  #nationals .bg{position:absolute; right:-4%; top:-20%; height:140%; width:34%; background:var(--blue); transform:skewX(-14deg)}
+  #nationals .bg2{right:12%; width:5%; background:var(--red)}
+  #nationals p{color:#DDE0F5}
+  .facts{display:grid; grid-template-columns:repeat(3,auto); gap:14px; justify-content:start; margin-top:30px}
+  .fact{background:rgba(255,255,255,.1); border-radius:14px; padding:18px 24px}
+  .fact small{display:block; font-size:12px; letter-spacing:.16em; text-transform:uppercase; color:#BFC4EA; font-weight:600}
+  .fact b{font-family:var(--head); font-style:italic; font-weight:800; font-size:36px; text-transform:uppercase; line-height:1.1}
+  #nationals .skater{position:relative; text-align:center}
+  #nationals .skater img{width:min(340px,100%); margin:0 auto; filter:drop-shadow(0 20px 30px rgba(0,0,0,.35))}
+
+  /* trial */
+  #trial .wrap{display:grid; grid-template-columns:.9fr 1.1fr; gap:56px; align-items:start}
+  form{background:var(--off); border-radius:18px; padding:34px; display:grid; gap:16px; box-shadow:0 12px 34px rgba(20,23,46,.07)}
+  .row{display:grid; grid-template-columns:1fr 1fr; gap:16px}
+  label{display:grid; gap:6px; font-weight:600; font-size:13px; letter-spacing:.1em; text-transform:uppercase; color:var(--mid)}
+  input,select,textarea{font:inherit; font-size:16px; padding:14px 16px; border:2px solid var(--blue-l); border-radius:10px; background:#fff; color:var(--ink); letter-spacing:0; text-transform:none; font-weight:400}
+  input:focus,select:focus,textarea:focus{outline:none; border-color:var(--blue)}
+  .ok{display:none; background:#fff; border-left:6px solid var(--red); border-radius:10px; padding:18px 20px; font-weight:500}
+  .steps{list-style:none; padding:0; margin:28px 0 0; display:grid; gap:14px}
+  .steps li{display:flex; gap:18px; align-items:center; font-size:19px}
+  .steps b{font-family:var(--head); font-style:italic; font-weight:800; font-size:44px; color:var(--blue); width:34px}
+
+  /* footer */
+  footer{background:var(--navy); color:#fff; padding:64px 0 36px}
+  .foot{display:grid; grid-template-columns:1.3fr 1fr 1fr; gap:40px}
+  footer h3{font-size:36px; margin-bottom:12px}
+  footer h4{margin:0 0 12px; font-size:13px; letter-spacing:.18em; text-transform:uppercase; color:#BFC4EA; font-weight:600}
+  footer ul{list-style:none; padding:0; margin:0; display:grid; gap:8px}
+  footer a{text-decoration:none; color:#fff}
+  footer a:hover{color:var(--red-l)}
+  .social{display:flex; gap:12px; margin-top:18px}
+  .social a{width:44px; height:44px; border:2px solid rgba(255,255,255,.6); border-radius:50%; display:grid; place-items:center; font-size:12px; font-weight:600; letter-spacing:.04em}
+  .legal{margin-top:44px; padding-top:20px; border-top:1px solid rgba(255,255,255,.18); display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px; font-size:13px; color:#BFC4EA}
+  .legal a{color:#BFC4EA}
+
+  @media (max-width:900px){
+    .nav ul{display:none}
+    .hero .wrap{grid-template-columns:1fr; min-height:0}
+    .hero .skater{order:-1}
+    .hero .skater img{width:240px}
+    .s1{right:-10%; width:55%} .s2{right:-14%} .s3{display:none}
+    .cards,.verts{grid-template-columns:1fr 1fr}
+    .cards .card:last-child{grid-column:1/-1}
+    #nationals .wrap,#trial .wrap,.foot{grid-template-columns:1fr}
+    #nationals .skater img{width:220px}
+    #nationals .bg{width:50%}
+    section{padding:64px 0}
+  }
+  @media (max-width:560px){
+    .cards,.verts,.row{grid-template-columns:1fr}
+    .facts{grid-template-columns:1fr}
+    .nav img{height:38px}
+    .hero h1{font-size:84px}
+    form{padding:24px}
+  }
 </style>
 </head>
 <body>
-<div class="wrap">
-  <h1>ProWins Sports World</h1>
-  <p>Prowins Skatemill landing page concept. Work in progress.</p>
-  <a href="../">← Back to index</a>
-</div>
+
+<header>
+  <div class="wrap nav">
+    <a href="#top" aria-label="Prowins Sports World"><img src="assets/prowins-wordmark.png" alt="Prowins, Beyond Limits"></a>
+    <ul>
+      <li><a href="#skatemill">Skatemill</a></li>
+      <li><a href="#verticals">Verticals</a></li>
+      <li><a href="#nationals">Events</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <a class="btn btn-red" href="#trial">Book a trial</a>
+  </div>
+</header>
+
+<main id="top">
+<section class="hero light" style="padding:0">
+  <div class="stripes" aria-hidden="true"><i class="s1"></i><i class="s2"></i><i class="s3"></i></div>
+  <div class="wrap">
+    <div>
+      <span class="pill">5 to 15 Dec 2026 · Bangalore</span>
+      <h1>Beyond <span>Limits.</span></h1>
+      <p class="lead">Try the Prowins Skatemill at the Skating Nationals, Bangalore.</p>
+      <div class="cta">
+        <a class="btn btn-red" href="#trial">Book a trial</a>
+        <a class="btn btn-ghost" href="#skatemill">Meet the Skatemill</a>
+      </div>
+    </div>
+    <div class="skater"><img src="assets/skater-hero.svg" alt="Roller skater in full stride"></div>
+  </div>
+</section>
+
+<section id="skatemill">
+  <div class="wrap">
+    <p class="eyebrow">The Skatemill</p>
+    <h2>Train in place.<br>Skate like it counts.</h2>
+    <p class="intro">The Prowins Skatemill brings roller skating practice indoors, so skaters can work on form and stamina without needing a rink.</p>
+    <div class="cards">
+      <div class="card"><h3>How it works</h3><p>Step on, strap in and skate. The Skatemill keeps you moving in place so every stride can be coached and repeated.</p></div>
+      <div class="card"><h3>Why skaters love it</h3><p>Practise technique and build endurance in one spot, with the same feel as the rink and none of the waiting for space.</p></div>
+      <div class="card"><h3>At the Nationals</h3><p>Find the Skatemill on the floor at the Skating Nationals and try it yourself during the event.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="verticals" style="background:#fff">
+  <div class="wrap">
+    <p class="eyebrow">One group, four verticals</p>
+    <h2>Prowins Sports World</h2>
+    <p class="intro">From first lessons to finished equipment, venues and events, Prowins works across roller sports.</p>
+    <div class="verts">
+      <div class="vert"><b>01</b><div><h3>Academy</h3><p>Skating Academy coaching for every level.</p></div></div>
+      <div class="vert on"><b>02</b><div><h3>Manufacturing</h3><p>Sports equipment, including the Skatemill.</p></div></div>
+      <div class="vert"><b>03</b><div><h3>Infra</h3><p>Sports infrastructure and skating venues.</p></div></div>
+      <div class="vert"><b>04</b><div><h3>Events</h3><p>Sports events and championships.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<section id="nationals" class="light">
+  <div class="bg" aria-hidden="true"></div><div class="bg bg2" aria-hidden="true"></div>
+  <div class="wrap">
+    <div>
+      <p class="eyebrow">Skating Nationals</p>
+      <h2>Come and skate<br>the Skatemill.</h2>
+      <p style="max-width:520px;font-size:19px">The Skatemill is on display at the Skating Nationals for skater trials. Book a slot ahead, or walk up and try it on the day.</p>
+      <div class="facts">
+        <div class="fact"><small>Dates</small><b>5 to 15 Dec 2026</b></div>
+        <div class="fact"><small>City</small><b>Bangalore</b></div>
+        <div class="fact"><small>Venue</small><b>To be announced</b></div>
+      </div>
+    </div>
+    <div class="skater"><img src="assets/skater-events.svg" alt="Roller skater in racing stance"></div>
+  </div>
+</section>
+
+<section id="trial">
+  <div class="wrap">
+    <div>
+      <p class="eyebrow">Trial sign-up</p>
+      <h2>Book a trial.</h2>
+      <p class="intro" style="margin-bottom:0">Three steps and you are on the Skatemill.</p>
+      <ol class="steps">
+        <li><b>1</b>Fill in the form</li>
+        <li><b>2</b>We confirm your slot</li>
+        <li><b>3</b>Skate at the Nationals</li>
+      </ol>
+    </div>
+    <form id="trialForm" novalidate>
+      <div class="row">
+        <label>Name<input name="name" required autocomplete="name" placeholder="Your name"></label>
+        <label>Phone<input name="phone" type="tel" required autocomplete="tel" placeholder="+91"></label>
+      </div>
+      <div class="row">
+        <label>Email<input name="email" type="email" autocomplete="email" placeholder="you@example.com"></label>
+        <label>Skating level
+          <select name="level"><option>Beginner</option><option>Intermediate</option><option>Advanced</option><option>Competitive</option></select>
+        </label>
+      </div>
+      <div class="row">
+        <label>Preferred day<select name="day"><option>Any day</option><option>5 to 7 Dec</option><option>8 to 11 Dec</option><option>12 to 15 Dec</option></select></label>
+        <label>Club or academy<input name="club" placeholder="Optional"></label>
+      </div>
+      <button class="btn btn-red" type="submit">Book a trial</button>
+      <div class="ok" id="ok" role="status">Thank you. We have noted your request and will confirm your trial slot shortly.</div>
+    </form>
+  </div>
+</section>
+</main>
+
+<footer id="contact" class="light">
+  <div class="wrap">
+    <div class="foot">
+      <div>
+        <h3>Prowins Sports World Pvt Ltd</h3>
+        <p style="color:#DDE0F5;margin:0;max-width:340px">Beyond limits. Skating Academy, Sports Manufacturing, Sports Infra and Sports Events.</p>
+        <div class="social" aria-label="Social links">
+          <a href="#" aria-label="Instagram">IG</a><a href="#" aria-label="Facebook">FB</a><a href="#" aria-label="YouTube">YT</a>
+        </div>
+      </div>
+      <div>
+        <h4>Explore</h4>
+        <ul><li><a href="#skatemill">Skatemill</a></li><li><a href="#verticals">Verticals</a></li><li><a href="#nationals">Events</a></li><li><a href="#trial">Book a trial</a></li></ul>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <ul><li>Bangalore, India</li><li>Phone and email to be added</li></ul>
+      </div>
+    </div>
+    <div class="legal"><span>© 2026 Prowins Sports World Pvt Ltd. Prowins is a registered trademark.</span><span>Concept by <a href="https://envisionar-bit.github.io/website-work/">Envisionar</a></span></div>
+  </div>
+</footer>
+
+<script>
+  document.getElementById('trialForm').addEventListener('submit',function(e){
+    e.preventDefault();
+    var f=e.target;
+    var n=f.elements.name,ph=f.elements.phone;if(!n.value.trim()||!ph.value.trim()){(n.value.trim()?ph:n).focus();return;}
+    document.getElementById('ok').style.display='block';
+    f.querySelector('button').style.display='none';
+  });
+</script>
 </body>
 </html>

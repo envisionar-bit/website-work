@@ -6,6 +6,7 @@
 <title>Prowins Skatemill | Beyond Limits</title>
 <meta name="description" content="Try the Prowins Skatemill at the Skating Nationals, Bangalore, 5 to 15 December 2026.">
 <meta name="robots" content="noindex,nofollow">
+<script>document.documentElement.classList.add("js")</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@1,700;1,800&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
@@ -138,9 +139,139 @@
     .hero h1{font-size:84px}
     form{padding:24px}
   }
+
+  /* ===== MOTION ===== */
+  #bar{position:fixed; left:0; top:0; height:4px; width:100%; z-index:50; background:linear-gradient(90deg,var(--red),#ff6a70); transform-origin:left; transform:scaleX(var(--p,0)); pointer-events:none}
+  .nav,.nav img,.nav ul a{transition:height .3s, color .2s}
+  body.scrolled .nav{height:56px}
+  body.scrolled .nav img{height:34px}
+  body.scrolled header{box-shadow:0 8px 24px rgba(20,23,46,.12)}
+  .nav ul a{position:relative; padding:6px 0}
+  .nav ul a::after{content:""; position:absolute; left:0; bottom:0; height:3px; width:100%; background:var(--red); transform:skewX(-24deg) scaleX(0); transform-origin:left; transition:transform .3s cubic-bezier(.2,.8,.2,1)}
+  .nav ul a:hover::after{transform:skewX(-24deg) scaleX(1)}
+
+  .btn{position:relative; overflow:hidden}
+  .btn-red::after{content:""; position:absolute; top:0; left:-60%; width:40%; height:100%; background:linear-gradient(100deg,transparent,rgba(255,255,255,.55),transparent); transform:skewX(-24deg); animation:shine 3.6s ease-in-out infinite}
+  @keyframes shine{0%,55%{left:-60%}100%{left:130%}}
+  .hero .btn-red{animation:ring 2.4s ease-out infinite}
+  @keyframes ring{0%{box-shadow:0 0 0 0 rgba(227,38,46,.65)}70%,100%{box-shadow:0 0 0 22px rgba(227,38,46,0)}}
+  .btn-ghost:hover{background:#fff; color:var(--navy)}
+
+  /* hero */
+  .hero .stripes{transform:translateY(var(--sy,0))}
+  .hero .stripes i{animation:stripeIn 1.1s cubic-bezier(.2,.8,.2,1) both, sway 7s ease-in-out 1.2s infinite}
+  .s1{animation-delay:.1s,1.2s!important} .s2{animation-delay:.35s,2s!important} .s3{animation-delay:.5s,3s!important}
+  @keyframes stripeIn{from{translate:160% 0}to{translate:0 0}}
+  @keyframes sway{0%,100%{translate:0 0}50%{translate:-22px 0}}
+  .speed{position:absolute; inset:0; overflow:hidden; pointer-events:none}
+  .speed b{position:absolute; left:0; height:2px; border-radius:2px; background:linear-gradient(90deg,transparent,rgba(255,255,255,.7)); opacity:.28; animation:streak linear infinite; translate:110vw 0}
+  @keyframes streak{from{translate:110vw 0}to{translate:-60vw 0}}
+  .pill{animation:rise .8s .05s both; display:inline-flex; align-items:center; gap:10px}
+  .pill::before{content:""; width:9px; height:9px; border-radius:50%; background:var(--red); animation:blink 1.4s infinite}
+  @keyframes blink{0%,100%{box-shadow:0 0 0 0 rgba(227,38,46,.9)}50%{box-shadow:0 0 0 8px rgba(227,38,46,0)}}
+  .hero .lead{animation:rise .9s .9s both}
+  .hero .cta{animation:rise .9s 1.1s both}
+  @keyframes rise{from{opacity:0; translate:0 28px}to{opacity:1; translate:0 0}}
+  .ch{display:inline-block; animation:drop .75s cubic-bezier(.2,.9,.3,1.25) both; animation-delay:calc(var(--i)*55ms + .2s)}
+  @keyframes drop{from{opacity:0; transform:translateY(-70px) skewX(-28deg) scale(1.3)}to{opacity:1; transform:none}}
+  .hero h1 span{animation:glitch 6s 2.5s infinite}
+  @keyframes glitch{0%,90%,100%{text-shadow:none; translate:0 0}91%{text-shadow:4px 0 #3B5BFF,-4px 0 #fff; translate:4px 0}93%{text-shadow:-5px 0 #3B5BFF,5px 0 #fff; translate:-4px 0}95%{text-shadow:3px 0 #3B5BFF,-3px 0 #fff; translate:2px 0}97%{text-shadow:none; translate:0 0}}
+  .hero .skater,#nationals .skater{position:relative; transform:translate3d(calc(var(--px,0)*18px),calc(var(--py,0)*12px),0); transition:transform .25s ease-out}
+  .hero .skater::before,#nationals .skater::before{content:""; position:absolute; left:50%; top:50%; width:min(440px,90%); aspect-ratio:1; translate:-50% -50%; border-radius:50%; background:conic-gradient(from 0deg,rgba(227,38,46,.55),rgba(59,91,255,.45),rgba(227,38,46,0) 60%,rgba(227,38,46,.55)); filter:blur(46px); opacity:.75; animation:spin 9s linear infinite}
+  @keyframes spin{to{rotate:360deg}}
+  .hero .skater img,#nationals .skater img{position:relative; animation:glide 5.5s ease-in-out infinite}
+  #nationals .skater img{animation-duration:6.5s; animation-direction:alternate}
+  @keyframes glide{0%,100%{translate:0 0; rotate:0deg}50%{translate:14px -16px; rotate:-1.6deg}}
+  .hero .skater img{animation:slideSkater 1.1s .3s cubic-bezier(.2,.8,.2,1) backwards, glide 5.5s 1.4s ease-in-out infinite}
+  @keyframes slideSkater{from{opacity:0; translate:180px 0; rotate:6deg}}
+
+  /* ticker */
+  .ticker{position:relative; z-index:3; background:var(--red); color:#fff; overflow:hidden; transform:skewY(-1.4deg); margin:-14px 0; padding:12px 0; box-shadow:0 12px 30px rgba(227,38,46,.35)}
+  .ticker div{display:flex; width:max-content; animation:marq 26s linear infinite}
+  .ticker:hover div{animation-play-state:paused}
+  .ticker span{font-family:var(--head); font-style:italic; font-weight:800; font-size:34px; text-transform:uppercase; letter-spacing:.02em; white-space:nowrap; padding:0 22px; display:flex; align-items:center; gap:44px}
+  .ticker span::after{content:""; width:34px; height:11px; background:#fff; transform:skewX(-24deg); opacity:.9}
+  @keyframes marq{to{transform:translateX(-50%)}}
+
+  /* scroll reveal */
+  .js [data-r]{opacity:0; translate:0 46px; transition:opacity .7s cubic-bezier(.2,.7,.2,1), translate .8s cubic-bezier(.2,.7,.2,1), transform .25s ease-out, background .25s, box-shadow .25s; transition-delay:calc(var(--i,0)*90ms),calc(var(--i,0)*90ms),0s,0s,0s}
+  .js [data-r].in{opacity:1; translate:0 0}
+  .js .facts .fact[data-r],.js .steps li[data-r]{translate:-40px 0}
+  .js .facts .fact[data-r].in,.js .steps li[data-r].in{translate:0 0}
+  .js .eyebrow::before{transform:skewX(-24deg) scaleX(0); transform-origin:left; transition:transform .6s .25s cubic-bezier(.2,.8,.2,1)}
+  .js .eyebrow.in::before{transform:skewX(-24deg) scaleX(1)}
+  .js section h2[data-r]{clip-path:inset(0 100% 0 0); translate:-30px 0; transition:clip-path .9s cubic-bezier(.2,.8,.2,1), opacity .5s, translate .9s cubic-bezier(.2,.8,.2,1); transition-delay:.1s}
+  .js section h2[data-r].in{clip-path:inset(-10% -5% -10% -5%); translate:0 0}
+
+  /* cards */
+  .card{position:relative; overflow:hidden; transform-style:preserve-3d; transform:perspective(900px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg)); will-change:transform}
+  .card::before{transition:width .35s cubic-bezier(.2,.8,.2,1), background .3s}
+  .card:hover::before{width:90px}
+  .card::after{content:""; position:absolute; inset:0; pointer-events:none; opacity:0; transition:opacity .3s; background:radial-gradient(260px circle at var(--mx,50%) var(--my,50%),rgba(43,49,144,.14),transparent 70%)}
+  .card:hover::after{opacity:1}
+  .card:hover{box-shadow:0 26px 54px rgba(20,23,46,.16)}
+  .card h3{transition:color .25s, translate .3s} .card:hover h3{color:var(--blue); translate:6px 0}
+  .card .num{position:absolute; right:18px; top:6px; font-family:var(--head); font-style:italic; font-weight:800; font-size:92px; line-height:1; color:var(--blue); opacity:.07; transition:opacity .3s, translate .4s; pointer-events:none}
+  .card:hover .num{opacity:.16; translate:-8px 6px}
+
+  /* verticals */
+  .vert{position:relative; overflow:hidden; isolation:isolate; cursor:default}
+  .vert::before{content:""; position:absolute; inset:0 -25%; background:var(--red); transform:translateX(-110%) skewX(-14deg); transition:transform .5s cubic-bezier(.2,.8,.2,1); z-index:-1}
+  .vert:hover::before{transform:translateX(0) skewX(-14deg)}
+  .vert:hover h3,.vert:hover p,.vert:hover b{color:#fff}
+  .vert h3,.vert p,.vert b{transition:color .3s, translate .35s}
+  .vert:hover b{translate:10px 0} .vert:hover h3{translate:6px 0}
+  .vert b{display:inline-block}
+  .vert.on{animation:pulseOn 3s ease-in-out infinite}
+  @keyframes pulseOn{0%,100%{box-shadow:0 0 0 0 rgba(43,49,144,.5)}50%{box-shadow:0 0 0 14px rgba(43,49,144,0)}}
+
+  /* nationals */
+  #nationals .bg{translate:0 var(--sy2,0); animation:sway 8s ease-in-out infinite}
+  #nationals .bg2{animation-duration:6s; animation-direction:reverse}
+  .fact{transition:background .25s, transform .25s} .fact:hover{background:rgba(255,255,255,.2); transform:translateY(-5px) skewX(-4deg)}
+  .count{display:grid; grid-template-columns:repeat(4,minmax(0,92px)); gap:12px; margin-top:26px}
+  .count div{background:var(--red); border-radius:12px; padding:14px 6px 10px; text-align:center; box-shadow:0 14px 30px rgba(0,0,0,.25)}
+  .count b{display:block; font-family:var(--head); font-style:italic; font-weight:800; font-size:48px; line-height:1}
+  .count b.tick{animation:pop .35s}
+  @keyframes pop{40%{transform:translateY(-8px) scale(1.12)}}
+  .count small{font-size:11px; letter-spacing:.16em; text-transform:uppercase; font-weight:600; opacity:.85}
+  .count-label{margin:26px 0 0; font-size:13px; letter-spacing:.18em; text-transform:uppercase; font-weight:600; color:#BFC4EA}
+  .count-label + .count{margin-top:10px}
+  .count.live{grid-template-columns:1fr; max-width:260px}
+
+  /* trial */
+  .steps li{transition:translate .4s, color .3s}
+  .steps li b{transition:color .3s, transform .4s}
+  .steps li.act{translate:10px 0}
+  .steps li.act b{color:var(--red); transform:scale(1.25)}
+  label{transition:color .2s} label:focus-within{color:var(--blue)}
+  input,select{transition:border-color .2s, box-shadow .25s, transform .2s}
+  input:focus,select:focus{box-shadow:0 0 0 5px rgba(43,49,144,.14); transform:translateY(-2px)}
+  form{position:relative}
+  form::before{content:""; position:absolute; left:0; top:0; height:5px; width:100%; background:linear-gradient(90deg,var(--red),var(--blue)); transform-origin:left; transform:scaleX(0); transition:transform .8s .2s cubic-bezier(.2,.8,.2,1); border-radius:18px 18px 0 0}
+  form.in::before{transform:scaleX(1)}
+  .ok{animation:rise .6s both}
+  .bit{position:fixed; width:26px; height:9px; background:var(--red); transform:skewX(-24deg); pointer-events:none; z-index:60; animation:burst .9s cubic-bezier(.1,.7,.3,1) forwards}
+  @keyframes burst{to{translate:var(--bx) var(--by); rotate:var(--br); opacity:0}}
+
+  /* footer */
+  .social a{transition:transform .3s cubic-bezier(.2,.9,.3,1.4), background .2s, color .2s, border-color .2s}
+  .social a:hover{transform:translateY(-6px) rotate(-8deg); background:var(--red); border-color:var(--red)}
+  footer li a{display:inline-block; transition:translate .25s, color .2s} footer li a:hover{translate:6px 0}
+  footer h3{background:linear-gradient(90deg,#fff 40%,var(--red-l),#fff 60%); background-size:250% 100%; -webkit-background-clip:text; background-clip:text; color:transparent; animation:sheen 6s linear infinite}
+  @keyframes sheen{to{background-position:-250% 0}}
+
+  @media (max-width:560px){.count{grid-template-columns:repeat(4,1fr)} .count b{font-size:38px} .ticker span{font-size:26px}}
+  @media (prefers-reduced-motion:reduce){
+    *,*::before,*::after{animation:none!important; transition-duration:.01ms!important; scroll-behavior:auto!important}
+    .js [data-r]{opacity:1!important; translate:none!important; clip-path:none!important}
+    .js .eyebrow::before{transform:skewX(-24deg)!important}
+    .speed{display:none}
+  }
 </style>
 </head>
 <body>
+<div id="bar" aria-hidden="true"></div>
 
 <header>
   <div class="wrap nav">
@@ -158,6 +289,7 @@
 <main id="top">
 <section class="hero light" style="padding:0">
   <div class="stripes" aria-hidden="true"><i class="s1"></i><i class="s2"></i><i class="s3"></i></div>
+  <div class="speed" aria-hidden="true"></div>
   <div class="wrap">
     <div>
       <span class="pill">5 to 15 Dec 2026 · Bangalore</span>
@@ -171,6 +303,8 @@
     <div class="skater"><img src="assets/skater-hero.svg" alt="Roller skater in full stride"></div>
   </div>
 </section>
+
+<div class="ticker" aria-hidden="true"><div><span>Beyond limits</span><span>Prowins Skatemill</span><span>Skating Nationals 2026</span><span>Bangalore</span><span>5 to 15 Dec</span><span>Train in place</span><span>Beyond limits</span><span>Prowins Skatemill</span><span>Skating Nationals 2026</span><span>Bangalore</span><span>5 to 15 Dec</span><span>Train in place</span></div></div>
 
 <section id="skatemill">
   <div class="wrap">
@@ -201,6 +335,7 @@
 
 <section id="nationals" class="light">
   <div class="bg" aria-hidden="true"></div><div class="bg bg2" aria-hidden="true"></div>
+  <div class="speed" aria-hidden="true"></div>
   <div class="wrap">
     <div>
       <p class="eyebrow">Skating Nationals</p>
@@ -281,6 +416,171 @@
     document.getElementById('ok').style.display='block';
     f.querySelector('button').style.display='none';
   });
+</script>
+<script>
+(function(){
+  var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var $=function(s,r){return (r||document).querySelector(s)}, $$=function(s,r){return [].slice.call((r||document).querySelectorAll(s))};
+
+  /* split hero headline into dropping letters */
+  var h1=$('.hero h1');
+  if(h1&&!reduce){
+    h1.setAttribute('aria-label',h1.textContent.replace(/\s+/g,' ').trim());
+    var n=0;
+    (function split(node){
+      [].slice.call(node.childNodes).forEach(function(c){
+        if(c.nodeType===3){
+          var f=document.createDocumentFragment();
+          c.textContent.split('').forEach(function(ch){
+            if(/\s/.test(ch)){f.appendChild(document.createTextNode(ch));return;}
+            var s=document.createElement('span');s.className='ch';s.setAttribute('aria-hidden','true');s.style.setProperty('--i',n++);s.textContent=ch;f.appendChild(s);
+          });
+          node.replaceChild(f,c);
+        }else if(c.nodeType===1){split(c);}
+      });
+    })(h1);
+  }
+
+  /* speed streaks */
+  if(!reduce){
+    $$('.speed').forEach(function(box){
+      for(var i=0;i<16;i++){
+        var b=document.createElement('b');
+        b.style.top=(Math.random()*100)+'%';
+        b.style.width=(80+Math.random()*260)+'px';
+        b.style.animationDuration=(1.6+Math.random()*3.2)+'s';
+        b.style.animationDelay=(-Math.random()*4)+'s';
+        b.style.opacity=(.12+Math.random()*.3);
+        box.appendChild(b);
+      }
+    });
+  }
+
+  /* card numbers */
+  $$('.cards .card').forEach(function(c,i){var s=document.createElement('span');s.className='num';s.textContent='0'+(i+1);s.setAttribute('aria-hidden','true');c.appendChild(s);});
+
+  /* reveal on scroll */
+  var targets=$$('.eyebrow, section h2, .intro, #nationals .wrap > div > p:not(.eyebrow), .card, .vert, .fact, .count-label, .count, .steps li, form, .foot > div, .legal');
+  targets.forEach(function(el){
+    el.setAttribute('data-r','');
+    var sibs=$$('[data-r]',el.parentNode).filter(function(x){return x.parentNode===el.parentNode});
+    el.style.setProperty('--i',Math.max(0,sibs.indexOf(el)));
+  });
+  if('IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}})},{threshold:.15,rootMargin:'0px 0px -6% 0px'});
+    targets.forEach(function(t){io.observe(t)});
+  }else{targets.forEach(function(t){t.classList.add('in')});}
+
+  /* scroll: progress bar, header shrink, parallax */
+  var bar=$('#bar'),nat=$('#nationals'),tick=false;
+  function onScroll(){
+    var y=scrollY,max=document.documentElement.scrollHeight-innerHeight;
+    bar.style.setProperty('--p',max>0?Math.min(1,y/max):0);
+    document.body.classList.toggle('scrolled',y>40);
+    if(!reduce){
+      document.documentElement.style.setProperty('--sy',Math.min(y,700)*.18+'px');
+      if(nat){var r=nat.getBoundingClientRect();document.documentElement.style.setProperty('--sy2',(r.top*-.08)+'px');}
+    }
+    tick=false;
+  }
+  addEventListener('scroll',function(){if(!tick){tick=true;requestAnimationFrame(onScroll)}},{passive:true});
+  onScroll();
+
+  if(!reduce){
+    /* pointer parallax on skaters */
+    $$('.hero, #nationals').forEach(function(sec){
+      var sk=$('.skater',sec);if(!sk)return;
+      sec.addEventListener('pointermove',function(e){
+        var r=sec.getBoundingClientRect();
+        sk.style.setProperty('--px',((e.clientX-r.left)/r.width-.5).toFixed(3));
+        sk.style.setProperty('--py',((e.clientY-r.top)/r.height-.5).toFixed(3));
+      });
+      sec.addEventListener('pointerleave',function(){sk.style.setProperty('--px',0);sk.style.setProperty('--py',0)});
+    });
+
+    /* 3D tilt + glow on cards */
+    $$('.card').forEach(function(c){
+      c.addEventListener('pointermove',function(e){
+        var r=c.getBoundingClientRect(),x=(e.clientX-r.left)/r.width,y=(e.clientY-r.top)/r.height;
+        c.style.setProperty('--ry',((x-.5)*10).toFixed(2)+'deg');
+        c.style.setProperty('--rx',((.5-y)*10).toFixed(2)+'deg');
+        c.style.setProperty('--mx',(x*100)+'%');c.style.setProperty('--my',(y*100)+'%');
+      });
+      c.addEventListener('pointerleave',function(){c.style.setProperty('--rx','0deg');c.style.setProperty('--ry','0deg')});
+    });
+
+    /* magnetic buttons */
+    $$('.btn').forEach(function(b){
+      b.addEventListener('pointermove',function(e){
+        var r=b.getBoundingClientRect();
+        b.style.transform='translate('+((e.clientX-r.left-r.width/2)*.18)+'px,'+((e.clientY-r.top-r.height/2)*.3)+'px)';
+      });
+      b.addEventListener('pointerleave',function(){b.style.transform=''});
+    });
+  }
+
+  /* vertical hover: keep Manufacturing pulse until a card is hovered */
+  var verts=$('.verts');
+  if(verts)verts.addEventListener('pointerenter',function(){var on=$('.vert.on',verts);if(on)on.style.animation='none'});
+
+  /* countdown to the Nationals (5 Dec 2026, IST) */
+  var start=new Date('2026-12-05T00:00:00+05:30').getTime(),end=new Date('2026-12-16T00:00:00+05:30').getTime();
+  var facts=$('.facts');
+  if(facts){
+    var lab=document.createElement('p');lab.className='count-label';
+    var box=document.createElement('div');box.className='count';
+    box.setAttribute('role','timer');
+    ['Days','Hours','Mins','Secs'].forEach(function(u){var d=document.createElement('div');d.innerHTML='<b>00</b><small>'+u+'</small>';box.appendChild(d);});
+    facts.parentNode.appendChild(lab);facts.parentNode.appendChild(box);
+    lab.setAttribute('data-r','');box.setAttribute('data-r','');
+    if('IntersectionObserver' in window){io.observe(lab);io.observe(box);}else{lab.classList.add('in');box.classList.add('in');}
+    var prev=[];
+    function pad(v){return String(v).padStart(2,'0')}
+    function upd(){
+      var now=Date.now(),t=start-now;
+      if(t<=0){
+        box.className='count live in';box.removeAttribute('data-r');
+        lab.textContent='';
+        box.innerHTML='<div><b>'+(now<end?'Live now':'Thank you')+'</b><small>'+(now<end?'Skating Nationals':'See you next year')+'</small></div>';
+        clearInterval(timer);return;
+      }
+      lab.textContent='Starts in';
+      var v=[Math.floor(t/864e5),Math.floor(t%864e5/36e5),Math.floor(t%36e5/6e4),Math.floor(t%6e4/1e3)];
+      $$('b',box).forEach(function(b,i){
+        if(prev[i]!==v[i]){b.textContent=pad(v[i]);if(!reduce){b.classList.remove('tick');void b.offsetWidth;b.classList.add('tick');}}
+      });
+      prev=v;
+    }
+    var timer=setInterval(upd,1000);upd();
+  }
+
+  /* trial steps: cycle highlight */
+  var steps=$$('.steps li');
+  if(steps.length&&!reduce){
+    var k=0;steps[0].classList.add('act');
+    setInterval(function(){steps[k].classList.remove('act');k=(k+1)%steps.length;steps[k].classList.add('act')},1600);
+  }
+
+  /* burst of slashes on successful submit */
+  function burst(el){
+    if(reduce)return;
+    var r=el.getBoundingClientRect(),cx=r.left+r.width/2,cy=r.top+r.height/2;
+    for(var i=0;i<26;i++){
+      var b=document.createElement('i');b.className='bit';
+      var a=Math.random()*Math.PI*2,d=90+Math.random()*190;
+      b.style.left=cx+'px';b.style.top=cy+'px';
+      b.style.background=['#E3262E','#2B3190','#F9D3D5','#fff'][i%4];
+      b.style.setProperty('--bx',Math.cos(a)*d+'px');b.style.setProperty('--by',Math.sin(a)*d+'px');
+      b.style.setProperty('--br',(Math.random()*300-150)+'deg');
+      document.body.appendChild(b);setTimeout(function(x){x.remove()}.bind(null,b),1000);
+    }
+  }
+  var form=$('#trialForm');
+  if(form)form.addEventListener('submit',function(){
+    var ok=$('#ok');
+    if(ok&&ok.style.display==='block')burst(ok);
+  });
+})();
 </script>
 </body>
 </html>

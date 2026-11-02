@@ -347,14 +347,14 @@
   html.turbo .hero .lead{color:#E8ECFF}
   html.turbo .hero h1 .lim{text-shadow:0 0 38px rgba(255,210,31,.55); animation:glitchT 2.2s infinite}
   @keyframes glitchT{
-    0%,38%,100%{text-shadow:0 0 38px rgba(255,210,31,.55); translate:0 0; skew:0deg}
-    4%{text-shadow:7px 0 #3B5BFF,-7px 0 #F0282D; translate:9px 0; skew:-6deg}
-    8%{text-shadow:-8px 0 #3B5BFF,8px 0 #fff; translate:-10px 0; skew:5deg}
-    12%{text-shadow:6px 0 #F0282D,-6px 0 #3B5BFF; translate:6px 2px; skew:-4deg}
-    16%{text-shadow:-9px 0 #fff,9px 0 #3B5BFF; translate:-8px -2px; skew:6deg}
-    20%{text-shadow:5px 0 #3B5BFF,-5px 0 #F0282D; translate:4px 0; skew:-3deg}
-    26%{text-shadow:-4px 0 #fff,4px 0 #3B5BFF; translate:-3px 0; skew:2deg}
-    32%{text-shadow:3px 0 #F0282D,-3px 0 #3B5BFF; translate:2px 0; skew:0deg}}
+    0%,38%,100%{text-shadow:0 0 38px rgba(255,210,31,.55); translate:0 0; transform:skewX(0deg)}
+    4%{text-shadow:7px 0 #3B5BFF,-7px 0 #F0282D; translate:9px 0; transform:skewX(-6deg)}
+    8%{text-shadow:-8px 0 #3B5BFF,8px 0 #fff; translate:-10px 0; transform:skewX(5deg)}
+    12%{text-shadow:6px 0 #F0282D,-6px 0 #3B5BFF; translate:6px 2px; transform:skewX(-4deg)}
+    16%{text-shadow:-9px 0 #fff,9px 0 #3B5BFF; translate:-8px -2px; transform:skewX(6deg)}
+    20%{text-shadow:5px 0 #3B5BFF,-5px 0 #F0282D; translate:4px 0; transform:skewX(-3deg)}
+    26%{text-shadow:-4px 0 #fff,4px 0 #3B5BFF; translate:-3px 0; transform:skewX(2deg)}
+    32%{text-shadow:3px 0 #F0282D,-3px 0 #3B5BFF; translate:2px 0; transform:skewX(0deg)}}
   html.turbo .hero h1 .ch{animation-duration:.5s}
   /* streaks: more, longer, brighter, much faster */
   html.turbo .speed b{height:3px; transform-origin:right center; scale:2.4 1; opacity:1!important; opacity:var(--o,.6)!important; animation-duration:calc(var(--d,2)*.26s)!important}

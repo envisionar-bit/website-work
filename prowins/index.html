@@ -6,7 +6,7 @@
 <title>Prowins Skatemill | Beyond Limits</title>
 <meta name="description" content="Try the Prowins Skatemill at the Skating Nationals, Bangalore, 5 to 15 December 2026.">
 <meta name="robots" content="noindex,nofollow">
-<script>document.documentElement.classList.add("js")</script>
+<script>document.documentElement.classList.add("js");try{if(/[?&]turbo\b/.test(location.search)||localStorage.getItem("pw-turbo")==="1")document.documentElement.classList.add("turbo")}catch(e){}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@1,700;1,800&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
@@ -268,10 +268,79 @@
     .js .eyebrow::before{transform:skewX(-24deg)!important}
     .speed{display:none}
   }
+
+  /* ===== TURBO MODE (optional colour scheme: Midnight, Velocity Blue, Ignite Red, Spark Yellow, Frost) ===== */
+  .nav-r{display:flex; align-items:center; gap:14px}
+  .tt{display:flex; align-items:center; gap:10px; background:#fff; border:2px solid var(--blue-l); border-radius:999px; padding:5px 6px 5px 14px; cursor:pointer; font:600 12px var(--body); letter-spacing:.14em; text-transform:uppercase; color:var(--ink); transition:border-color .2s, background .3s, color .3s}
+  .tt:hover{border-color:var(--blue)}
+  .tt .trk{width:46px; height:26px; border-radius:99px; background:var(--blue-l); position:relative; transition:background .3s}
+  .tt .knob{position:absolute; left:2px; top:2px; width:22px; height:22px; border-radius:50%; background:var(--blue); display:grid; place-items:center; transition:translate .35s cubic-bezier(.2,.9,.3,1.4), background .3s}
+  .tt .knob svg{width:12px; height:12px; fill:#fff; transition:fill .3s}
+  .tt[aria-checked="true"]{border-color:#0B1033; background:#0B1033; color:#fff}
+  .tt[aria-checked="true"] .trk{background:#3B5BFF}
+  .tt[aria-checked="true"] .knob{translate:20px 0; background:#FFD21F}
+  .tt[aria-checked="true"] .knob svg{fill:#0B1033}
+  .tt:not(.used){animation:ttp 2.2s ease-out infinite}
+  @keyframes ttp{0%{box-shadow:0 0 0 0 rgba(255,210,31,.9)}70%,100%{box-shadow:0 0 0 14px rgba(255,210,31,0)}}
+  #wipe{position:fixed; inset:0; z-index:80; pointer-events:none; overflow:hidden; visibility:hidden}
+  #wipe.go{visibility:visible}
+  #wipe i{position:absolute; top:-10%; left:0; height:120%; width:70%; transform:skewX(-14deg); translate:-170% 0; animation:sweep 1s cubic-bezier(.75,0,.25,1) forwards}
+  #wipe i:nth-child(1){background:#0B1033} #wipe i:nth-child(2){background:#F0282D; animation-delay:.08s} #wipe i:nth-child(3){background:#FFD21F; animation-delay:.16s}
+  @keyframes sweep{to{translate:300% 0}}
+  .speed b.x{display:none}
+  .turbo-chip{position:fixed; left:20px; bottom:20px; z-index:40; display:none; align-items:center; gap:14px; background:#0B1033; color:#fff; border-radius:999px; padding:10px 10px 10px 18px; font-size:12px; font-weight:600; letter-spacing:.14em; text-transform:uppercase; box-shadow:0 14px 34px rgba(11,16,51,.4)}
+  .turbo-chip b{color:#FFD21F}
+  .turbo-chip button{font:inherit; letter-spacing:.14em; text-transform:uppercase; background:#FFD21F; color:#0B1033; border:0; border-radius:999px; padding:8px 14px; cursor:pointer}
+  html.turbo .turbo-chip{display:flex; animation:rise .6s .5s both}
+
+  html.turbo{--navy:#0B1033; --blue:#3B5BFF; --red:#F0282D; --off:#E8ECFF; --blue-l:#DCE2FF; --ink:#0B1033; --mid:#474E80; --red-l:#FFE9A0; --yel:#FFD21F}
+  html.turbo body{background:#fff}
+  html.turbo .btn-red{background:var(--yel); color:#0B1033}
+  html.turbo .btn-red:hover{background:#ffe066}
+  html.turbo .btn-red::after{background:linear-gradient(100deg,transparent,rgba(255,255,255,.8),transparent)}
+  html.turbo .hero .btn-red{animation-name:ringY}
+  @keyframes ringY{0%{box-shadow:0 0 0 0 rgba(255,210,31,.8)}70%,100%{box-shadow:0 0 0 22px rgba(255,210,31,0)}}
+  html.turbo .hero h1 .lim{color:var(--yel)}
+  html.turbo .hero h1 .lim{animation-duration:3.2s}
+  html.turbo .pill::before{background:var(--yel)}
+  html.turbo .s1{background:var(--blue)} html.turbo .s2{background:var(--yel)} html.turbo .s3{background:var(--red); width:4%}
+  html.turbo .hero .skater img{filter:drop-shadow(0 0 28px rgba(255,210,31,.35))}
+  html.turbo .hero .skater::before,html.turbo #nationals .skater::before{background:conic-gradient(from 0deg,rgba(255,210,31,.6),rgba(59,91,255,.55),rgba(240,40,45,.0) 55%,rgba(255,210,31,.6))}
+  html.turbo .speed b{background:linear-gradient(90deg,transparent,#FFD21F)}
+  html.turbo .speed b.x{display:block; background:linear-gradient(90deg,transparent,#fff)}
+  html.turbo .ticker{background:var(--yel); color:#0B1033; box-shadow:0 12px 30px rgba(255,210,31,.35)}
+  html.turbo .ticker span::after{background:#0B1033}
+  html.turbo .ticker div{animation-duration:14s}
+  html.turbo .eyebrow{color:var(--red)} html.turbo .light .eyebrow{color:var(--yel)}
+  html.turbo .light .eyebrow::before{background:var(--yel)}
+  html.turbo .card{background:#fff; box-shadow:6px 6px 0 #0B1033}
+  html.turbo .card:hover{box-shadow:11px 11px 0 var(--red)}
+  html.turbo .card::before{background:var(--yel); box-shadow:0 0 0 2px #0B1033}
+  html.turbo #skatemill{background:var(--off)}
+  html.turbo .vert{background:var(--off); box-shadow:inset 0 0 0 2px #0B1033}
+  html.turbo .vert::before{background:var(--yel)}
+  html.turbo .vert:hover h3,html.turbo .vert:hover p,html.turbo .vert:hover b{color:#0B1033}
+  html.turbo .vert b{color:var(--red)}
+  html.turbo .vert.on{background:var(--blue); box-shadow:none}
+  html.turbo .vert.on:hover h3,html.turbo .vert.on:hover p,html.turbo .vert.on:hover b{color:#0B1033}
+  html.turbo #nationals .bg2{background:var(--yel)}
+  html.turbo .count div{background:var(--yel); color:#0B1033}
+  html.turbo .fact{background:rgba(255,255,255,.08); box-shadow:inset 0 0 0 2px rgba(255,210,31,.55)}
+  html.turbo form{background:var(--off); box-shadow:8px 8px 0 #0B1033}
+  html.turbo form::before{background:linear-gradient(90deg,var(--yel),var(--red),var(--blue))}
+  html.turbo .steps li b{color:var(--blue)} html.turbo .steps li.act b{color:var(--red)}
+  html.turbo footer h3{background-image:linear-gradient(90deg,#fff 40%,var(--yel),#fff 60%)}
+  html.turbo .bit{background:var(--yel)}
+  html.turbo header{border-bottom:3px solid #0B1033}
+  html.turbo #bar{background:linear-gradient(90deg,var(--yel),var(--red))}
+  @media (max-width:560px){.tt{padding:4px 5px; border-width:0; background:none} .tt span{display:none} .nav-r{gap:8px} .turbo-chip{left:12px; right:12px; bottom:12px; justify-content:space-between} html.turbo .tt[aria-checked="true"]{background:none}}
+  @media (prefers-reduced-motion:reduce){#wipe{display:none}}
 </style>
 </head>
 <body>
 <div id="bar" aria-hidden="true"></div>
+<div id="wipe" aria-hidden="true"><i></i><i></i><i></i></div>
+<div class="turbo-chip"><span><b>⚡ Turbo Mode</b> · optional colour scheme</span><button type="button" id="turboOff">Classic</button></div>
 
 <header>
   <div class="wrap nav">
@@ -282,7 +351,10 @@
       <li><a href="#nationals">Events</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
-    <a class="btn btn-red" href="#trial">Book a trial</a>
+    <div class="nav-r">
+      <button class="tt" id="turbo" type="button" role="switch" aria-checked="false" title="Preview the optional Turbo colour scheme"><span>Turbo</span><i class="trk"><i class="knob"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13 2 4 14h6l-1 8 9-12h-6z"/></svg></i></i></button>
+      <a class="btn btn-red" href="#trial">Book a trial</a>
+    </div>
   </div>
 </header>
 
@@ -444,8 +516,8 @@
   /* speed streaks */
   if(!reduce){
     $$('.speed').forEach(function(box){
-      for(var i=0;i<16;i++){
-        var b=document.createElement('b');
+      for(var i=0;i<30;i++){
+        var b=document.createElement('b');if(i>=16)b.className='x';
         b.style.top=(Math.random()*100)+'%';
         b.style.width=(80+Math.random()*260)+'px';
         b.style.animationDuration=(1.6+Math.random()*3.2)+'s';
@@ -580,6 +652,25 @@
     var ok=$('#ok');
     if(ok&&ok.style.display==='block')burst(ok);
   });
+})();
+</script>
+<script>
+(function(){
+  var root=document.documentElement,tt=document.getElementById('turbo'),off=document.getElementById('turboOff'),wipe=document.getElementById('wipe');
+  var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches,busy=false;
+  function sync(){var on=root.classList.contains('turbo');tt.setAttribute('aria-checked',on);}
+  function set(on){root.classList.toggle('turbo',on);try{localStorage.setItem('pw-turbo',on?'1':'0')}catch(e){}sync();}
+  function flip(to){
+    if(busy)return;tt.classList.add('used');
+    if(reduce){set(to);return;}
+    busy=true;wipe.classList.remove('go');void wipe.offsetWidth;wipe.classList.add('go');
+    setTimeout(function(){set(to)},430);
+    setTimeout(function(){wipe.classList.remove('go');busy=false},1250);
+  }
+  tt.addEventListener('click',function(){flip(!root.classList.contains('turbo'))});
+  off.addEventListener('click',function(){flip(false)});
+  sync();
+  if(root.classList.contains('turbo'))tt.classList.add('used');
 })();
 </script>
 </body>
